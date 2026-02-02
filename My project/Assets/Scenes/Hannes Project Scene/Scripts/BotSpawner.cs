@@ -9,6 +9,7 @@ public class BotSpawner : MonoBehaviour
     public float distanceBetweenBots = 1f;
 
     private float timer;
+    private float deathTimer;
     private Queue<GameObject> spawnedBots = new Queue<GameObject>();
 
     void Update()
@@ -19,6 +20,15 @@ public class BotSpawner : MonoBehaviour
         {
             Spawn();
             timer = 0f;
+        }
+
+        deathTimer += Time.deltaTime;
+        if (deathTimer >= spawnInterval * 2f && spawnedBots.Count > 0)
+        {
+            GameObject botToDestroy = spawnedBots.Dequeue();
+            Destroy(botToDestroy);
+            deathTimer = 0f;
+            updateQueue();
         }
     }
 
@@ -31,6 +41,19 @@ public class BotSpawner : MonoBehaviour
         if (movement != null)
         {
            movement.SetTarget(waypoint, spawnedBots.Count - 1, distanceBetweenBots);
+        }
+    }
+
+    void updateQueue()
+    {
+        for (int i = 0; i < spawnedBots.Count; i++)
+        {
+            GameObject bot = spawnedBots.ToArray()[i];
+            BotMovement movement = bot.GetComponent<BotMovement>();
+            if (movement != null)
+            {
+                movement.SetTarget(waypoint, i, distanceBetweenBots);
+            }
         }
     }
 }

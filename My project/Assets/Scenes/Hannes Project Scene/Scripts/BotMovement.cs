@@ -58,6 +58,8 @@ public class BotMovement : MonoBehaviour
 
         targetPosition.y = transform.position.y;
 
+        if (!(targetPosition == transform.position)) currentState = BotState.Moving;
+
         // Vänd botten direkt rätt
         if (queueIndex == 0)
             transform.forward = waypoint.forward;

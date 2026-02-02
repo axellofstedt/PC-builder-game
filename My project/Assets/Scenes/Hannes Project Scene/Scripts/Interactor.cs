@@ -43,7 +43,7 @@ public class Interactor : MonoBehaviour
         {
             hitInteractable = hit.collider.GetComponentInParent<IInteractable>();
         }
-        if (!hitInteractable.Interactable) return;
+        if (hitInteractable == null) return;
 
         if (hitInteractable != currentInteractable)
         {
