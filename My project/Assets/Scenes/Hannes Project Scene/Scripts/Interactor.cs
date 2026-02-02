@@ -1,5 +1,4 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
 public interface IInteractable
 {
@@ -12,30 +11,37 @@ public interface IInteractable
 
 public class Interactor : MonoBehaviour
 {
+    [Header("Interactor Settings")]
     public Transform interactorSource;
     public float interactorRange = 3f;
     public GameObject promptPrefab;
-    
+
     private IInteractable currentInteractable;
     private GameObject currentPromptInstance;
-    private TextMeshProUGUI promptText;
+    private PanelResizer currentPanelResizer;
     private Camera playerCamera;
+    private IInteractable lastInteractable;
 
-    void Awake()
+    private void Awake()
     {
         playerCamera = Camera.main;
     }
 
-    void Update()
+    private void Update()
     {
-        // om vi interagerar med workbench → return
-        if (currentInteractable is Workbench wb && wb.IsInteracting)
-        {
-            ClearPrompt();
-            return;
-        }
-            
+        HandleRaycast();
+        HandleInteraction();
+    }
 
+    private void LateUpdate()
+    {
+        // Always face camera
+        if (currentPromptInstance != null && playerCamera != null)
+            currentPromptInstance.transform.forward = playerCamera.transform.forward;
+    }
+
+    private void HandleRaycast()
+    {
         IInteractable hitInteractable = null;
 
         Ray ray = new Ray(interactorSource.position, interactorSource.forward);
@@ -43,7 +49,6 @@ public class Interactor : MonoBehaviour
         {
             hitInteractable = hit.collider.GetComponentInParent<IInteractable>();
         }
-        if (hitInteractable == null) return;
 
         if (hitInteractable != currentInteractable)
         {
@@ -53,41 +58,53 @@ public class Interactor : MonoBehaviour
             if (currentInteractable != null)
                 ShowPrompt(currentInteractable);
         }
+    }
 
+    private void HandleInteraction()
+    {
         if (currentInteractable != null &&
             Input.GetKeyDown(currentInteractable.InteractKey))
         {
             currentInteractable.Interact();
+
+            // Optional: Update prompt text if needed after interaction
+            if (currentPanelResizer != null)
+                currentPanelResizer.UpdateText(currentInteractable.PromptText);
         }
     }
 
-
-    void ShowPrompt(IInteractable interactable)
+    private void ShowPrompt(IInteractable interactable)
     {
+        ClearPrompt();
+
         currentPromptInstance = Instantiate(
             promptPrefab,
             interactable.PromptAnchor.position,
             Quaternion.identity
         );
 
-        promptText = currentPromptInstance
-            .GetComponentInChildren<TextMeshProUGUI>();
+        lastInteractable = currentInteractable;
 
-        promptText.text = interactable.PromptText;
+        // PanelResizer takes care of TextMeshPro text and panel width
+        currentPanelResizer = currentPromptInstance.GetComponentInChildren<PanelResizer>();
+        if (currentPanelResizer != null)
+            currentPanelResizer.UpdateText(interactable.PromptText);
+        else
+            Debug.LogWarning("Prompt prefab is missing a PanelResizer component!");
+        
     }
 
-    void ClearPrompt()
+    public void ClearPrompt()
     {
         if (currentPromptInstance != null)
             Destroy(currentPromptInstance);
+
+        currentPromptInstance = null;
+        currentPanelResizer = null;
     }
 
-    void LateUpdate()
+    public void ShowLastPrompt()
     {
-        if (currentPromptInstance != null && playerCamera != null)
-        {
-            currentPromptInstance.transform.forward = playerCamera.transform.forward;
-        }
+        if (lastInteractable != null) ShowPrompt(lastInteractable);
     }
-
 }

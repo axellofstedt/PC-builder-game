@@ -1,23 +1,23 @@
 using UnityEngine;
 
-public class Workbench : MonoBehaviour, IInteractable
+public class Checkout : MonoBehaviour, IInteractable
 {
     [SerializeField] private Transform promptAnchor;
     public Transform PromptAnchor => promptAnchor;
     public KeyCode InteractKey => KeyCode.E;
-    public string PromptText => "E - Workbench Mode";
+    public string PromptText => "E - Checkout Mode";
     public bool Interactable { get; set; } = true;
 
-    private Camera workbenchCamera;
+    private Camera checkoutCamera;
 
     private void Awake()
     {
-        workbenchCamera = GetComponentInChildren<Camera>();
+        checkoutCamera = GetComponentInChildren<Camera>();
     }
 
     public void Interact()
     {
-        ModeManager.Instance.SetMode(GameMode.Workbench);
+        ModeManager.Instance.SetMode(GameMode.Checkout);
     }
 
     private void Update()
@@ -27,7 +27,6 @@ public class Workbench : MonoBehaviour, IInteractable
             ModeManager.Instance.SetMode(GameMode.Player);
         }
     }
-
 
 }
 

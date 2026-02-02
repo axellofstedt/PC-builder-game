@@ -1,69 +1,82 @@
-using TMPro;
 using UnityEngine;
 
 public class BotMovement : MonoBehaviour
 {
-    public float speed = 5f;
+    [SerializeField] private float speed = 5f;
+    private const float ArrivalThreshold = 0.1f;
 
     private Vector3 targetPosition;
     private int queueIndex;
 
-    private BotInteractive botInteractive;
+    private BotState currentState = BotState.Moving;
 
-    public enum BotState
+    private enum BotState
     {
         Moving,
         Idle,
         Ordering
     }
 
-    private BotState currentState = BotState.Moving;
-
-    private void Awake()
-    {
-        botInteractive = GetComponent<BotInteractive>();
-    }
-
     private void Update()
     {
-        if (currentState == BotState.Moving) MoveToTarget();
-        else if (currentState == BotState.Idle && queueIndex == 0) currentState = BotState.Ordering;
-
-        if (currentState == BotState.Ordering) Order();
-    }
-
-    private void MoveToTarget()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        switch (currentState)
         {
-            currentState = BotState.Idle;
+            case BotState.Moving:
+                HandleMovement();
+                break;
+
+            case BotState.Idle:
+                if (queueIndex == 0)
+                    SetState(BotState.Ordering);
+                break;
+
+            case BotState.Ordering:
+                HandleOrdering();
+                break;
         }
     }
 
-    private void Order()
+    private void HandleMovement()
     {
-        botInteractive.Interactable = true;
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetPosition,
+            speed * Time.deltaTime
+        );
 
+        if (Vector3.Distance(transform.position, targetPosition) <= ArrivalThreshold)
+        {
+            SetState(BotState.Idle);
+        }
+    }
+
+    private void HandleOrdering()
+    {
+        // Ordering if player in chechout mode
+    }
+
+    private void SetState(BotState newState)
+    {
+        currentState = newState;
     }
 
     public void SetTarget(Transform waypoint, int newQueueIndex, float queueDistance)
     {
         queueIndex = newQueueIndex;
 
-        // Riktning FRÅN waypoint bakåt i kön
         Vector3 backDirection = -waypoint.forward;
 
-        targetPosition = waypoint.position + backDirection * queueIndex * queueDistance;
+        targetPosition =
+            waypoint.position +
+            backDirection * queueIndex * queueDistance;
 
         targetPosition.y = transform.position.y;
 
-        if (!(targetPosition == transform.position)) currentState = BotState.Moving;
+        if (Vector3.Distance(transform.position, targetPosition) > ArrivalThreshold)
+            SetState(BotState.Moving);
 
-        // Vänd botten direkt rätt
-        if (queueIndex == 0)
-            transform.forward = waypoint.forward;
-        else
-            transform.forward = -backDirection;
+        // Rätt riktning direkt
+        if (queueIndex == 0) transform.forward = waypoint.forward; 
+        else transform.forward = -backDirection;
     }
 }
