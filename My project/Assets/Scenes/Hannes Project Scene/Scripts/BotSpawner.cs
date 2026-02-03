@@ -9,8 +9,36 @@ public class BotSpawner : MonoBehaviour
     public float distanceBetweenBots = 1f;
     public int maxBots = 4;
 
+    public static BotSpawner Instance { get; private set; }
+
+    public Queue<GameObject> spawnedBots = new Queue<GameObject>();
+
     private float timer;
-    private Queue<GameObject> spawnedBots = new Queue<GameObject>();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    public bool HasCustomer(){ return spawnedBots.Count > 0; }
+
+    public BotMovement GetFrontCustomer()
+    {
+        if (spawnedBots.Count == 0) return null;
+        return spawnedBots.Peek().GetComponent<BotMovement>();
+    }
+
+    public bool IsFrontCustomerReady()
+    {
+        BotMovement bot = GetFrontCustomer();
+        return bot != null && bot.IsAtTarget;
+    }
+
+    public void CompleteFrontCustomer()
+    {
+        DeSpawn();
+    }
+
 
     void Update()
     {
@@ -36,7 +64,8 @@ public class BotSpawner : MonoBehaviour
     }
 
     public void DeSpawn() 
-    {         
+    {   
+        if (spawnedBots.Count == 0) return;
         GameObject bot = spawnedBots.Dequeue();
         Destroy(bot);
         updateQueue();

@@ -1,7 +1,9 @@
 using UnityEngine;
 
 public class BotMovement : MonoBehaviour
-{
+{   
+    public bool IsAtTarget => Vector3.Distance(transform.position, targetPosition) <= ArrivalThreshold;
+
     [SerializeField] private float speed = 5f;
     private const float ArrivalThreshold = 0.1f;
 
