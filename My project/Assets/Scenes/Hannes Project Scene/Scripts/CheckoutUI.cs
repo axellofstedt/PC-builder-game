@@ -82,6 +82,5 @@ public class CheckoutUI : MonoBehaviour
         takeOrderButton.gameObject.SetActive(false);
         closeOrderButton.gameObject.SetActive(false);
         orderImage.gameObject.SetActive(false);
-        Debug.Log("Order Completed!");
     }
 }

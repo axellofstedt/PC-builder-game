@@ -1,13 +1,21 @@
 using UnityEngine;
 
-public class PCPart
+public enum PartType
 {
-    public PartType partType;   
-    public string partName;   
+    GPU, CPU, RAM, Motherboard, PSU,
+    CPUCooling, Chassi, Drive, Fan
+}
 
-    public PCPart(PartType type, string name)
+[CreateAssetMenu(menuName = "PC Parts/PC Part")]
+public class PCPart : ScriptableObject
+{
+    public PartType partType;
+    public string partName;
+
+    private void OnValidate()
     {
-        partType = type;
-        partName = name;
+        if (string.IsNullOrEmpty(partName))
+            partName = name;
     }
+
 }

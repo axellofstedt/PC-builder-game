@@ -9,6 +9,7 @@ public interface IInteractable
     bool Interactable { get; set; }
 }
 
+
 public class Interactor : MonoBehaviour
 {
     [Header("Interactor Settings")]
