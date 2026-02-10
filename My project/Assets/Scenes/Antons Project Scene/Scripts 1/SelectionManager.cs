@@ -44,7 +44,7 @@ public class SelectionManager : MonoBehaviour
     public void SelectObject(Selectable obj)
     {
         selectedObject = obj;
-        Debug.Log("Selected"+obj.name);
+        Debug.Log("Selected"+obj.GetPartName());
     }
 
     void PlaceSelectedObject(Vector3 position)
