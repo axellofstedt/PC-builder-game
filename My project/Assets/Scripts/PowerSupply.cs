@@ -1,7 +1,11 @@
 using UnityEngine;
 
+/*
 public class PowerSupply : PCPartComponent
 {
+
+    public Transform pcDestination;
+
     void Awake()
     {
         partType = PartType.PSU;
@@ -12,4 +16,4 @@ public class PowerSupply : PCPartComponent
     {
         
     }
-}
+}*/
