@@ -35,9 +35,15 @@ public class SelectionManager : MonoBehaviour
             return;
         }
 
-        if (selectedObject != null && hit.collider.CompareTag("PlacementSurface"))
+        if (selectedObject != null && (hit.collider.CompareTag("Motherboard") && selectedObject.GetPartType().ToString() =="PSU"))
         {
+            Debug.Log("Placed on motherboard" + selectedObject.GetPartName());
             PlaceSelectedObject(hit.point);
+        }
+        else if (selectedObject != null && hit.collider.CompareTag("PlacementSurface"))
+        {
+            //PlaceSelectedObject(hit.point);
+            Debug.Log("Cantplacehere");
         }
     }
 

@@ -16,8 +16,16 @@ public class Selectable : MonoBehaviour
     {
         if (hover != null && hover.partData != null)
             return hover.partData.partName;
+      
+        return gameObject.name;
+    }
 
-        return gameObject.name; // fallback
+    public PartType GetPartType()
+    {
+        if (hover != null && hover.partData != null)
+            return hover.partData.partType;
+
+        return default(PartType);
     }
 
     public void Select()
