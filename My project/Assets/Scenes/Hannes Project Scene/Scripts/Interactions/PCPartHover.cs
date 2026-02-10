@@ -12,25 +12,34 @@ public class PCPartHover : MonoBehaviour, IHoverable
 
     private void Awake()
     {
-        // Hitta PCPartUI i scenen
         partUI = Object.FindFirstObjectByType<PCPartUI>();
+
         if (partUI == null)
             Debug.LogWarning("PCPartUI saknas i scenen!");
+
+        if (outline != null)
+            outline.enabled = false;
     }
 
     public void OnHoverEnter()
     {
         partUI?.SetPrompt(HoverText);
+
+        if (outline != null)
+            outline.enabled = true;
     }
 
     public void OnHoverExit()
     {
         partUI?.ClearPrompt();
+
+        if (outline != null)
+            outline.enabled = false;
     }
 
     public void OnClick()
     {
         Debug.Log("Clicked " + partData.partName + " of type " + partData.partType);
-        // Place part on workbencg
+        // Place part on workbench
     }
 }
