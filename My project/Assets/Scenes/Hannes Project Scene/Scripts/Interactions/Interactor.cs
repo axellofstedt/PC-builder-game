@@ -9,12 +9,14 @@ public interface IInteractable
     bool Interactable { get; set; }
 }
 
+
 public class Interactor : MonoBehaviour
 {
     [Header("Interactor Settings")]
     public Transform interactorSource;
     public float interactorRange = 3f;
     public GameObject promptPrefab;
+    // public FPCharAnims fPCharAnims;
 
     private IInteractable currentInteractable;
     private GameObject currentPromptInstance;
@@ -66,6 +68,9 @@ public class Interactor : MonoBehaviour
             Input.GetKeyDown(currentInteractable.InteractKey))
         {
             currentInteractable.Interact();
+
+            // Interactor animation
+            // fPCharAnims.InteractAnimation();
 
             // Optional: Update prompt text if needed after interaction
             if (currentPanelResizer != null)
