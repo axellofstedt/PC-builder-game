@@ -34,7 +34,24 @@ public class SelectionManager : MonoBehaviour
             SelectObject(selectable);
             return;
         }
-
+        if (selectedObject != null)
+        {
+            if (hit.collider.CompareTag("CPU") && selectedObject.GetPartType().ToString() == "CPU")
+            {
+                Debug.Log("CPU placed on motherboard" + selectedObject.GetPartName());
+                PlaceSelectedObject(hit.point);
+            }
+            else if (hit.collider.CompareTag("CPU_Cooling") && selectedObject.getPartType().ToString() == "CPU_Cooling")
+            {
+                Debug.Log("CPU cooler placed on CPU" + selectedObject.GetPartName());
+                PlaceSelectedObject(hit.point);
+            }
+            else if (hit.collider.CompareTag("Drive") && selectedObject.getPartType().ToString() == "Drive")
+            {
+                Debug.Log("Drive placed on motherboard" + selectedObject.GetPartName());
+                PlaceSelectedObject(hit.point);
+            }
+        }
         if (selectedObject != null && (hit.collider.CompareTag("Motherboard") && selectedObject.GetPartType().ToString() =="PSU"))
         {
             Debug.Log("Placed on motherboard" + selectedObject.GetPartName());
