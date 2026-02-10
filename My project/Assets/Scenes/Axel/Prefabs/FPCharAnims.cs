@@ -18,6 +18,17 @@ public class FPCharAnims : MonoBehaviour
     public void interactAnimation()
     {
         animator.SetTrigger("interact");
+        return;
+    }
+    public void happyAnimation()
+    {
+        animator.SetTrigger("happy");
+        return;
+    }
+    public void sadAnimation()
+    {
+        animator.SetTrigger("sad");
+        return;
     }
 
     // Update is called once per frame
@@ -73,6 +84,13 @@ public class FPCharAnims : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             interactAnimation();
+            animator.SetTrigger("idle");
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad9)){
+            happyAnimation();
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad8)){
+            sadAnimation();
         }
     }
 }
