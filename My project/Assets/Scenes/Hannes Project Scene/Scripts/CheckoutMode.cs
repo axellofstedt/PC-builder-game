@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CheckoutMode : MonoBehaviour, IInteractable
@@ -9,6 +10,12 @@ public class CheckoutMode : MonoBehaviour, IInteractable
     public bool Interactable { get; set; } = true;
 
     public CheckoutUI CheckoutUI;
+    private PCGenerator pcGenerator;
+
+    void Start()
+    {
+        pcGenerator = GetComponent<PCGenerator>();
+    }
 
     enum CheckoutState
     {
@@ -46,7 +53,9 @@ public class CheckoutMode : MonoBehaviour, IInteractable
 
     public void TakeOrder()
     {
-        CheckoutUI.TakeOrder();
+        // Generate random order and display it on the UI
+        List<PCPart> pcOrder = pcGenerator.GetNewPC();
+        CheckoutUI.TakeOrder(pcOrder);
         currentCheckoutState = CheckoutState.Order;
     }
 
@@ -69,7 +78,6 @@ public class CheckoutMode : MonoBehaviour, IInteractable
     {
         ModeManager.Instance.SetMode(GameMode.Player);
     }
-
 
 }
 

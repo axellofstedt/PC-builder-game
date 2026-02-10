@@ -6,8 +6,7 @@ public class CameraManager : MonoBehaviour
     public Camera PlayerCamera;
     public FirstPersonController playerController;
     public Interactor playerInteractor;
-
-    private Camera activeCamera;
+    public Camera activeCamera { get; private set; }
 
     private void Awake()
     {
