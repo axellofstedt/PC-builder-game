@@ -6,7 +6,9 @@ public class SelectionManager : MonoBehaviour
    public static SelectionManager Instance;
    private Selectable selectedObject;
    public TextMeshProUGUI heldItemText;
-
+   public Transform workbenchTransform;
+   public PlacementZone workbenchZone;
+   
     void Awake()
     {
         Instance = this;
@@ -81,11 +83,35 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
+
     public void SelectObject(Selectable obj)
     {
+        if (obj.currentZone == null)
+        {
+            Debug.Log("Zone null");
+            return;
+        }
         selectedObject = obj;
+
+        switch (obj.currentZone.zoneType)
+        {
+            case ZoneType.Shelf:
+                MoveToWorkBench(obj);
+                break;
+        
+            case ZoneType.Workbench:
+                selectedObject = obj;
+                break;
+        }
+        //selectedObject = obj;
         Debug.Log("Selected"+obj.GetPartName());
         UpdateHeldItemUI();
+    }
+
+    public void MoveToWorkBench(Selectable obj)
+    {
+        obj.transform.position = workbenchTransform.position;
+        obj.currentZone = workbenchZone;
     }
 
     void PlaceSelectedObject(Vector3 position)

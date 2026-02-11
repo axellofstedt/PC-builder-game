@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PlacementSurface
   - Motherboard
+  - PSU
+  - RAM
   layers:
   - Default
   - TransparentFX

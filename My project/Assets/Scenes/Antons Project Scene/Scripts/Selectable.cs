@@ -3,6 +3,7 @@ using UnityEngine;
 public class Selectable : MonoBehaviour
 {
     public PCPartHover hover;
+    public PlacementZone currentZone;
 
     private void Awake()
     {
@@ -31,5 +32,14 @@ public class Selectable : MonoBehaviour
     public void Select()
     {
         SelectionManager.Instance.SelectObject(this);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        PlacementZone zone = other.GetComponent<PlacementZone>();
+        if (zone != null)
+        {
+            currentZone = zone;
+        }
     }
 }
