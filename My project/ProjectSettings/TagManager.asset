@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - PlacementSurface
+  - Motherboard
+  - PSU
+  - RAM
   layers:
   - Default
   - TransparentFX

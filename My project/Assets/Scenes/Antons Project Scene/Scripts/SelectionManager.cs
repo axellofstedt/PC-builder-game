@@ -1,10 +1,14 @@
 using UnityEngine;
+using TMPro;
 
 public class SelectionManager : MonoBehaviour
 {
    public static SelectionManager Instance;
    private Selectable selectedObject;
-
+   public TextMeshProUGUI heldItemText;
+   public Transform workbenchTransform;
+   public PlacementZone workbenchZone;
+   
     void Awake()
     {
         Instance = this;
@@ -15,6 +19,10 @@ public class SelectionManager : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             HandleClick();
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Deselect();
         }
     }
 
@@ -34,22 +42,113 @@ public class SelectionManager : MonoBehaviour
             SelectObject(selectable);
             return;
         }
-
-        if (selectedObject != null && hit.collider.CompareTag("PlacementSurface"))
+        if (selectedObject != null)
         {
-            PlaceSelectedObject(hit.point);
+            if (hit.collider.CompareTag("CPU") && selectedObject.GetPartType().ToString() == "CPU")
+            {
+                Debug.Log("CPU placed on motherboard" + selectedObject.GetPartName());
+                PlaceSelectedObject(hit.point);
+            }
+            else if (hit.collider.CompareTag("CPU_Cooling") && selectedObject.GetPartType().ToString() == "CPU_Cooling")
+            {
+                Debug.Log("CPU cooler placed on CPU" + selectedObject.GetPartName());
+                PlaceSelectedObject(hit.point);
+            }
+            else if (hit.collider.CompareTag("Drive") && selectedObject.GetPartType().ToString() == "Drive")
+            {
+                Debug.Log("Drive placed on motherboard" + selectedObject.GetPartName());
+                PlaceSelectedObject(hit.point);
+            }
+            else if (hit.collider.CompareTag("Fan") && selectedObject.GetPartType().ToString() == "Fan")
+            {
+                Debug.Log("Fan placed in chassi" + selectedObject.GetPartName());
+                PlaceSelectedObject(hit.point);
+            }
+            else if (hit.collider.CompareTag("GPU") && selectedObject.GetPartType().ToString() == "GPU")
+            {
+                Debug.Log("Graphics card placed on motherboard" + selectedObject.GetPartName());
+                PlaceSelectedObject(hit.point);
+            }
+            else if (hit.collider.CompareTag("Motherboard") && selectedObject.GetPartType().ToString() == "Motherboard")
+            {
+                Debug.Log("Motherbard placed in chassi" + selectedObject.GetPartName());
+                PlaceSelectedObject(hit.point);
+            }
+            else if (hit.collider.CompareTag("PSU") && selectedObject.GetPartType().ToString() == "PSU")
+            {
+                Debug.Log("Power supply placed in chassi" + selectedObject.GetPartName());
+                PlaceSelectedObject(hit.point);
+            }
+            else if (hit.collider.CompareTag("RAM") && selectedObject.GetPartType().ToString() == "RAM")
+            {
+                Debug.Log("RAM placed on motherboard" + selectedObject.GetPartName());
+                PlaceSelectedObject(hit.point);
+            }
         }
     }
 
+
     public void SelectObject(Selectable obj)
     {
+        if (obj.currentZone == null)
+        {
+            Debug.Log("Zone null");
+            return;
+        }
         selectedObject = obj;
-        Debug.Log("Selected"+obj.name);
+
+        switch (obj.currentZone.zoneType)
+        {
+            case ZoneType.Shelf:
+                MoveToWorkBench(obj);
+                break;
+        
+            case ZoneType.Workbench:
+                selectedObject = obj;
+                break;
+        }
+        //selectedObject = obj;
+        Debug.Log("Selected"+obj.GetPartName());
+        UpdateHeldItemUI();
+    }
+
+    public void MoveToWorkBench(Selectable obj)
+    {
+        obj.transform.position = workbenchTransform.position;
+        obj.currentZone = workbenchZone;
     }
 
     void PlaceSelectedObject(Vector3 position)
     {
         selectedObject.transform.position = position;
         selectedObject = null;
+        UpdateHeldItemUI();
+    }
+
+    void Deselect()
+    {
+        if (selectedObject != null)
+        {
+            Debug.Log(selectedObject.name + " deselected");
+            selectedObject = null;
+        }
+        UpdateHeldItemUI();
+    }
+
+    void UpdateHeldItemUI()
+    {
+        if (selectedObject == null)
+        {
+            heldItemText.text = "";
+            return;
+        }
+
+        string partName = selectedObject.GetPartName();
+        //string instruction = GetInstructionForPart(selectedObject.GetPartType());
+
+        heldItemText.text =
+            $"Du håller i: {partName}\n" +
+            $"Place correctly in chassi\n" +
+            $"Press [p] to deselect";
     }
 }
