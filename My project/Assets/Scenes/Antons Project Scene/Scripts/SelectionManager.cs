@@ -20,6 +20,10 @@ public class SelectionManager : MonoBehaviour
         {
             HandleClick();
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Deselect();
+        }
     }
 
     void HandleClick()
@@ -121,6 +125,16 @@ public class SelectionManager : MonoBehaviour
         UpdateHeldItemUI();
     }
 
+    void Deselect()
+    {
+        if (selectedObject != null)
+        {
+            Debug.Log(selectedObject.name + " deselected");
+            selectedObject = null;
+        }
+        UpdateHeldItemUI();
+    }
+
     void UpdateHeldItemUI()
     {
         if (selectedObject == null)
@@ -134,6 +148,7 @@ public class SelectionManager : MonoBehaviour
 
         heldItemText.text =
             $"Du håller i: {partName}\n" +
-            $"Place correctly in chassi";
+            $"Place correctly in chassi\n" +
+            $"Press [p] to deselect";
     }
 }
