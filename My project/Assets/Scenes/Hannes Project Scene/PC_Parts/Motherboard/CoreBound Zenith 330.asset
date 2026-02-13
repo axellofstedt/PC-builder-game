@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e67b6a95d9581b54f977ee1266ffa1be, type: 3}
-  m_Name: Air Cooler (Tower)
+  m_Name: CoreBound Zenith 330
   m_EditorClassIdentifier: 
-  partType: 5
-  partName: Air Cooler (Tower)
+  partType: 3
+  partName: CoreBound Zenith 330
