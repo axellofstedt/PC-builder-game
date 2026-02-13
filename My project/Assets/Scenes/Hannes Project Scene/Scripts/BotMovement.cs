@@ -28,8 +28,7 @@ public class BotMovement : MonoBehaviour
                 break;
 
             case BotState.Idle:
-                if (queueIndex == 0)
-                    SetState(BotState.Ordering);
+                HandleIdle();
                 break;
 
             case BotState.Ordering:
@@ -52,9 +51,17 @@ public class BotMovement : MonoBehaviour
         }
     }
 
+    private void HandleIdle()
+    {
+        // Idle Animations
+    }
+
+    public void SetOrderingState() => SetState(BotState.Ordering);
+
     private void HandleOrdering()
     {
-        // Ordering if player in chechout mode
+        // Ordering if player in chechout mode, Once?
+        // Debug.Log("Ordering...");
     }
 
     private void SetState(BotState newState)

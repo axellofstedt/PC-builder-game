@@ -1778,7 +1778,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1a9604857d5744a9b879151b96b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3187384679435710046, guid: 9ee8fae2f44f2214fbb35dcaba70a04b, type: 3}
+  prefabs:
+  - {fileID: 7742650942893025642, guid: 3ba032de799c36142ae63be7cb4fd5db, type: 3}
+  - {fileID: 5803974896554436073, guid: d56c457e3f37217498e5d383b37d3dd0, type: 3}
+  - {fileID: 5818676082942201579, guid: 5514712a5edbafa48b1967b179b750b5, type: 3}
+  - {fileID: 2769507199256119399, guid: 2cd43b93482f2794e81b50f2012ffa9e, type: 3}
+  - {fileID: 5090587081827196812, guid: d481365689ea73e4486b143c2035eff1, type: 3}
+  - {fileID: 3187384679435710046, guid: 30649b4230b67e04dbb6abff9a777606, type: 3}
   waypoint: {fileID: 324856858}
   spawnInterval: 5
   distanceBetweenBots: 2

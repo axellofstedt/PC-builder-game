@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BotSpawner : MonoBehaviour
 {
-    public GameObject prefab;      
+    public List<GameObject> prefabs;      
     public Transform waypoint;     
     public float spawnInterval = 2f;
     public float distanceBetweenBots = 1f;
@@ -53,6 +53,7 @@ public class BotSpawner : MonoBehaviour
 
     void Spawn()
     {
+        GameObject prefab = prefabs[Random.Range(0, prefabs.Count)];
         GameObject bot = Instantiate(prefab, transform.position, transform.rotation);
         spawnedBots.Enqueue(bot);
 
