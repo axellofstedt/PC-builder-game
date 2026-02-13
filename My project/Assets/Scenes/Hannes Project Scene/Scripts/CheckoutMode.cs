@@ -57,7 +57,6 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         List<PCPart> pcOrder = pcGenerator.GetNewPC();
         CheckoutUI.TakeOrder(pcOrder);
         currentCheckoutState = CheckoutState.Order;
-        BotSpawner.Instance.GetFrontCustomer().SetOrderingState();
     }
 
     public void CompleteOrder()
