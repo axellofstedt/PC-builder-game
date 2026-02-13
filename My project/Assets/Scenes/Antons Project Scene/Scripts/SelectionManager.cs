@@ -47,42 +47,42 @@ public class SelectionManager : MonoBehaviour
             if (hit.collider.CompareTag("CPU") && selectedObject.GetPartType().ToString() == "CPU")
             {
                 Debug.Log("CPU placed on motherboard" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.point);
+                PlaceSelectedObject(hit.collider.transform.position);
             }
             else if (hit.collider.CompareTag("CPU_Cooling") && selectedObject.GetPartType().ToString() == "CPU_Cooling")
             {
                 Debug.Log("CPU cooler placed on CPU" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.point);
+                PlaceSelectedObject(hit.collider.transform.position);
             }
             else if (hit.collider.CompareTag("Drive") && selectedObject.GetPartType().ToString() == "Drive")
             {
                 Debug.Log("Drive placed on motherboard" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.point);
+                PlaceSelectedObject(hit.collider.transform.position);
             }
             else if (hit.collider.CompareTag("Fan") && selectedObject.GetPartType().ToString() == "Fan")
             {
                 Debug.Log("Fan placed in chassi" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.point);
+                PlaceSelectedObject(hit.collider.transform.position);
             }
             else if (hit.collider.CompareTag("GPU") && selectedObject.GetPartType().ToString() == "GPU")
             {
                 Debug.Log("Graphics card placed on motherboard" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.point);
+                PlaceSelectedObject(hit.collider.transform.position);
             }
             else if (hit.collider.CompareTag("Motherboard") && selectedObject.GetPartType().ToString() == "Motherboard")
             {
                 Debug.Log("Motherbard placed in chassi" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.point);
+                PlaceSelectedObject(hit.collider.transform.position);
             }
             else if (hit.collider.CompareTag("PSU") && selectedObject.GetPartType().ToString() == "PSU")
             {
                 Debug.Log("Power supply placed in chassi" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.point);
+                PlaceSelectedObject(hit.collider.transform.position);
             }
             else if (hit.collider.CompareTag("RAM") && selectedObject.GetPartType().ToString() == "RAM")
             {
                 Debug.Log("RAM placed on motherboard" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.point);
+                PlaceSelectedObject(hit.collider.transform.position);
             }
         }
     }
@@ -90,32 +90,48 @@ public class SelectionManager : MonoBehaviour
 
     public void SelectObject(Selectable obj)
     {
+        obj.OnSelected();
+
         if (obj.currentZone == null)
         {
             Debug.Log("Zone null");
             return;
         }
-        selectedObject = obj;
 
         switch (obj.currentZone.zoneType)
         {
             case ZoneType.Shelf:
+                Debug.Log("Movede to bench" + obj.GetPartName());
                 MoveToWorkBench(obj);
                 break;
         
             case ZoneType.Workbench:
                 selectedObject = obj;
+                UpdateHeldItemUI();
+                Debug.Log("Selected" + obj.GetPartName());
                 break;
         }
-        //selectedObject = obj;
-        Debug.Log("Selected"+obj.GetPartName());
-        UpdateHeldItemUI();
     }
 
     public void MoveToWorkBench(Selectable obj)
     {
-        obj.transform.position = workbenchTransform.position;
-        obj.currentZone = workbenchZone;
+        if(workbenchZone == null)
+        {
+            return;
+        }
+        Transform slot = workbenchZone.GetSlotForPart(obj.GetPartType());
+
+        if (slot != null)
+        {
+            obj.transform.position = slot.position;
+            obj.transform.rotation = slot.rotation;
+            obj.currentZone = workbenchZone;
+            obj.currentSnapPoint = slot;
+        }
+        else
+        {
+            Debug.LogWarning("Ingen ledig plats på workbench för " + obj.GetPartType());
+        }
     }
 
     void PlaceSelectedObject(Vector3 position)
