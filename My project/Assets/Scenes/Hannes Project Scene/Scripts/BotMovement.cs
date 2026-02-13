@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class BotMovement : MonoBehaviour
-{   
+{
     public bool IsAtTarget => Vector3.Distance(transform.position, targetPosition) <= ArrivalThreshold;
 
     [SerializeField] private float speed = 5f;
@@ -28,8 +28,7 @@ public class BotMovement : MonoBehaviour
                 break;
 
             case BotState.Idle:
-                if (queueIndex == 0)
-                    SetState(BotState.Ordering);
+                HandleIdle();
                 break;
 
             case BotState.Ordering:
@@ -52,9 +51,19 @@ public class BotMovement : MonoBehaviour
         }
     }
 
+    private void HandleIdle()
+    {
+        // animations and stuff
+    }
+
+    public void SetOrderingState()
+    {
+        SetState(BotState.Ordering);
+    }
+
     private void HandleOrdering()
     {
-        // Ordering if player in chechout mode
+        // Ordiering animations, Play Once?
     }
 
     private void SetState(BotState newState)
