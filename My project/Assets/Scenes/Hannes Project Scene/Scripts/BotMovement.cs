@@ -1,91 +1,145 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BotMovement : MonoBehaviour
-{   
-    public bool IsAtTarget => Vector3.Distance(transform.position, targetPosition) <= ArrivalThreshold;
+{
+    public float speed = 2f;
+    public float rotationSpeed = 360f;
 
-    [SerializeField] private float speed = 5f;
-    private const float ArrivalThreshold = 0.1f;
+    private Quaternion targetRotation;
 
-    private Vector3 targetPosition;
+    private int waypointIndex = 0;
+    private List<Transform> waypoints;
+
     private int queueIndex;
+    private float spacing;
+    private Transform currentTarget;
 
-    private BotState currentState = BotState.Moving;
+    private State state = State.Moving;
 
-    private enum BotState
+    public bool IsReadyToOrder { get { return state == State.Queuing && queueIndex == 0; } }
+
+    public void Init(List<Transform> waypoints, int queueIndex, float spacing)
+    {
+        this.waypoints = waypoints;
+        this.queueIndex = queueIndex;
+        this.spacing = spacing;
+        this.currentTarget = waypoints[0];
+    }
+
+    enum State
     {
         Moving,
-        Idle,
+        Rotating,
+        Queuing,
         Ordering
     }
 
     private void Update()
     {
-        switch (currentState)
+        switch (state)
         {
-            case BotState.Moving:
-                HandleMovement();
+            case State.Moving:
+                UpdateMoving();
                 break;
 
-            case BotState.Idle:
-                HandleIdle();
+            case State.Rotating:
+                UpdateRotating();
                 break;
 
-            case BotState.Ordering:
-                HandleOrdering();
+            case State.Queuing:
+                UpdateQueuing();
                 break;
+
+            case State.Ordering:
+                UpdateOrdering();
+                break;
+        }
+
+    }
+
+    private void UpdateMoving()
+    {
+        Vector3 dir = currentTarget.position - transform.position;
+        dir.y = 0;
+
+        float distance = CalculateDistance();
+
+        if (distance <= queueIndex * spacing)
+        {
+            state = State.Queuing;
+            return;
+        }
+
+        if (dir.magnitude < 0.1f) Advance();
+
+        transform.position = Vector3.MoveTowards(transform.position, currentTarget.position, speed * Time.deltaTime);
+    }
+
+    void Advance()
+    {
+        waypointIndex++;
+
+        if (waypointIndex >= waypoints.Count)
+        {
+            state = State.Queuing;
+        }
+        else
+        {
+            currentTarget = waypoints[waypointIndex];
+
+            Vector3 dir = currentTarget.position - transform.position;
+            dir.y = 0;
+
+            targetRotation = Quaternion.LookRotation(dir);
+            state = State.Rotating;
         }
     }
 
-    private void HandleMovement()
+    private float CalculateDistance()
     {
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            targetPosition,
-            speed * Time.deltaTime
+        float distance = 0f;
+        for (int i = waypointIndex; i < waypoints.Count - 1; i++)
+        {
+            float segmentDistance = Vector3.Distance(waypoints[i].position, waypoints[i + 1].position);
+            distance += segmentDistance;
+        }
+        distance += Vector3.Distance(transform.position, currentTarget.position);
+        return distance;
+    }
+
+    void UpdateRotating()
+    {
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            targetRotation,
+            rotationSpeed * Time.deltaTime
         );
 
-        if (Vector3.Distance(transform.position, targetPosition) <= ArrivalThreshold)
+        if (Quaternion.Angle(transform.rotation, targetRotation) < 0.5f)
         {
-            SetState(BotState.Idle);
+            transform.rotation = targetRotation;
+            state = State.Moving;
         }
     }
 
-    private void HandleIdle()
+    private void UpdateQueuing()
     {
-        // Idle Animations
+        // Stå still i kön
     }
 
-    public void SetOrderingState() => SetState(BotState.Ordering);
-
-    private void HandleOrdering()
+    private void UpdateOrdering()
     {
-        // Ordering if player in chechout mode, Once?
-        // Debug.Log("Ordering...");
+        // Order Animation once
     }
 
-    private void SetState(BotState newState)
+    public void SetQueueIndex(int newIndex)
     {
-        currentState = newState;
+        queueIndex = newIndex;
+        UpdateQueueTarget();
     }
 
-    public void SetTarget(Transform waypoint, int newQueueIndex, float queueDistance)
-    {
-        queueIndex = newQueueIndex;
+    void UpdateQueueTarget() { state = State.Moving; }
+    public void SetOrderingState() { state = State.Ordering; }
 
-        Vector3 backDirection = -waypoint.forward;
-
-        targetPosition =
-            waypoint.position +
-            backDirection * queueIndex * queueDistance;
-
-        targetPosition.y = transform.position.y;
-
-        if (Vector3.Distance(transform.position, targetPosition) > ArrivalThreshold)
-            SetState(BotState.Moving);
-
-        // Rätt riktning direkt
-        if (queueIndex == 0) transform.forward = waypoint.forward; 
-        else transform.forward = -backDirection;
-    }
 }
