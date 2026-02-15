@@ -3,85 +3,113 @@ using UnityEngine;
 
 public class BotSpawner : MonoBehaviour
 {
-    public List<GameObject> prefabs;      
-    public Transform waypoint;     
-    public float spawnInterval = 2f;
-    public float distanceBetweenBots = 1f;
-    public int maxBots = 4;
-
     public static BotSpawner Instance { get; private set; }
+
+    [Header("Spawn")]
+    public List<GameObject> prefabs;
+    public float spawnInterval = 5f;
+
+    [Header("Waypoints")]
+    public List<Transform> waypoints;
+
+    [Header("Queue Settings")]
+    public float distanceBetweenBots = 2f;
+    public int maxQueueSize = 5;
 
     public Queue<GameObject> spawnedBots = new Queue<GameObject>();
 
-    private float timer;
+    float timer = 0f;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
     }
 
-    public bool HasCustomer(){ return spawnedBots.Count > 0; }
-
-    public BotMovement GetFrontCustomer()
+    private void Start()
     {
-        if (spawnedBots.Count == 0) return null;
-        return spawnedBots.Peek().GetComponent<BotMovement>();
+        SpawnBot();
     }
+    
+    private void Update()
+    {
+        timer += Time.deltaTime;  
+
+        if (spawnedBots.Count < maxQueueSize && timer >= spawnInterval)
+        {
+            SpawnBot();
+            timer = 0f; 
+        }
+    }
+
+    void SpawnBot()
+    {
+        if (prefabs.Count == 0 || waypoints.Count == 0)
+        {
+            Debug.LogWarning("No prefabs or waypoints assigned to BotSpawner.");
+            return;
+        }
+
+        // Randomly select a bot prefab to spawn
+        GameObject prefab = prefabs[Random.Range(0, prefabs.Count)];
+
+        // Spawn the bot facing the first waypoint
+        Vector3 dir = waypoints[0].position - transform.position;
+        GameObject bot = Instantiate(prefab, transform.position, Quaternion.LookRotation(dir));
+        BotMovement movement = bot.GetComponent<BotMovement>();
+        movement.Init(waypoints, spawnedBots.Count, distanceBetweenBots);
+
+        spawnedBots.Enqueue(bot);
+    }
+
+    public void RemoveFrontBot()
+    {
+        if (spawnedBots.Count == 0)
+            return;
+
+        GameObject frontBot = spawnedBots.Dequeue();
+        Destroy(frontBot);
+
+        UpdateQueuePositions();
+    }
+
+    public void UpdateQueuePositions()
+    {
+        int index = 0;
+        foreach (GameObject bot in spawnedBots)
+        {
+            BotMovement movement = bot.GetComponent<BotMovement>();
+            movement.SetQueueIndex(index);
+            index++;
+        }
+    }
+
+    public bool HasCustomer() { return spawnedBots.Count > 0; }
 
     public bool IsFrontCustomerReady()
     {
-        BotMovement bot = GetFrontCustomer();
-        return bot != null && bot.IsAtTarget;
-    }
+        if (spawnedBots.Count == 0)
+            return false;
 
-    public void CompleteFrontCustomer()
-    {
-        DeSpawn();
-    }
-
-
-    void Update()
-    {
-        timer += Time.deltaTime;
-
-        if (timer >= spawnInterval && spawnedBots.Count < maxBots)
+        BotMovement bot = spawnedBots.Peek().GetComponent<BotMovement>();
+        if (bot == null)
         {
-            Spawn();
-            timer = 0f;
+            Debug.LogWarning("Front bot does not have a BotMovement component.");
+            return false;
         }
+
+        return bot.IsReadyToOrder;
     }
 
-    void Spawn()
+    public BotMovement GetFrontCustomerMovement()
     {
-        GameObject prefab = prefabs[Random.Range(0, prefabs.Count)];
-        GameObject bot = Instantiate(prefab, transform.position, transform.rotation);
-        spawnedBots.Enqueue(bot);
+        if (spawnedBots.Count == 0)
+            return null;
 
-        BotMovement movement = bot.GetComponent<BotMovement>();
-        if (movement != null)
-        {
-           movement.SetTarget(waypoint, spawnedBots.Count - 1, distanceBetweenBots);
-        }
-    }
-
-    public void DeSpawn() 
-    {   
-        if (spawnedBots.Count == 0) return;
-        GameObject bot = spawnedBots.Dequeue();
-        Destroy(bot);
-        updateQueue();
-    }
-
-    void updateQueue()
-    {
-        for (int i = 0; i < spawnedBots.Count; i++)
-        {
-            GameObject bot = spawnedBots.ToArray()[i];
-            BotMovement movement = bot.GetComponent<BotMovement>();
-            if (movement != null)
-            {
-                movement.SetTarget(waypoint, i, distanceBetweenBots);
-            }
-        }
+        return spawnedBots.Peek().GetComponent<BotMovement>();
     }
 }

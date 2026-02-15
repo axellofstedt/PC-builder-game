@@ -57,7 +57,7 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         List<PCPart> pcOrder = pcGenerator.GetNewPC();
         CheckoutUI.TakeOrder(pcOrder);
         currentCheckoutState = CheckoutState.Order;
-        BotSpawner.Instance.GetFrontCustomer().SetOrderingState();
+        BotSpawner.Instance.GetFrontCustomerMovement().SetOrderingState();
     }
 
     public void CompleteOrder()
@@ -65,7 +65,7 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         CheckoutUI.CompleteOrder();
         currentCheckoutState = CheckoutState.Complete;
         // Timer, button or effect to show completion before resetting to waiting
-        BotSpawner.Instance.CompleteFrontCustomer();
+        BotSpawner.Instance.RemoveFrontBot();
         currentCheckoutState = CheckoutState.Waiting;
     }
 

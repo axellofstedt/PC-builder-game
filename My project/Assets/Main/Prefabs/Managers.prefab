@@ -130,5 +130,7 @@ MonoBehaviour:
   crosshair: {fileID: 0}
   checkoutCamera: {fileID: 0}
   workbenchCamera: {fileID: 0}
-  modeUIs: []
+  modeUIs:
+  - {fileID: 0}
+  - {fileID: 0}
   currentMode: 0

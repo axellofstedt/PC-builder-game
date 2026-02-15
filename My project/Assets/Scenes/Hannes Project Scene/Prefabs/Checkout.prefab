@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1774977069278011826}
   - component: {fileID: 4559062792385549688}
   - component: {fileID: 8485628305265879302}
+  - component: {fileID: 7541312443753302442}
+  - component: {fileID: 2419853412047841626}
   m_Layer: 0
   m_Name: Checkout
   m_TagString: Untagged
@@ -102,6 +104,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptAnchor: {fileID: 3405441029379310885}
+  CheckoutUI: {fileID: 0}
+--- !u!114 &7541312443753302442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2613766756895356077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a762a8d721882914ea5e96853387ab78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gpus:
+  - {fileID: 11400000, guid: 953ee4ec5dd0cef41a66127e5852e4b1, type: 2}
+  cpus:
+  - {fileID: 11400000, guid: 1151740018065fa41ab2af2881a6c34a, type: 2}
+  rams:
+  - {fileID: 11400000, guid: 6c5881df18a79104d88c475b501ab776, type: 2}
+  motherboards:
+  - {fileID: 11400000, guid: fcd43b8f9119b4a43be2f96b28f03007, type: 2}
+  psus:
+  - {fileID: 11400000, guid: 7994933aaba86e2488a75a33070f5d48, type: 2}
+  cpuCoolers:
+  - {fileID: 11400000, guid: 1adf4992ad5ea1d438b6d435509c6e58, type: 2}
+  chassies:
+  - {fileID: 11400000, guid: a1413188fcae73a46a8f2734c88d24f3, type: 2}
+  drives:
+  - {fileID: 11400000, guid: fb239121d147937479fa18fbe38dfeef, type: 2}
+  fans:
+  - {fileID: 11400000, guid: 726f41fe21ece33498d5dcebb6d36ab8, type: 2}
+--- !u!65 &2419853412047841626
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2613766756895356077}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 18.688988, y: 12.196258, z: 8.703374}
+  m_Center: {x: 0, y: 6.0982137, z: 0}
 --- !u!1 &4202321358583217091
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 4202321358583217091}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.215734, y: 0.6545932, z: -78.62532}
+  m_LocalPosition: {x: 0, y: 13.76, z: 0}
   m_LocalScale: {x: 4.294014, y: 6.2379136, z: 6.2379136}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -159,13 +213,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4399460842509367907}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9647353, z: -0.2632221, w: 0}
-  m_LocalPosition: {x: -0.5268201, y: 23.95, z: 11.089999}
+  m_LocalRotation: {x: 0, y: 0.9848078, z: -0.17364816, w: 0}
+  m_LocalPosition: {x: -0.5268201, y: 21.13, z: 12.66}
   m_LocalScale: {x: 3.3834922, y: 6.14314, z: 5.305769}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3390691175266037271}
-  m_LocalEulerAnglesHint: {x: 30.523, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: 180, z: 0}
 --- !u!20 &6673820118447524491
 Camera:
   m_ObjectHideFlags: 0
@@ -173,7 +227,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4399460842509367907}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
