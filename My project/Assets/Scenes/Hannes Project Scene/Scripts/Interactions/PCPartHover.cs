@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class PCPartHover : MonoBehaviour, IHoverable
 {
     public PCPart partData;
-    public Outline outline;
-    
+
+    private Outline outline;
     private PCPartUI partUI;
 
     public string HoverText => partData.partType + ": " + partData.partName;
@@ -16,6 +16,13 @@ public class PCPartHover : MonoBehaviour, IHoverable
 
         if (partUI == null)
             Debug.LogWarning("PCPartUI saknas i scenen!");
+
+        // Lägg till Outline-komponenten för att hantera hover-effekten
+        outline = gameObject.AddComponent<Outline>();
+
+        outline.OutlineMode = Outline.Mode.OutlineAll;
+        outline.OutlineColor = Color.red;
+        outline.OutlineWidth = 5f;
 
         if (outline != null)
             outline.enabled = false;
