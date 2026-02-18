@@ -8,6 +8,11 @@ TagManager:
   - Motherboard
   - PSU
   - RAM
+  - CPU
+  - GPU
+  - CPU_Cooling
+  - Fan
+  - Drive
   layers:
   - Default
   - TransparentFX

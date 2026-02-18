@@ -8,7 +8,8 @@ public class SelectionManager : MonoBehaviour
    public TextMeshProUGUI heldItemText;
    public Transform workbenchTransform;
    public PlacementZone workbenchZone;
-   
+    public Transform snapPoint;
+    public bool cpuPlaced = false;
     void Awake()
     {
         Instance = this;
@@ -36,55 +37,68 @@ public class SelectionManager : MonoBehaviour
             return;
         }
 
-        Selectable selectable = hit.collider.GetComponent<Selectable>();
+        if (selectedObject != null)
+        {
+            if (hit.collider.CompareTag("CPU") && selectedObject.GetPartType().ToString() == "CPU")
+            {
+                cpuPlaced = true;
+                Debug.Log("CPU placed on motherboard" + selectedObject.GetPartName());
+                Transform snapPoint = hit.collider.GetComponentInChildren<Transform>();
+                PlaceSelectedObject(snapPoint);
+            }
+            else if (hit.collider.CompareTag("CPU") && selectedObject.GetPartType().ToString() == "CPUCooling" && cpuPlaced)
+            {
+                Debug.Log("CPU cooler placed on CPU" + selectedObject.GetPartName());
+                Transform snapPoint = hit.collider.transform.Find("Snap_Point");
+                PlaceSelectedObject(snapPoint);
+            }
+            else if (hit.collider.CompareTag("Drive") && selectedObject.GetPartType().ToString() == "Drive")
+            {
+                Debug.Log("Drive placed on motherboard" + selectedObject.GetPartName());
+                Transform snapPoint = hit.collider.GetComponentInChildren<Transform>();
+                PlaceSelectedObject(snapPoint);
+            }
+            else if (hit.collider.CompareTag("Fan") && selectedObject.GetPartType().ToString() == "Fan")
+            {
+                Debug.Log("Fan placed in chassi" + selectedObject.GetPartName());
+                Transform snapPoint = hit.collider.transform.Find("Snap_Point");
+                PlaceSelectedObject(snapPoint);
+            }
+            else if (hit.collider.CompareTag("GPU") && selectedObject.GetPartType().ToString() == "GPU")
+            {
+                Debug.Log("Graphics card placed on motherboard" + selectedObject.GetPartName());
+                Transform snapPoint = hit.collider.GetComponentInChildren<Transform>();
+                PlaceSelectedObject(snapPoint);
+            }
+            else if (hit.collider.CompareTag("Motherboard") && selectedObject.GetPartType().ToString() == "Motherboard")
+            {
+                Debug.Log("Motherbard placed in chassi" + selectedObject.GetPartName());
+                Transform snapPoint = hit.collider.transform.Find("Snap_Point");
+                PlaceSelectedObject(snapPoint);
+            }
+            else if (hit.collider.CompareTag("PSU") && selectedObject.GetPartType().ToString() == "PSU")
+            {
+                Debug.Log("Power supply placed in chassi" + selectedObject.GetPartName());
+                Transform snapPoint = hit.collider.transform.Find("Snap_Point");
+                PlaceSelectedObject(snapPoint);
+            }
+            else if (hit.collider.CompareTag("RAM") && selectedObject.GetPartType().ToString() == "RAM")
+            {
+                Debug.Log("RAM placed on motherboard" + selectedObject.GetPartName());
+                Transform snapPoint = hit.collider.GetComponentInChildren<Transform>();
+                PlaceSelectedObject(snapPoint);
+            }
+        }
+
+
+        Selectable selectable = hit.collider.GetComponentInParent<Selectable>();
+
         if (selectable != null)
         {
             SelectObject(selectable);
             return;
         }
-        if (selectedObject != null)
-        {
-            if (hit.collider.CompareTag("CPU") && selectedObject.GetPartType().ToString() == "CPU")
-            {
-                Debug.Log("CPU placed on motherboard" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.collider.transform.position);
-            }
-            else if (hit.collider.CompareTag("CPU_Cooling") && selectedObject.GetPartType().ToString() == "CPU_Cooling")
-            {
-                Debug.Log("CPU cooler placed on CPU" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.collider.transform.position);
-            }
-            else if (hit.collider.CompareTag("Drive") && selectedObject.GetPartType().ToString() == "Drive")
-            {
-                Debug.Log("Drive placed on motherboard" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.collider.transform.position);
-            }
-            else if (hit.collider.CompareTag("Fan") && selectedObject.GetPartType().ToString() == "Fan")
-            {
-                Debug.Log("Fan placed in chassi" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.collider.transform.position);
-            }
-            else if (hit.collider.CompareTag("GPU") && selectedObject.GetPartType().ToString() == "GPU")
-            {
-                Debug.Log("Graphics card placed on motherboard" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.collider.transform.position);
-            }
-            else if (hit.collider.CompareTag("Motherboard") && selectedObject.GetPartType().ToString() == "Motherboard")
-            {
-                Debug.Log("Motherbard placed in chassi" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.collider.transform.position);
-            }
-            else if (hit.collider.CompareTag("PSU") && selectedObject.GetPartType().ToString() == "PSU")
-            {
-                Debug.Log("Power supply placed in chassi" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.collider.transform.position);
-            }
-            else if (hit.collider.CompareTag("RAM") && selectedObject.GetPartType().ToString() == "RAM")
-            {
-                Debug.Log("RAM placed on motherboard" + selectedObject.GetPartName());
-                PlaceSelectedObject(hit.collider.transform.position);
-            }
-        }
+        Debug.Log(hit.collider.gameObject.name);
     }
 
 
@@ -123,7 +137,7 @@ public class SelectionManager : MonoBehaviour
 
         if (slot != null)
         {
-            obj.transform.position = slot.position;
+            PlaceOnSurface(obj, slot.position);
             obj.transform.rotation = slot.rotation;
             obj.currentZone = workbenchZone;
             obj.currentSnapPoint = slot;
@@ -134,9 +148,30 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
-    void PlaceSelectedObject(Vector3 position)
+    void PlaceOnSurface(Selectable obj, Vector3 surfacePosition)
     {
-        selectedObject.transform.position = position;
+        Renderer r = obj.GetComponentInChildren<Renderer>();
+        if (r == null)
+        {
+            Debug.LogError("No renderer found on object");
+            return;
+        }
+
+        float bottomOffset = r.bounds.min.y - obj.transform.position.y;
+
+        Vector3 newPos = surfacePosition;
+        newPos.y -= bottomOffset;
+
+        obj.transform.position = newPos;
+    }
+
+    void PlaceSelectedObject(Transform snapPoint)
+    {
+        selectedObject.transform.position = snapPoint.position;
+        selectedObject.transform.rotation = snapPoint.rotation;
+        Debug.Log(
+     "MB rot AFTER: " + selectedObject.transform.rotation.eulerAngles
+ );
         selectedObject = null;
         UpdateHeldItemUI();
     }
@@ -161,9 +196,9 @@ public class SelectionManager : MonoBehaviour
 
         string partName = selectedObject.GetPartName();
         //string instruction = GetInstructionForPart(selectedObject.GetPartType());
-
+        string partType = selectedObject.GetPartType().ToString();
         heldItemText.text =
-            $"Du håller i: {partName}\n" +
+            $"Du håller i: {partType}\n" +
             $"Place correctly in chassi\n" +
             $"Press [p] to deselect";
     }
