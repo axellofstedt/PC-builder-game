@@ -17,6 +17,7 @@ public class BotMovement : MonoBehaviour
 
     private State state = State.Moving;
 
+    public BotAnimation botAnimation;
     public bool IsReadyToOrder { get { return state == State.Queuing && queueIndex == 0; } }
 
     public void Init(List<Transform> waypoints, int queueIndex, float spacing)
@@ -60,6 +61,7 @@ public class BotMovement : MonoBehaviour
 
     private void UpdateMoving()
     {
+        botAnimation.StartWalking();
         Vector3 dir = currentTarget.position - transform.position;
         dir.y = 0;
 
@@ -126,11 +128,13 @@ public class BotMovement : MonoBehaviour
     private void UpdateQueuing()
     {
         // Stå still i kön
+        botAnimation.StopWalking();
     }
 
     private void UpdateOrdering()
     {
         // Order Animation once
+        botAnimation.StartIdle();
     }
 
     public void SetQueueIndex(int newIndex)
