@@ -4,6 +4,7 @@ public class Selectable : MonoBehaviour
 {
     public PCPartHover hover;
     public PlacementZone currentZone;
+    public Transform currentSnapPoint;
 
     private void Awake()
     {
@@ -29,17 +30,22 @@ public class Selectable : MonoBehaviour
         return default(PartType);
     }
 
-    public void Select()
+    public void OnSelected()
     {
-        SelectionManager.Instance.SelectObject(this);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        PlacementZone zone = other.GetComponent<PlacementZone>();
-        if (zone != null)
+        if (currentZone != null && currentSnapPoint != null)
         {
-            currentZone = zone;
+            currentZone.FreeSlot(currentSnapPoint);
+            currentSnapPoint = null;
         }
     }
+    /*
+    private void OnTriggerEnter(Collider other)
+    {
+        //PlacementZone zone = other.GetComponent<PlacementZone>();
+        if (zone != null && currentSnapPoint != null)
+        {
+            currentZone.FreeSlot(currentSnapPoint);
+            currentSnapPoint = null;
+        }
+    }*/
 }
