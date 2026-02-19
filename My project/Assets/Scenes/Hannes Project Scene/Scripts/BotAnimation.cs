@@ -3,25 +3,42 @@ using UnityEngine;
 public class BotAnimation : MonoBehaviour
 {
     Animator animator;
-
+    bool isWalking = false;
+    bool isIdle = false;
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
-    void Update()
+    public void StartWalking()
     {
-        float speed = new Vector3(
-            Input.GetAxis("Horizontal"),
-            0,
-            Input.GetAxis("Vertical")
-        ).magnitude;
+        if (isWalking) return;
 
-        animator.SetFloat("speed", speed);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            animator.SetTrigger("jump");
-        }
+        isWalking = true;
+        animator.SetTrigger("run");
     }
+
+    public void StopWalking()
+    {
+        if (!isWalking) return;
+
+        isWalking = false;
+        animator.SetTrigger("idle");
+    }
+
+    public void StartIdle()
+    {
+        if (isIdle) return;
+
+        isIdle = true;
+        animator.SetTrigger("idle");
+    }
+    public void StopIdle()
+    {
+        if (!isIdle) return;
+
+        isIdle = false;
+        animator.SetTrigger("run");
+    }
+
 }
