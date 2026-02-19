@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuScript : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("AlvaScene"); // din spelscen
+        SceneManager.LoadScene("MainScene"); // din spelscen
     }
 
     public void QuitGame()

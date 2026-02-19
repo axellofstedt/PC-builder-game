@@ -339,7 +339,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1888992401}
-        m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1888992401}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
@@ -1161,7 +1161,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1888992401}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
         m_MethodName: OpenSettings
         m_Mode: 1
@@ -2595,7 +2595,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1888992399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c3a38889d402314f8d06659bed4bae9, type: 3}
+  m_Script: {fileID: 11500000, guid: 9960ca41b1bb16649a3a7d59f3db76b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   settingsPanel: {fileID: 2065155894}
@@ -2757,7 +2757,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1888992401}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
         m_MethodName: CloseSettings
         m_Mode: 1
