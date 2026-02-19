@@ -13,4 +13,15 @@ public class MainMenuScript : MonoBehaviour
         Debug.Log("Quit!");
         Application.Quit();
     }
+    public GameObject settingsPanel;
+
+    public void OpenSettings()
+    {
+        settingsPanel.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        settingsPanel.SetActive(false);
+    }
 }
