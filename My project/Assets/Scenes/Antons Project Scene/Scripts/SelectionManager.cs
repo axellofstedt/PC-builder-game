@@ -8,8 +8,9 @@ public class SelectionManager : MonoBehaviour
    public TextMeshProUGUI heldItemText;
    public Transform workbenchTransform;
    public PlacementZone workbenchZone;
-    public Transform snapPoint;
-    public bool cpuPlaced = false;
+   public Transform snapPoint;
+   public bool cpuPlaced = false;
+
     void Awake()
     {
         Instance = this;
@@ -84,9 +85,20 @@ public class SelectionManager : MonoBehaviour
             }
             else if (hit.collider.CompareTag("RAM") && selectedObject.GetPartType().ToString() == "RAM")
             {
+                RamSlot slot = hit.collider.GetComponent<RamSlot>();
+                if(slot != null)
+                {
+                    return;
+                }
+                if (slot.occupied)
+                {
+                    Debug.Log("Ram slot taken");
+                }
                 Debug.Log("RAM placed on motherboard" + selectedObject.GetPartName());
-                Transform snapPoint = hit.collider.GetComponentInChildren<Transform>();
-                PlaceSelectedObject(snapPoint);
+                //Transform snapPoint = hit.collider.GetComponentInChildren<Transform>();
+                PlaceSelectedObject(slot.snapPoint);
+                slot.occupied = true;
+                return;
             }
         }
 
