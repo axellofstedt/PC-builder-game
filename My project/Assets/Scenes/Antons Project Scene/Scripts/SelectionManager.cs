@@ -86,7 +86,7 @@ public class SelectionManager : MonoBehaviour
             else if (hit.collider.CompareTag("RAM") && selectedObject.GetPartType().ToString() == "RAM")
             {
                 RamSlot slot = hit.collider.GetComponent<RamSlot>();
-                if(slot != null)
+                if(slot == null)
                 {
                     return;
                 }
