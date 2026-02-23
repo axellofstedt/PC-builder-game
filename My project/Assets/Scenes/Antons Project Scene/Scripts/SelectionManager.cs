@@ -56,7 +56,7 @@ public class SelectionManager : MonoBehaviour
             else if (hit.collider.CompareTag("Drive") && selectedObject.GetPartType().ToString() == "Drive")
             {
                 Debug.Log("Drive placed on motherboard" + selectedObject.GetPartName());
-                Transform snapPoint = hit.collider.GetComponentInChildren<Transform>();
+                Transform snapPoint = hit.collider.transform.Find("Snap_Point");
                 PlaceSelectedObject(snapPoint);
             }
             else if (hit.collider.CompareTag("Fan") && selectedObject.GetPartType().ToString() == "Fan")
