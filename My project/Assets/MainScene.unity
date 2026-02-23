@@ -343,6 +343,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5755306436809196278, guid: 8cd17cd6b8d962a4c80f146da4abd1c2, type: 3}
+      propertyPath: heldItemText
+      value: 
+      objectReference: {fileID: 609346394}
+    - target: {fileID: 5755306436809196278, guid: 8cd17cd6b8d962a4c80f146da4abd1c2, type: 3}
       propertyPath: workbenchZone
       value: 
       objectReference: {fileID: 2052457988}
@@ -3931,6 +3935,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b53314994257501438bb395640063266, type: 3}
+--- !u!114 &609346394 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7002947626220053814, guid: b53314994257501438bb395640063266, type: 3}
+  m_PrefabInstance: {fileID: 609346393}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &629135314
 Mesh:
   m_ObjectHideFlags: 0
