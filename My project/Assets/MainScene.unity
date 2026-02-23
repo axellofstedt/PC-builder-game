@@ -3078,6 +3078,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 403960111}
+    - target: {fileID: 2254992584694255462, guid: b29a908203f044a4d92ee48ba726af2c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5873e7baf7f149341914c8bec4b52db0, type: 2}
     - target: {fileID: 2350638746754810317, guid: b29a908203f044a4d92ee48ba726af2c, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -4854,6 +4858,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 6580
       objectReference: {fileID: 0}
+    - target: {fileID: 9063779029141175946, guid: b29a908203f044a4d92ee48ba726af2c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 63ae66fdc53d7664e976b37328d4ef21, type: 2}
     - target: {fileID: 9076537012260216588, guid: b29a908203f044a4d92ee48ba726af2c, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -11948,10 +11956,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2414403639749107062, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c45c9da407b4d734b8956dbcc9c3f834, type: 2}
+    - target: {fileID: 3254529730817781426, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c95b4468ee7b56f4f9c1890ae187ab8a, type: 2}
+    - target: {fileID: 3827948368449938222, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 274d788bf994c754fbbd34c6fea18e33, type: 2}
     - target: {fileID: 4471130181799547144, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
       propertyPath: m_Name
       value: Scenery
       objectReference: {fileID: 0}
+    - target: {fileID: 4555531610932298659, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d446b455ee01f645ab45b6f967b0660, type: 2}
+    - target: {fileID: 4810662754845989886, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.475
+      objectReference: {fileID: 0}
+    - target: {fileID: 4977589888462040966, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d83f4aca010f3914d822c4c66e92aa63, type: 2}
+    - target: {fileID: 5707211636373933835, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3f468d2931199c04181aae329ee202a3, type: 2}
+    - target: {fileID: 5876571009372541406, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b7310b1ef4d9b7b41b3403c08c11904f, type: 2}
+    - target: {fileID: 6712053325047718426, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a19a2cf762e245144ac12653d6a9e444, type: 2}
     - target: {fileID: 7350521171008459603, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.92
@@ -11992,6 +12036,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8163928909697737668, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 317f11590a9e09e4ebc7017e740ea4dc, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
