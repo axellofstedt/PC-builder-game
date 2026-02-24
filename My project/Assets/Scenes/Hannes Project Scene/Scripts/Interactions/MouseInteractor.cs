@@ -22,7 +22,7 @@ public class MouseInteractor : MonoBehaviour
 
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, maxHoverDistance))
+        if (Physics.Raycast(ray, out RaycastHit hit, maxHoverDistance, ~0, QueryTriggerInteraction.Ignore))
         {
             IHoverable hoverable = hit.collider.GetComponentInParent<IHoverable>();
 
