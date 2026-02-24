@@ -5,11 +5,15 @@ using UnityEngine.UI;
 
 public class CheckoutUI : MonoBehaviour
 {
+    [Header("Buttons")]
     public Button takeOrderButton;
     public Button closeOrderButton;
-    public Image orderImage;
 
-    // Text fields for each part type
+    [Header("Order Image & Header")]
+    public Image orderImage;
+    public TMP_Text orderHeader;
+
+    [Header("Part Text Fields")]
     public TMP_Text gpuText;
     public TMP_Text cpuText;
     public TMP_Text ramText;

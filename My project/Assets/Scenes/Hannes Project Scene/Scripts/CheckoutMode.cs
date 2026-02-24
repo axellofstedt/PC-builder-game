@@ -10,7 +10,12 @@ public class CheckoutMode : MonoBehaviour, IInteractable
     public bool Interactable { get; set; } = true;
 
     public CheckoutUI CheckoutUI;
+    public RewardSystem rewardSystem;
     private PCGenerator pcGenerator;
+
+    private float orderTimer = 0f;
+    private int correctComponents = 0;
+    private List<PCPart> currentOrder;
 
     void Start()
     {
@@ -44,18 +49,19 @@ public class CheckoutMode : MonoBehaviour, IInteractable
             NewCustomer();
         }
 
-        if (currentCheckoutState == CheckoutState.Order &&
-            Input.GetKeyDown(KeyCode.R))
+        if (currentCheckoutState == CheckoutState.Order)
         {
-            CompleteOrder();
+            orderTimer += Time.deltaTime;
+
+            if (Input.GetKeyDown(KeyCode.R)) CompleteOrder();
         }
     }
 
     public void TakeOrder()
     {
         // Generate random order and display it on the UI
-        List<PCPart> pcOrder = pcGenerator.GetNewPC();
-        CheckoutUI.TakeOrder(pcOrder);
+        currentOrder = pcGenerator.GetNewPC();
+        CheckoutUI.TakeOrder(currentOrder);
         currentCheckoutState = CheckoutState.Order;
         BotSpawner.Instance.GetFrontCustomerMovement().SetOrderingState();
     }
@@ -64,9 +70,18 @@ public class CheckoutMode : MonoBehaviour, IInteractable
     {
         CheckoutUI.CompleteOrder();
         currentCheckoutState = CheckoutState.Complete;
+
+        // RewardSystem evaluates the order based on time taken and accuracy of the order
+        correctComponents = 9; // TODO: Implement accuracy calculation based on the currentOrder and the player's assembled PC
+        RewardResult orderReward = rewardSystem.Evaluate(orderTimer, correctComponents);
+        Debug.Log($"Time Score: {orderReward.timeScore}, Accuracy Score: {orderReward.accuracyScore}, Final Score: {orderReward.finalScore}, Stars: {orderReward.stars}");
+
         // Timer, button or effect to show completion before resetting to waiting
         BotSpawner.Instance.RemoveFrontBot();
         currentCheckoutState = CheckoutState.Waiting;
+
+        // Reset order timer
+        orderTimer = 0f;
     }
 
     public void NewCustomer()
