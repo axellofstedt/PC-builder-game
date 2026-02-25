@@ -5,6 +5,7 @@ public class Selectable : MonoBehaviour
     public BoxCollider shelfClickCollider;
     public BoxCollider preciseCollider;
 
+    public bool isPlaced = false;
     public PCPartHover hover;
     public PlacementZone currentZone;
     public Transform currentSnapPoint;
@@ -27,7 +28,6 @@ public class Selectable : MonoBehaviour
 
     public void ActivateWorkbenchMode()
     {
-        Debug.Log("WORKSKSKSKDOWKDOKS");
         shelfClickCollider.enabled = false;
         preciseCollider.enabled = true;
     }

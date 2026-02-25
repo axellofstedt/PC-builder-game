@@ -107,6 +107,10 @@ public class SelectionManager : MonoBehaviour
 
         if (selectable != null)
         {
+            if (selectable.isPlaced)
+            {
+                return;
+            }
             SelectObject(selectable);
             return;
         }
@@ -155,7 +159,10 @@ public class SelectionManager : MonoBehaviour
             obj.transform.rotation = slot.rotation;
             obj.currentZone = workbenchZone;
             obj.currentSnapPoint = slot;
-
+            if(obj.GetPartType().ToString() == "Chassi")
+            {
+                obj.isPlaced = true;
+            }
             //obj.ActivateWorkbenchMode();
         }
         else
@@ -185,11 +192,10 @@ public class SelectionManager : MonoBehaviour
     {
         selectedObject.transform.position = snapPoint.position;
         selectedObject.transform.rotation = snapPoint.rotation;
-        Debug.Log(
-     "MB rot AFTER: " + selectedObject.transform.rotation.eulerAngles
- );
-        selectedObject.ActivateWorkbenchMode();
+        //selectedObject.ActivateWorkbenchMode();
 
+        //selectedObject.TurnOffColliders();
+        selectedObject.isPlaced = true;
         selectedObject = null;
         UpdateHeldItemUI();
     }
@@ -213,7 +219,6 @@ public class SelectionManager : MonoBehaviour
         }
 
         string partName = selectedObject.GetPartName();
-        //string instruction = GetInstructionForPart(selectedObject.GetPartType());
         string partType = selectedObject.GetPartType().ToString();
         heldItemText.text =
             $"Du håller i: {partType}\n" +
