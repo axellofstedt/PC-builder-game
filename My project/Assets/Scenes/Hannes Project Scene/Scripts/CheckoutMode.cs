@@ -11,16 +11,11 @@ public class CheckoutMode : MonoBehaviour, IInteractable
 
     public CheckoutUI CheckoutUI;
     public RewardSystem rewardSystem;
-    private PCGenerator pcGenerator;
 
     private float orderTimer = 0f;
     private int correctComponents = 0;
     private List<PCPart> currentOrder;
 
-    void Start()
-    {
-        pcGenerator = GetComponent<PCGenerator>();
-    }
 
     enum CheckoutState
     {
@@ -60,7 +55,7 @@ public class CheckoutMode : MonoBehaviour, IInteractable
     public void TakeOrder()
     {
         // Generate random order and display it on the UI
-        currentOrder = pcGenerator.GetNewPC();
+        currentOrder = OrderManager.Instance.GetNewOrder();
         CheckoutUI.TakeOrder(currentOrder);
         currentCheckoutState = CheckoutState.Order;
         BotSpawner.Instance.GetFrontCustomerMovement().SetOrderingState();
@@ -79,6 +74,9 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         // Timer, button or effect to show completion before resetting to waiting
         BotSpawner.Instance.RemoveFrontBot();
         currentCheckoutState = CheckoutState.Waiting;
+
+        // Reset current order
+        OrderManager.Instance.ClearOrder();
 
         // Reset order timer
         orderTimer = 0f;
