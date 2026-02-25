@@ -1,51 +1,43 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Selectable : MonoBehaviour
 {
-    public PCPartHover hover;
+    public PCPart partData;
+
     public PlacementZone currentZone;
     public Transform currentSnapPoint;
 
-    private void Awake()
+    // Styr om objektet får interageras med
+    public bool CanInteract { get; private set; } = true;
+
+    public PartType PartType => partData.partType;
+    public string PartName => partData.partName;
+
+    private Outline outline;
+    void Start()
     {
-        if (hover == null)
-        {
-            hover = GetComponent<PCPartHover>();
-        }
+        outline = gameObject.GetComponent<Outline>();
     }
 
-    public string GetPartName()
+    public void Highlight()
     {
-        if (hover != null && hover.partData != null)
-            return hover.partData.partName;
-      
-        return gameObject.name;
+        outline.OutlineColor = Color.green;
     }
 
-    public PartType GetPartType()
+    public void RemoveHighlight()
     {
-        if (hover != null && hover.partData != null)
-            return hover.partData.partType;
-
-        return default(PartType);
+        outline.enabled = false;
+        outline.OutlineColor = Color.red;
     }
 
-    public void OnSelected()
+    public void LockInteraction()
     {
-        if (currentZone != null && currentSnapPoint != null)
-        {
-            currentZone.FreeSlot(currentSnapPoint);
-            currentSnapPoint = null;
-        }
+        CanInteract = false;
     }
-    /*
-    private void OnTriggerEnter(Collider other)
+
+    public void UnlockInteraction()
     {
-        //PlacementZone zone = other.GetComponent<PlacementZone>();
-        if (zone != null && currentSnapPoint != null)
-        {
-            currentZone.FreeSlot(currentSnapPoint);
-            currentSnapPoint = null;
-        }
-    }*/
+        CanInteract = true;
+    }
 }

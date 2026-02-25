@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8266596408347719919}
   - component: {fileID: 2871481666665585145}
+  - component: {fileID: 4089937323149885352}
   m_Layer: 0
   m_Name: Eire Cooler
   m_TagString: Untagged
@@ -46,8 +47,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64aeb88711fc83045b5f216489f254bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partData: {fileID: 11400000, guid: 7994933aaba86e2488a75a33070f5d48, type: 2}
-  outline: {fileID: 0}
+  partData: {fileID: 11400000, guid: 1adf4992ad5ea1d438b6d435509c6e58, type: 2}
+--- !u!114 &4089937323149885352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2608386314448230582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partData: {fileID: 11400000, guid: 1adf4992ad5ea1d438b6d435509c6e58, type: 2}
+  currentZone: {fileID: 0}
+  currentSnapPoint: {fileID: 0}
 --- !u!1 &7995573309931765163
 GameObject:
   m_ObjectHideFlags: 0

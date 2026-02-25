@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5888313251711876749}
   - component: {fileID: 5220856453989689338}
+  - component: {fileID: 918230938977860880}
   m_Layer: 0
   m_Name: 500GB NVMe SDD
   m_TagString: Untagged
@@ -47,7 +48,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partData: {fileID: 11400000, guid: fb239121d147937479fa18fbe38dfeef, type: 2}
-  outline: {fileID: 0}
+--- !u!114 &918230938977860880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2783239975930118172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partData: {fileID: 11400000, guid: fb239121d147937479fa18fbe38dfeef, type: 2}
+  currentZone: {fileID: 0}
+  currentSnapPoint: {fileID: 0}
 --- !u!1 &6554525191465107202
 GameObject:
   m_ObjectHideFlags: 0

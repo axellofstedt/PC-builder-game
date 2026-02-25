@@ -16,14 +16,28 @@ public class PlacementZone : MonoBehaviour
 
     public Transform GetSlotForPart(PartType partType)
     {
+        if (slots == null)
+        {
+            Debug.LogError("slots-listan är null i PlacementZone!");
+            return null;
+        }
+
         foreach (var slot in slots)
         {
+            if (slot == null)
+            {
+                Debug.LogError("Ett slot i slots-listan är null!");
+                continue;
+            }
+
             if (slot.partType == partType && !slot.occupied)
             {
                 slot.occupied = true;
+                Debug.Log($"Hittade ledig slot för {partType} i {zoneType}!");
                 return slot.snapPoint;
             }
         }
+        Debug.LogWarning($"Ingen ledig slot för {partType} i {zoneType}!");
         return null;
     }
 
