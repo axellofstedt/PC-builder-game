@@ -128,6 +128,7 @@ public class SelectionManager : MonoBehaviour
         {
             case ZoneType.Shelf:
                 Debug.Log("Movede to bench" + obj.GetPartName());
+                obj.ActivateWorkbenchMode();
                 MoveToWorkBench(obj);
                 break;
         
@@ -145,6 +146,7 @@ public class SelectionManager : MonoBehaviour
         {
             return;
         }
+
         Transform slot = workbenchZone.GetSlotForPart(obj.GetPartType());
 
         if (slot != null)
@@ -153,6 +155,8 @@ public class SelectionManager : MonoBehaviour
             obj.transform.rotation = slot.rotation;
             obj.currentZone = workbenchZone;
             obj.currentSnapPoint = slot;
+
+            //obj.ActivateWorkbenchMode();
         }
         else
         {
@@ -184,6 +188,8 @@ public class SelectionManager : MonoBehaviour
         Debug.Log(
      "MB rot AFTER: " + selectedObject.transform.rotation.eulerAngles
  );
+        selectedObject.ActivateWorkbenchMode();
+
         selectedObject = null;
         UpdateHeldItemUI();
     }
