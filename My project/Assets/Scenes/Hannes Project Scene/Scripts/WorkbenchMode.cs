@@ -21,6 +21,9 @@ public class WorkbenchMode : MonoBehaviour, IInteractable
 
         // Visa Order Image
         workbenchUI.ShowOrderImage();
+
+        // Stäng av Interaction Trigger
+        GetComponent<BoxCollider>().enabled = false;
     }
 
     enum BuildState // Kanske?
@@ -41,8 +44,7 @@ public class WorkbenchMode : MonoBehaviour, IInteractable
 
         if (!TryRaycast(out RaycastHit hit)) return;
 
-        if (SelectionManager.Instance.TryPlaceOnTarget(hit))
-            return;
+        if (SelectionManager.Instance.TryPlaceOnTarget(hit)) return;
     }
 
     bool TryRaycast(out RaycastHit hit)
@@ -54,5 +56,8 @@ public class WorkbenchMode : MonoBehaviour, IInteractable
     public void Escape()
     {
         ModeManager.Instance.SetMode(GameMode.Player);
+
+        // Sätt på Interaction Trigger
+        GetComponent<BoxCollider>().enabled = true;
     }
 }
