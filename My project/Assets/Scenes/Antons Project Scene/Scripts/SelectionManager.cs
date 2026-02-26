@@ -139,7 +139,7 @@ public class SelectionManager : MonoBehaviour
         Transform snap = hit.collider.transform.Find("Snap_Point");
         if (snap == null) return;
 
-        Debug.Log($"{selectedObject.PartType} placed: {selectedObject.PartName}");
+        Debug.Log($"{selectedObject.PartType} placed: {selectedObject.PartName} on {hit.collider.name} at: {snap}");
         PlaceSelectedObject(snap);
     }
 
@@ -164,7 +164,9 @@ public class SelectionManager : MonoBehaviour
             Debug.Log("Ram slot taken");
             return true;
         }
-
+        Debug.Log("Placing RAM in slot");
+        Debug.Log(slot);
+        Debug.Log($"Snap point: {slot.snapPoint.position}");
         PlaceSelectedObject(slot.snapPoint);
         slot.occupied = true;
 

@@ -202,45 +202,16 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2608386314448230582, guid: dfdb63bcf60cda44fbd591bf63869866, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2567969918385846166}
-    - targetCorrespondingSourceObject: {fileID: 2608386314448230582, guid: dfdb63bcf60cda44fbd591bf63869866, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6549982086362599564}
     - targetCorrespondingSourceObject: {fileID: 2608386314448230582, guid: dfdb63bcf60cda44fbd591bf63869866, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8230975809851627360}
   m_SourcePrefab: {fileID: 100100000, guid: dfdb63bcf60cda44fbd591bf63869866, type: 3}
---- !u!114 &2932175228423269744 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2871481666665585145, guid: dfdb63bcf60cda44fbd591bf63869866, type: 3}
-  m_PrefabInstance: {fileID: 1110313818652177545}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3123942338621418559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64aeb88711fc83045b5f216489f254bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3123942338621418559 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2608386314448230582, guid: dfdb63bcf60cda44fbd591bf63869866, type: 3}
   m_PrefabInstance: {fileID: 1110313818652177545}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2567969918385846166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3123942338621418559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hover: {fileID: 2932175228423269744}
-  currentZone: {fileID: 1728763989717842787}
-  currentSnapPoint: {fileID: 0}
 --- !u!65 &6549982086362599564
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -409,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hover: {fileID: 0}
+  partData: {fileID: 0}
   currentZone: {fileID: 1728763989717842787}
   currentSnapPoint: {fileID: 0}
 --- !u!65 &9158135283328118265
@@ -616,7 +587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hover: {fileID: 6057777835645681664}
+  partData: {fileID: 0}
   currentZone: {fileID: 1728763989717842787}
   currentSnapPoint: {fileID: 0}
 --- !u!114 &6057777835645681664
@@ -632,6 +603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partData: {fileID: 11400000, guid: d00dec55524ad62478d49c9a897df603, type: 2}
+  hoverable: 1
 --- !u!54 &2003013745099979689
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1004,7 +976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hover: {fileID: 7926148083745648838}
+  partData: {fileID: 0}
   currentZone: {fileID: 1728763989717842787}
   currentSnapPoint: {fileID: 0}
 --- !u!65 &4617650353796104861
@@ -1055,17 +1027,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7926148083745648838 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6679819068481765005, guid: 3d8a4bb36070ec04d9d7e91bdef2c825, type: 3}
-  m_PrefabInstance: {fileID: 3552260098828078667}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7086636447997040993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64aeb88711fc83045b5f216489f254bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5253290461973892103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1132,17 +1093,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5765102113075591225}
   m_SourcePrefab: {fileID: 100100000, guid: 8cd2783c616f9fa46b3efdf84662af2f, type: 3}
---- !u!114 &77522362077948098 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5328890834583086277, guid: 8cd2783c616f9fa46b3efdf84662af2f, type: 3}
-  m_PrefabInstance: {fileID: 5253290461973892103}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3820781936900930433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64aeb88711fc83045b5f216489f254bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3820781936900930433 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9070613837766702982, guid: 8cd2783c616f9fa46b3efdf84662af2f, type: 3}
@@ -1160,7 +1110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hover: {fileID: 77522362077948098}
+  partData: {fileID: 0}
   currentZone: {fileID: 1728763989717842787}
   currentSnapPoint: {fileID: 0}
 --- !u!65 &625130454064816163
@@ -1299,7 +1249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hover: {fileID: 8334314882850471216}
+  partData: {fileID: 0}
   currentZone: {fileID: 1728763989717842787}
   currentSnapPoint: {fileID: 0}
 --- !u!54 &7796557449354799599
@@ -1355,17 +1305,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 235109667840705452, guid: 628c3aab84c50694c94d078b169a7306, type: 3}
   m_PrefabInstance: {fileID: 7499677278123814048}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8334314882850471216 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1998854437655728528, guid: 628c3aab84c50694c94d078b169a7306, type: 3}
-  m_PrefabInstance: {fileID: 7499677278123814048}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3188362573815032902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64aeb88711fc83045b5f216489f254bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7920191685483454926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1432,17 +1371,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1866481436931121681}
   m_SourcePrefab: {fileID: 100100000, guid: 9522ae417ac5e83438fd08bf57573e8d, type: 3}
---- !u!114 &2710631613999482420 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5220856453989689338, guid: 9522ae417ac5e83438fd08bf57573e8d, type: 3}
-  m_PrefabInstance: {fileID: 7920191685483454926}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5425186483810410962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64aeb88711fc83045b5f216489f254bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4349722887297212227 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5888313251711876749, guid: 9522ae417ac5e83438fd08bf57573e8d, type: 3}
@@ -1465,7 +1393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hover: {fileID: 2710631613999482420}
+  partData: {fileID: 0}
   currentZone: {fileID: 1728763989717842787}
   currentSnapPoint: {fileID: 0}
 --- !u!54 &130769552853608976
@@ -1587,17 +1515,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7380863712733180854, guid: 446695131c095cd40a6f8dc32c9fdabe, type: 3}
   m_PrefabInstance: {fileID: 8563468952926548939}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2920832616396005585 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6800273182808691482, guid: 446695131c095cd40a6f8dc32c9fdabe, type: 3}
-  m_PrefabInstance: {fileID: 8563468952926548939}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7872732919660498704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64aeb88711fc83045b5f216489f254bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7872732919660498704 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1987808466775227611, guid: 446695131c095cd40a6f8dc32c9fdabe, type: 3}
@@ -1615,7 +1532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hover: {fileID: 2920832616396005585}
+  partData: {fileID: 0}
   currentZone: {fileID: 1728763989717842787}
   currentSnapPoint: {fileID: 0}
 --- !u!54 &3293089047267510966

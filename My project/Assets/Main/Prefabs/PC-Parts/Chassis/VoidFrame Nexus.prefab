@@ -1597,6 +1597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partData: {fileID: 11400000, guid: d00dec55524ad62478d49c9a897df603, type: 2}
+  hoverable: 1
 --- !u!114 &8628535918222663998
 MonoBehaviour:
   m_ObjectHideFlags: 0
