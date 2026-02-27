@@ -42,7 +42,7 @@ public class BeginnerModeManager : MonoBehaviour
         foreach (var box in allSlots)
         {
             if (box.CompareTag("Untagged")) continue;
-            Debug.Log(box + "box");
+            //Debug.Log(box + "box");
             if (usedSlots.Contains(box)) continue;
 
             // Hämta Outline på barnet som har MeshRenderer
