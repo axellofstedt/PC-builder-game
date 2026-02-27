@@ -30,6 +30,10 @@ public class Selectable : MonoBehaviour
     {
         shelfClickCollider.enabled = false;
         preciseCollider.enabled = true;
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+        }
     }
 
     public string GetPartName()

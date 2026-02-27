@@ -74,8 +74,10 @@ public class SelectionManager : MonoBehaviour
             else if (hit.collider.CompareTag("Motherboard") && selectedObject.GetPartType().ToString() == "Motherboard")
             {
                 Debug.Log("Motherbard placed in chassi" + selectedObject.GetPartName());
+
                 Transform snapPoint = hit.collider.transform.Find("Snap_Point");
                 PlaceSelectedObject(snapPoint);
+                
             }
             else if (hit.collider.CompareTag("PSU") && selectedObject.GetPartType().ToString() == "PSU")
             {
@@ -192,10 +194,15 @@ public class SelectionManager : MonoBehaviour
     {
         selectedObject.transform.position = snapPoint.position;
         selectedObject.transform.rotation = snapPoint.rotation;
-        //selectedObject.ActivateWorkbenchMode();
+        selectedObject.ActivateWorkbenchMode();
 
         //selectedObject.TurnOffColliders();
         selectedObject.isPlaced = true;
+        BoxCollider slotCollider = snapPoint.GetComponentInParent<BoxCollider>();
+        if (slotCollider != null)
+        {
+            BeginnerModeManager.instance.MarkSlotAsUsed(slotCollider);
+        }
         selectedObject = null;
         UpdateHeldItemUI();
     }

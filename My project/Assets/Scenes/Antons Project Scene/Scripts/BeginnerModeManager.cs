@@ -1,10 +1,12 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class BeginnerModeManager : MonoBehaviour
 {
     public static BeginnerModeManager instance;
     public bool isActive = false;
-    //private BoxCollider[] allSlots;
+    private BoxCollider[] allSlots;
+    private HashSet<BoxCollider> usedSlots = new HashSet<BoxCollider>();
 
     private void Awake()
     {
@@ -15,19 +17,17 @@ public class BeginnerModeManager : MonoBehaviour
         }
         instance = this;
 
-        BoxCollider[] allSlots = FindObjectsOfType<BoxCollider>();
+        allSlots = FindObjectsOfType<BoxCollider>();
         foreach (var box in allSlots)
         {
             Debug.Log(box.name);
-            //PlacementZone zone = box.GetComponent<PlacementZone>();
             if (!box.CompareTag("Untagged"))
             {
-                // Hämta eller lägg till Outline
-                Outline outline = box.GetComponent<Outline>();
-                if (outline == null)
-                    outline = box.gameObject.AddComponent<Outline>();
-
-                outline.enabled = false; // Starta avstängd
+                Outline outline = box.GetComponentInChildren<Outline>();
+                if (outline != null)
+                {
+                    outline.enabled = isActive;
+                }
             }
         }
     }
@@ -37,20 +37,28 @@ public class BeginnerModeManager : MonoBehaviour
         isActive = !isActive;
         Debug.Log("Mode is " + isActive);
 
-        BoxCollider[] allSlots = FindObjectsOfType<BoxCollider>();
+        //BoxCollider[] allSlots = FindObjectsOfType<BoxCollider>();
 
         foreach (var box in allSlots)
         {
-            if (!box.CompareTag("Untagged"))
-            {
-                Outline outline = box.GetComponent<Outline>();
+            if (box.CompareTag("Untagged")) continue;
+            Debug.Log(box + "box");
+            if (usedSlots.Contains(box)) continue;
 
-                if (outline == null)
-                {
-                    outline = box.gameObject.AddComponent<Outline>();
-                }
+            // Hämta Outline på barnet som har MeshRenderer
+            Outline outline = box.GetComponentInChildren<Outline>();
+            if (outline != null)
                 outline.enabled = isActive;
-            }
         }
+    }
+
+    public void MarkSlotAsUsed(BoxCollider box)
+    {
+        if (box == null) return;
+        Outline outline = box.GetComponentInChildren<Outline>();
+        if (outline != null)
+            outline.enabled = false;
+
+        usedSlots.Add(box);
     }
 }
