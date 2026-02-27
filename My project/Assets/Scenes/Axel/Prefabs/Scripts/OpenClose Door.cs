@@ -1,18 +1,38 @@
 using System.Threading;
 using UnityEngine;
 
+
+public enum DoorType
+{
+    Regular,
+    Chassi,
+    CPU,
+    FrontDoor
+}
+
 public class OpenCloseDoor : MonoBehaviour
 {
+    [SerializeField] DoorType doorType;
     //float timer = 0.0f;
     Animator animator;
-    GameObject door;
+    GameObject part;
     bool doorOpen = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-        door = transform.parent.parent.parent.gameObject;
         animator = GetComponent<Animator>();
+        if (doorType == DoorType.Chassi)
+        {
+            part = transform.parent.parent.parent.gameObject;
+        }
+        else if (doorType == DoorType.CPU)
+        {
+            part = transform.parent.parent.parent.gameObject;
+        }
+        else
+        {
+            part = transform.gameObject;
+        }
     }
 
     public void interactDoor()
@@ -31,15 +51,17 @@ public class OpenCloseDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(door.GetComponent<Selectable>().currentZone.zoneType == ZoneType.Workbench && doorOpen == false)
-        {
-            interactDoor();
-            doorOpen = true;
-        }
-        if (door.GetComponent<Selectable>().currentZone.zoneType != ZoneType.Workbench && doorOpen == true)
-        {
-            interactDoor();
-            doorOpen = false;
+        if (doorType == DoorType.Chassi || doorType == DoorType.CPU) {
+            if (part.GetComponent<Selectable>().currentZone.zoneType == ZoneType.Workbench && doorOpen == false)
+            {
+                interactDoor();
+                doorOpen = true;
+            }
+            if (part.GetComponent<Selectable>().currentZone.zoneType != ZoneType.Workbench && doorOpen == true)
+            {
+                interactDoor();
+                doorOpen = false;
+            }
         }
         /*
         timer+= Time.deltaTime;
