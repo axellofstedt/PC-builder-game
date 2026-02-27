@@ -11,7 +11,7 @@ public class DoorInteract : MonoBehaviour, IInteractable
     OpenCloseDoor doorScript;
     public void Interact()
     {
-        OpenCloseDoor doorScript = GetComponent<OpenCloseDoor>();
+        doorScript = GetComponent<OpenCloseDoor>();
         if (doorScript != null)
         {
             doorScript.interactDoor();
