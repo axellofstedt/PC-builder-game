@@ -13,25 +13,17 @@ public enum DoorType
 public class OpenCloseDoor : MonoBehaviour
 {
     [SerializeField] DoorType doorType;
+    [SerializeField] DoorSoundEffects doorSoundEffects;
+    [SerializeField] Animator animator;
     //float timer = 0.0f;
-    Animator animator;
     GameObject part;
     bool doorOpen = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        animator = GetComponent<Animator>();
-        if (doorType == DoorType.Chassi)
+        if (animator==null)
         {
-            part = transform.parent.parent.parent.gameObject;
-        }
-        else if (doorType == DoorType.CPU)
-        {
-            part = transform.parent.parent.parent.gameObject;
-        }
-        else
-        {
-            part = transform.gameObject;
+            animator = GetComponent<Animator>();
         }
     }
 
@@ -40,37 +32,34 @@ public class OpenCloseDoor : MonoBehaviour
         if (animator.GetBool("isOpen"))
         {
             animator.SetBool("isOpen", false);
+            doorSoundEffects.PlayCloseSound();
             animator.SetTrigger("close");
         }
         else
         {
             animator.SetBool("isOpen", true);
+            doorSoundEffects.PlayOpenSound();
             animator.SetTrigger("open");
         }
     }
-    // Update is called once per frame
-    void Update()
+
+    public void closeDoor()
     {
-        if (doorType == DoorType.Chassi || doorType == DoorType.CPU) {
-            if (part.GetComponent<Selectable>().currentZone.zoneType == ZoneType.Workbench && doorOpen == false)
-            {
-                interactDoor();
-                doorOpen = true;
-            }
-            if (part.GetComponent<Selectable>().currentZone.zoneType != ZoneType.Workbench && doorOpen == true)
-            {
-                interactDoor();
-                doorOpen = false;
-            }
-        }
-        /*
-        timer+= Time.deltaTime;
-        //temporary call every 3 seconds to test the animation, will be called by the player script when the player interacts with the door
-        if (timer >= 3)
+        if (animator.GetBool("isOpen"))
         {
-            timer = 0;
-            interactDoor();
+            animator.SetBool("isOpen", false);
+            doorSoundEffects.PlayCloseSound();
+            animator.SetTrigger("close");
         }
-        */
+    }
+
+    public void openDoor()
+    {
+        if (!animator.GetBool("isOpen"))
+        {
+            animator.SetBool("isOpen", true);
+            doorSoundEffects.PlayOpenSound();
+            animator.SetTrigger("open");
+        }
     }
 }

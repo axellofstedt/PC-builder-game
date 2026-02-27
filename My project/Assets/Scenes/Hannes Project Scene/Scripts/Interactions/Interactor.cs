@@ -68,7 +68,6 @@ public class Interactor : MonoBehaviour
             Input.GetKeyDown(currentInteractable.InteractKey))
         {
             currentInteractable.Interact();
-
             // Interactor animation
             // fPCharAnims.InteractAnimation();
 
