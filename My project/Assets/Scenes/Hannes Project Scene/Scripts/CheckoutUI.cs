@@ -8,6 +8,7 @@ public class CheckoutUI : MonoBehaviour
     [Header("Buttons")]
     public Button takeOrderButton;
     public Button closeOrderButton;
+    public Button giveOrderButton;
 
     [Header("Order Image & Header")]
     public Image orderImage;
@@ -81,10 +82,17 @@ public class CheckoutUI : MonoBehaviour
         orderImage.gameObject.SetActive(true);
     }
 
+    public void PCReady()
+    {
+        closeOrderButton.gameObject.SetActive(false);
+        giveOrderButton.gameObject.SetActive(true);
+    }
+
     public void CompleteOrder()
     {
         takeOrderButton.gameObject.SetActive(false);
         closeOrderButton.gameObject.SetActive(false);
+        giveOrderButton.gameObject.SetActive(false);
         orderImage.gameObject.SetActive(false);
     }
 }

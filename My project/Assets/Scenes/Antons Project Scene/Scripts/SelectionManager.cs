@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using TMPro;
+using NUnit.Framework;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class SelectionManager : MonoBehaviour
 {
@@ -11,6 +14,9 @@ public class SelectionManager : MonoBehaviour
     public Selectable selectedObject;
     public bool cpuPlaced = false;
 
+    [HideInInspector] public List<PCPart> currentBuild = new List<PCPart>();
+    [HideInInspector] public List<Selectable> currentSelectableBuild = new List<Selectable>();
+    [HideInInspector] public Selectable currentChassi;
 
     void Awake()
     {
@@ -51,11 +57,17 @@ public class SelectionManager : MonoBehaviour
         obj.currentZone = workbenchZone;
         obj.currentSnapPoint = slot;
 
+        if (obj.PartType == PartType.Chassi)
+        {
+            currentSelectableBuild.Add(obj);
+            currentChassi = obj;
+        }
+
         // Lås tills workbench mode
         obj.LockInteraction();
     }
 
-    void PlaceOnSurface(Selectable obj, Vector3 surfacePosition)
+    public void PlaceOnSurface(Selectable obj, Vector3 surfacePosition)
     {
         Renderer r = obj.GetComponentInChildren<Renderer>();
         if (r == null) return;
@@ -151,6 +163,11 @@ public class SelectionManager : MonoBehaviour
         selectedObject.RemoveHighlight();
         selectedObject.GetComponent<PCPartHover>().hoverable = false;
 
+        // Make a list of items in current pc build
+        // currentBuild.Add(selectedObject.GetComponent<PCPart>());
+        Debug.Log($"Adding {selectedObject.PartName} to currentSelectableBuild");
+        currentSelectableBuild.Add(selectedObject);
+
         selectedObject = null;
     }
 
@@ -178,5 +195,13 @@ public class SelectionManager : MonoBehaviour
     {
         if (selectedObject != null) selectedObject.RemoveHighlight();
         selectedObject = null;
+    }
+
+    public void ResetBuild()
+    {
+        currentBuild.Clear();
+        currentSelectableBuild.Clear();
+        currentChassi = null;
+        cpuPlaced = false;
     }
 }
