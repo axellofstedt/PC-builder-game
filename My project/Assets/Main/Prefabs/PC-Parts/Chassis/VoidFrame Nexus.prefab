@@ -1555,7 +1555,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8149973079745249775}
-  - component: {fileID: 9171686399677931449}
+  - component: {fileID: 6043481124081134187}
+  - component: {fileID: 8628535918222663998}
   m_Layer: 0
   m_Name: VoidFrame Nexus
   m_TagString: Untagged
@@ -1583,7 +1584,7 @@ Transform:
   - {fileID: 1802484852250998133}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9171686399677931449
+--- !u!114 &6043481124081134187
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1596,4 +1597,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partData: {fileID: 11400000, guid: d00dec55524ad62478d49c9a897df603, type: 2}
-  outline: {fileID: 0}
+  hoverable: 1
+--- !u!114 &8628535918222663998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8853468769390026473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partData: {fileID: 11400000, guid: d00dec55524ad62478d49c9a897df603, type: 2}
+  currentZone: {fileID: 0}
+  currentSnapPoint: {fileID: 0}

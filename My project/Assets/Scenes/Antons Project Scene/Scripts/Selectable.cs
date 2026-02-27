@@ -1,73 +1,43 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Selectable : MonoBehaviour
 {
-    public BoxCollider shelfClickCollider;
-    public BoxCollider preciseCollider;
+    public PCPart partData;
 
-    public bool isPlaced = false;
-    public PCPartHover hover;
     public PlacementZone currentZone;
     public Transform currentSnapPoint;
 
-    private void Awake()
-    {
-        ActivateShelfMode();
+    // Styr om objektet får interageras med
+    public bool CanInteract { get; private set; } = true;
 
-        if (hover == null)
-        {
-            hover = GetComponent<PCPartHover>();
-        }
+    public PartType PartType => partData.partType;
+    public string PartName => partData.partName;
+
+    private Outline outline;
+    void Start()
+    {
+        outline = gameObject.GetComponent<Outline>();
     }
 
-    public void ActivateShelfMode()
+    public void Highlight()
     {
-        shelfClickCollider.enabled = true;
-        preciseCollider.enabled = false;
+        outline.OutlineColor = Color.green;
     }
 
-    public void ActivateWorkbenchMode()
+    public void RemoveHighlight()
     {
-        shelfClickCollider.enabled = false;
-        preciseCollider.enabled = true;
-        foreach (Transform child in transform)
-        {
-            child.gameObject.SetActive(true);
-        }
+        outline.enabled = false;
+        outline.OutlineColor = Color.red;
     }
 
-    public string GetPartName()
+    public void LockInteraction()
     {
-        if (hover != null && hover.partData != null)
-            return hover.partData.partName;
-      
-        return gameObject.name;
+        CanInteract = false;
     }
 
-    public PartType GetPartType()
+    public void UnlockInteraction()
     {
-        if (hover != null && hover.partData != null)
-            return hover.partData.partType;
-
-        return default(PartType);
+        CanInteract = true;
     }
-
-    public void OnSelected()
-    {
-        if (currentZone != null && currentSnapPoint != null)
-        {
-            currentZone.FreeSlot(currentSnapPoint);
-            currentSnapPoint = null;
-        }
-    }
-    /*
-    private void OnTriggerEnter(Collider other)
-    {
-        //PlacementZone zone = other.GetComponent<PlacementZone>();
-        if (zone != null && currentSnapPoint != null)
-        {
-            currentZone.FreeSlot(currentSnapPoint);
-            currentSnapPoint = null;
-        }
-    }*/
 }

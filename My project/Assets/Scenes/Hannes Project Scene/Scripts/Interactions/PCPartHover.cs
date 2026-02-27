@@ -1,52 +1,66 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PCPartHover : MonoBehaviour, IHoverable
 {
     public PCPart partData;
+    public bool hoverable = true;
 
     private Outline outline;
     private PCPartUI partUI;
+    private Selectable selectable;
 
-    public string HoverText => partData.partType + ": " + partData.partName;
+    public string HoverText =>
+        partData != null
+            ? $"{partData.partType}: {partData.partName}"
+            : name;
 
-    private void Awake()
+    void Awake()
     {
         partUI = Object.FindFirstObjectByType<PCPartUI>();
+        selectable = GetComponentInParent<Selectable>();
 
-        if (partUI == null)
-            Debug.LogWarning("PCPartUI saknas i scenen!");
-
-        // Lägg till Outline-komponenten för att hantera hover-effekten
         outline = gameObject.AddComponent<Outline>();
-
         outline.OutlineMode = Outline.Mode.OutlineAll;
         outline.OutlineColor = Color.red;
         outline.OutlineWidth = 5f;
-
-        if (outline != null)
-            outline.enabled = false;
+        outline.enabled = false;
     }
 
     public void OnHoverEnter()
     {
-        partUI?.SetPrompt(HoverText);
+        if (selectable != null && !selectable.CanInteract)
+            return;
 
-        if (outline != null)
-            outline.enabled = true;
+        outline.enabled = true;
+        partUI?.SetPrompt(HoverText);
     }
 
     public void OnHoverExit()
     {
-        partUI?.ClearPrompt();
-
-        if (outline != null)
+        if (SelectionManager.Instance.selectedObject != selectable)
+        {
             outline.enabled = false;
+            Debug.Log($"Selected: {SelectionManager.Instance.selectedObject}, this selectable: {selectable}");
+        }
+
+        partUI?.ClearPrompt();
+        Debug.Log($"Hover exit: {HoverText}");
     }
 
     public void OnClick()
     {
-        Debug.Log("Clicked " + partData.partName + " of type " + partData.partType);
-        // Place part on workbench
+        if (selectable == null || !selectable.CanInteract)
+            return;
+
+        if (SelectionManager.Instance.selectedObject != selectable)
+        {
+            SelectionManager.Instance.Deselect();
+        }
+
+        SelectionManager.Instance.SelectObject(selectable);
+        if (ModeManager.Instance.currentMode == GameMode.Workbench)
+        {
+            selectable.Highlight();
+        }
     }
 }

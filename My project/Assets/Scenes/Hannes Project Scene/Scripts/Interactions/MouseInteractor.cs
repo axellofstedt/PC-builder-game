@@ -22,9 +22,20 @@ public class MouseInteractor : MonoBehaviour
 
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, maxHoverDistance))
+        if (Physics.Raycast(ray, out RaycastHit hit, maxHoverDistance, ~0, QueryTriggerInteraction.Ignore))
         {
             IHoverable hoverable = hit.collider.GetComponentInParent<IHoverable>();
+            PCPartHover partHover = hit.collider.GetComponentInParent<PCPartHover>();
+
+            if (partHover != null && !partHover.hoverable)
+            {
+                if (currentHover != null)
+                    currentHover.OnHoverExit();
+                currentHover = null;
+                return;
+            }
+
+            if (partHover != null && partHover.partData.partType == PartType.Chassi && ModeManager.Instance.currentMode == GameMode.Workbench) return;
 
             if (hoverable != currentHover)
             {
@@ -40,8 +51,8 @@ public class MouseInteractor : MonoBehaviour
         }
         else
         {
-            // Om inget träffas inom maxDistance
-            currentHover?.OnHoverExit();
+            if (currentHover != null)
+                currentHover.OnHoverExit();
             currentHover = null;
         }
     }

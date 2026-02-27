@@ -118,6 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2101814681965109660}
   - component: {fileID: 5328890834583086277}
+  - component: {fileID: 1817261134168370902}
   m_Layer: 0
   m_Name: 650W 80+ Gold
   m_TagString: Untagged
@@ -154,4 +155,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partData: {fileID: 11400000, guid: 7994933aaba86e2488a75a33070f5d48, type: 2}
-  outline: {fileID: 0}
+--- !u!114 &1817261134168370902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9070613837766702982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partData: {fileID: 11400000, guid: 7994933aaba86e2488a75a33070f5d48, type: 2}
+  currentZone: {fileID: 0}
+  currentSnapPoint: {fileID: 0}

@@ -23,7 +23,7 @@ public class ModeManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private ModeUI[] modeUIs;
-    [SerializeField] private GameMode currentMode = GameMode.Player;
+    public GameMode currentMode = GameMode.Player;
 
     private void Awake()
     {

@@ -552,7 +552,6 @@ GameObject:
   - component: {fileID: 9139789331401179986}
   - component: {fileID: 160707822112117683}
   - component: {fileID: 571784754118438808}
-  - component: {fileID: 3533853083494984052}
   - component: {fileID: 9126857763518101221}
   - component: {fileID: 8740235674943779037}
   - component: {fileID: 6071141990344603402}
@@ -598,6 +597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partData: {fileID: 11400000, guid: d4689e0cd4d97f64988eedef8cbd6dcb, type: 2}
+  hoverable: 1
 --- !u!114 &571784754118438808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,22 +610,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hover: {fileID: 160707822112117683}
+  partData: {fileID: 11400000, guid: d4689e0cd4d97f64988eedef8cbd6dcb, type: 2}
   currentZone: {fileID: 0}
   currentSnapPoint: {fileID: 0}
---- !u!114 &3533853083494984052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 766511803835267477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64aeb88711fc83045b5f216489f254bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  partData: {fileID: 11400000, guid: d4689e0cd4d97f64988eedef8cbd6dcb, type: 2}
 --- !u!23 &9126857763518101221
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1241,7 +1228,7 @@ Transform:
   m_GameObject: {fileID: 2420474830966945241}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.483, y: 0.688, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1461,6 +1448,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2480926713989562177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1075940318565042462}
+  m_Layer: 0
+  m_Name: Snap_Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1075940318565042462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2480926713989562177}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 836014090791549715}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2573571593365939200
 GameObject:
   m_ObjectHideFlags: 0
@@ -4323,7 +4341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b373f067dc771e44819e30b734bc0da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapPoint: {fileID: 0}
+  snapPoint: {fileID: 8167425696059127403}
   occupied: 0
 --- !u!65 &6147602132281507772
 BoxCollider:
@@ -4848,6 +4866,7 @@ Transform:
   - {fileID: 3318840674707976549}
   - {fileID: 5648964834889347570}
   - {fileID: 7916329192641311878}
+  - {fileID: 1075940318565042462}
   m_Father: {fileID: 9139789331401179986}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &571231078378731194
@@ -5971,7 +5990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b373f067dc771e44819e30b734bc0da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapPoint: {fileID: 0}
+  snapPoint: {fileID: 173370712844245995}
   occupied: 0
 --- !u!1 &7470388302664263310
 GameObject:
@@ -6044,7 +6063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b373f067dc771e44819e30b734bc0da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapPoint: {fileID: 0}
+  snapPoint: {fileID: 346771967494155346}
   occupied: 0
 --- !u!1 &7488595699290988379
 GameObject:
@@ -6893,7 +6912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b373f067dc771e44819e30b734bc0da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapPoint: {fileID: 0}
+  snapPoint: {fileID: 6034179350891645930}
   occupied: 0
 --- !u!65 &3601875371817108205
 BoxCollider:
