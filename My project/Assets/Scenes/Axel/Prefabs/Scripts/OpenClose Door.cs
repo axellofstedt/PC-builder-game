@@ -47,6 +47,7 @@ public class OpenCloseDoor : MonoBehaviour
     {
         if (animator.GetBool("isOpen"))
         {
+            Debug.Log("H컴컴컴컴컴R");
             animator.SetBool("isOpen", false);
             doorSoundEffects.PlayCloseSound();
             animator.SetTrigger("close");

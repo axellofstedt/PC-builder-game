@@ -221,4 +221,11 @@ public class SelectionManager : MonoBehaviour
         currentChassi = null;
         cpuPlaced = false;
     }
+
+    /*public void DonePressed()
+    {
+        Debug.Log("Done Pressed");
+        chassiDoor?.closeDoor();
+        motherboardDoor?.closeDoor();
+    }*/
 }
