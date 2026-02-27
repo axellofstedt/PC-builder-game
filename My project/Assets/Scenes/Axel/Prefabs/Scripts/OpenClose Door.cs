@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class OpenCloseDoor : MonoBehaviour
 {
-    float timer = 0.0f;
+    //float timer = 0.0f;
     Animator animator;
-    GameObject chassi;
+    GameObject door;
     bool doorOpen = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
-        chassi = transform.parent.parent.parent.gameObject;
+        door = transform.parent.parent.parent.gameObject;
         animator = GetComponent<Animator>();
     }
 
@@ -31,12 +31,12 @@ public class OpenCloseDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(chassi.GetComponent<Selectable>().currentZone.zoneType == ZoneType.Workbench && doorOpen == false)
+        if(door.GetComponent<Selectable>().currentZone.zoneType == ZoneType.Workbench && doorOpen == false)
         {
             interactDoor();
             doorOpen = true;
         }
-        if (chassi.GetComponent<Selectable>().currentZone.zoneType != ZoneType.Workbench && doorOpen == true)
+        if (door.GetComponent<Selectable>().currentZone.zoneType != ZoneType.Workbench && doorOpen == true)
         {
             interactDoor();
             doorOpen = false;

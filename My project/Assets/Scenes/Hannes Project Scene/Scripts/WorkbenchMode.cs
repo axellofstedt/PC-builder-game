@@ -56,7 +56,6 @@ public class WorkbenchMode : MonoBehaviour, IInteractable
     public void Escape()
     {
         ModeManager.Instance.SetMode(GameMode.Player);
-
         // Sätt på Interaction Trigger
         GetComponent<BoxCollider>().enabled = true;
     }
