@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 2952759469565456713}
   - component: {fileID: 6359019242272735155}
   - component: {fileID: 3762271298599090985}
-  - component: {fileID: 5891196441461352958}
-  - component: {fileID: 6476723110438361987}
   m_Layer: 0
   m_Name: hinge
   m_TagString: Untagged
@@ -137,34 +135,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5891196441461352958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1254309236152250659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dd8144cf2cd6104d99c090be204b41b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorType: 0
-  doorSoundEffects: {fileID: 6307863695459069347}
-  animator: {fileID: 3762271298599090985}
---- !u!114 &6476723110438361987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1254309236152250659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6f96b04cca8b1a4aa2ef563a227df42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptAnchor: {fileID: 3794153544142565980}
 --- !u!1 &1358607190932885800
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +343,8 @@ GameObject:
   - component: {fileID: 2832294042261976333}
   - component: {fileID: 4257477051538966265}
   - component: {fileID: 5358263585617749606}
-  - component: {fileID: 6307863695459069347}
+  - component: {fileID: 8151881273202120140}
+  - component: {fileID: 5535039919970480828}
   m_Layer: 0
   m_Name: glass door
   m_TagString: Untagged
@@ -547,7 +518,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6307863695459069347
+--- !u!114 &8151881273202120140
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -556,12 +527,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 2845551103238842078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6844ab34c5866264789aa01811cbd147, type: 3}
+  m_Script: {fileID: 11500000, guid: 0dd8144cf2cd6104d99c090be204b41b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 5358263585617749606}
-  openClip: {fileID: 8300000, guid: 3efcaf9f56452c946a2f7cb74d0aada6, type: 3}
-  closeClip: {fileID: 8300000, guid: 3efcaf9f56452c946a2f7cb74d0aada6, type: 3}
+  doorType: 0
+  animator: {fileID: 3762271298599090985}
+  openSound: {fileID: 8300000, guid: 3efcaf9f56452c946a2f7cb74d0aada6, type: 3}
+  closeSound: {fileID: 8300000, guid: 3efcaf9f56452c946a2f7cb74d0aada6, type: 3}
+  doorSource: {fileID: 5358263585617749606}
+--- !u!114 &5535039919970480828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2845551103238842078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6f96b04cca8b1a4aa2ef563a227df42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptAnchor: {fileID: 3794153544142565980}
+  doorScript: {fileID: 8151881273202120140}
 --- !u!1 &5827743233122259640
 GameObject:
   m_ObjectHideFlags: 0

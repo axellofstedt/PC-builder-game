@@ -13,10 +13,11 @@ public enum DoorType
 public class OpenCloseDoor : MonoBehaviour
 {
     [SerializeField] DoorType doorType;
-    // [SerializeField] DoorSoundEffects doorSoundEffects;
     [SerializeField] Animator animator;
+    [SerializeField] AudioClip openSound;
+    [SerializeField] AudioClip closeSound;
+    [SerializeField] AudioSource doorSource;
     //float timer = 0.0f;
-    GameObject part;
     bool doorOpen = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,15 +32,17 @@ public class OpenCloseDoor : MonoBehaviour
     {
         if (animator.GetBool("isOpen"))
         {
-            animator.SetBool("isOpen", false);
-            // doorSoundEffects.PlayCloseSound();
+            AudioManager.Instance.Play3DSound(doorSource, closeSound);
             animator.SetTrigger("close");
+            animator.SetBool("isOpen", false);
+            return;
         }
         else
         {
-            animator.SetBool("isOpen", true);
-            // doorSoundEffects.PlayOpenSound();
+            AudioManager.Instance.Play3DSound(doorSource, openSound);
             animator.SetTrigger("open");
+            animator.SetBool("isOpen", true);
+            return;
         }
     }
 
@@ -47,10 +50,9 @@ public class OpenCloseDoor : MonoBehaviour
     {
         if (animator.GetBool("isOpen"))
         {
-            Debug.Log("H컴컴컴컴컴R");
-            animator.SetBool("isOpen", false);
-            // doorSoundEffects.PlayCloseSound();
+            AudioManager.Instance.Play3DSound(doorSource, closeSound);
             animator.SetTrigger("close");
+            animator.SetBool("isOpen", false);
         }
     }
 
@@ -58,9 +60,9 @@ public class OpenCloseDoor : MonoBehaviour
     {
         if (!animator.GetBool("isOpen"))
         {
-            animator.SetBool("isOpen", true);
-            // doorSoundEffects.PlayOpenSound();
+            AudioManager.Instance.Play3DSound(doorSource, openSound);
             animator.SetTrigger("open");
+            animator.SetBool("isOpen", true);
         }
     }
 }

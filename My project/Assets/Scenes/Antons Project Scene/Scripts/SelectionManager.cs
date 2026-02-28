@@ -35,6 +35,7 @@ public class SelectionManager : MonoBehaviour
         if (obj.currentZone.zoneType == ZoneType.Shelf)
         {
             MoveToWorkbench(obj);
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.pickupClip);
             // playerSoundEffects.PlayPickUpSound();
             return;
         }
@@ -42,6 +43,7 @@ public class SelectionManager : MonoBehaviour
         if (obj.currentZone.zoneType == ZoneType.Workbench &&
             ModeManager.Instance.currentMode == GameMode.Workbench)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.pickupClip);
             // playerSoundEffects.PlayPickUpSound();
             selectedObject = obj;
         }
@@ -74,7 +76,6 @@ public class SelectionManager : MonoBehaviour
             // Open the chassi door when placing it on the workbench
             chassiDoor = obj.GetComponentInChildren<OpenCloseDoor>();
             chassiDoor.openDoor();
-
             // Add the chassi to the current build list
             currentSelectableBuild.Add(obj);
             currentChassi = obj;
@@ -187,7 +188,7 @@ public class SelectionManager : MonoBehaviour
         // currentBuild.Add(selectedObject.GetComponent<PCPart>());
         Debug.Log($"Adding {selectedObject.PartName} to currentSelectableBuild");
         currentSelectableBuild.Add(selectedObject);
-
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.placeClip);
         // playerSoundEffects.PlayPlaceSound();
         selectedObject = null;
     }
@@ -226,10 +227,10 @@ public class SelectionManager : MonoBehaviour
         cpuPlaced = false;
     }
 
-    /*public void DonePressed()
+    public void DonePressed()
     {
         Debug.Log("Done Pressed");
         chassiDoor?.closeDoor();
         motherboardDoor?.closeDoor();
-    }*/
+    }
 }

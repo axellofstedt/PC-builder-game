@@ -110,6 +110,7 @@ public class CheckoutMode : MonoBehaviour, IInteractable
 
         SelectionManager selectionManager = SelectionManager.Instance;
         Selectable chassi = selectionManager.currentChassi;
+        chassi.GetComponent<OpenCloseDoor>().closeDoor();
 
         // Place PC at chassi position and rotation
         pc.transform.SetPositionAndRotation(chassi.transform.position, chassi.transform.rotation);
