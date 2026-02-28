@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorType: 1
+  animator: {fileID: 7613658198289802941}
 --- !u!1 &366999074165490069
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public enum DoorType
 public class OpenCloseDoor : MonoBehaviour
 {
     [SerializeField] DoorType doorType;
-    [SerializeField] DoorSoundEffects doorSoundEffects;
+    // [SerializeField] DoorSoundEffects doorSoundEffects;
     [SerializeField] Animator animator;
     //float timer = 0.0f;
     GameObject part;
@@ -32,13 +32,13 @@ public class OpenCloseDoor : MonoBehaviour
         if (animator.GetBool("isOpen"))
         {
             animator.SetBool("isOpen", false);
-            doorSoundEffects.PlayCloseSound();
+            // doorSoundEffects.PlayCloseSound();
             animator.SetTrigger("close");
         }
         else
         {
             animator.SetBool("isOpen", true);
-            doorSoundEffects.PlayOpenSound();
+            // doorSoundEffects.PlayOpenSound();
             animator.SetTrigger("open");
         }
     }
@@ -49,7 +49,7 @@ public class OpenCloseDoor : MonoBehaviour
         {
             Debug.Log("H컴컴컴컴컴R");
             animator.SetBool("isOpen", false);
-            doorSoundEffects.PlayCloseSound();
+            // doorSoundEffects.PlayCloseSound();
             animator.SetTrigger("close");
         }
     }
@@ -59,7 +59,7 @@ public class OpenCloseDoor : MonoBehaviour
         if (!animator.GetBool("isOpen"))
         {
             animator.SetBool("isOpen", true);
-            doorSoundEffects.PlayOpenSound();
+            // doorSoundEffects.PlayOpenSound();
             animator.SetTrigger("open");
         }
     }
