@@ -21,21 +21,21 @@ public class RewardSystem : MonoBehaviour
         return new RewardResult(timeScore, accuracyScore, finalScore, stars);
     }
 
-    float CalculateTimeScore(float actualTime)
+    private float CalculateTimeScore(float actualTime)
     {
         if (maxAllowedTime <= 0f) return 0;
         float score = 1f - (actualTime / maxAllowedTime);
         return Mathf.Clamp01(score);
     }
 
-    float CalculateAccuracyScore(int correctComponents)
+    private float CalculateAccuracyScore(int correctComponents)
     {
         if (totalComponents == 0) return 0;
         float score = (float)correctComponents / totalComponents;
         return Mathf.Clamp01(score);
     }
 
-    int CalculateStars(float score)
+    private int CalculateStars(float score)
     {
         if (score >= 0.9f) return 5;
         if (score >= 0.75f) return 4;

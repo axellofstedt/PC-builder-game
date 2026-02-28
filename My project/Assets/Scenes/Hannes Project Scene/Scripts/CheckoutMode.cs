@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CheckoutMode : MonoBehaviour, IInteractable
@@ -14,7 +15,6 @@ public class CheckoutMode : MonoBehaviour, IInteractable
     public Transform ChassiTrans;
 
     private float orderTimer = 0f;
-    private int correctComponents = 0;
     private List<PCPart> currentOrder;
 
 
@@ -68,7 +68,9 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         currentCheckoutState = CheckoutState.Complete;
 
         // RewardSystem evaluates the order based on time taken and accuracy of the order
-        correctComponents = 9; // TODO: Implement accuracy calculation based on the currentOrder and the player's assembled PC
+        List<Selectable> builtPC = SelectionManager.Instance.currentSelectableBuild;
+        List<PCPart> orderedPC = currentOrder;
+        int correctComponents = builtPC.Count(built => orderedPC.Any(order => order.partName == built.PartName));
         RewardResult orderReward = rewardSystem.Evaluate(orderTimer, correctComponents);
         Debug.Log($"Time Score: {orderReward.timeScore}, Accuracy Score: {orderReward.accuracyScore}, Final Score: {orderReward.finalScore}, Stars: {orderReward.stars}");
 

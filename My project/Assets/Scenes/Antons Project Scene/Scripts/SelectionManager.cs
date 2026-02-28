@@ -10,16 +10,17 @@ public class SelectionManager : MonoBehaviour
 
     [Header("Workbench")]
     [SerializeField] private PlacementZone workbenchZone;
-    [SerializeField] PlayerSoundEffects playerSoundEffects;
+    // [SerializeField] private PlayerSoundEffects playerSoundEffects;
 
     public Selectable selectedObject;
     public bool cpuPlaced = false;
 
-    [HideInInspector] public List<PCPart> currentBuild = new List<PCPart>();
+    // [HideInInspector] public List<PCPart> currentBuild = new List<PCPart>();
     [HideInInspector] public List<Selectable> currentSelectableBuild = new List<Selectable>();
     [HideInInspector] public Selectable currentChassi;
-    OpenCloseDoor chassiDoor;
-    OpenCloseDoor motherboardDoor;
+    
+    private OpenCloseDoor chassiDoor;
+    private OpenCloseDoor motherboardDoor;
 
     void Awake()
     {
@@ -34,14 +35,14 @@ public class SelectionManager : MonoBehaviour
         if (obj.currentZone.zoneType == ZoneType.Shelf)
         {
             MoveToWorkbench(obj);
-            playerSoundEffects.PlayPickUpSound();
+            // playerSoundEffects.PlayPickUpSound();
             return;
         }
 
         if (obj.currentZone.zoneType == ZoneType.Workbench &&
             ModeManager.Instance.currentMode == GameMode.Workbench)
         {
-            playerSoundEffects.PlayPickUpSound();
+            // playerSoundEffects.PlayPickUpSound();
             selectedObject = obj;
         }
     }
@@ -61,21 +62,24 @@ public class SelectionManager : MonoBehaviour
 
         obj.currentZone = workbenchZone;
         obj.currentSnapPoint = slot;
+
         if(obj.PartType == PartType.Motherboard)
         {
-            motherboardDoor = obj.GetComponent<OpenCloseDoor>();
+            motherboardDoor = obj.GetComponentInChildren<OpenCloseDoor>();
+            Debug.Log(motherboardDoor);
             motherboardDoor.openDoor();
         }
-        if(obj.PartType == PartType.Chassi)
+        else if (obj.PartType == PartType.Chassi)
         {
-            chassiDoor = obj.GetComponent<OpenCloseDoor>();
+            // Open the chassi door when placing it on the workbench
+            chassiDoor = obj.GetComponentInChildren<OpenCloseDoor>();
             chassiDoor.openDoor();
-        }
-        if (obj.PartType == PartType.Chassi)
-        {
+
+            // Add the chassi to the current build list
             currentSelectableBuild.Add(obj);
             currentChassi = obj;
         }
+
         // Lås tills workbench mode
         obj.LockInteraction();
     }
@@ -184,7 +188,7 @@ public class SelectionManager : MonoBehaviour
         Debug.Log($"Adding {selectedObject.PartName} to currentSelectableBuild");
         currentSelectableBuild.Add(selectedObject);
 
-        playerSoundEffects.PlayPlaceSound();
+        // playerSoundEffects.PlayPlaceSound();
         selectedObject = null;
     }
 
@@ -216,7 +220,7 @@ public class SelectionManager : MonoBehaviour
 
     public void ResetBuild()
     {
-        currentBuild.Clear();
+        // currentBuild.Clear();
         currentSelectableBuild.Clear();
         currentChassi = null;
         cpuPlaced = false;
