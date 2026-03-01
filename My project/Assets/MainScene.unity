@@ -2844,6 +2844,17 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!114 &412242942 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6053390502710918887, guid: 086dd464ece477e45b2b2d8dca771253, type: 3}
+  m_PrefabInstance: {fileID: 470959649}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &425233474 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 167516691079258343, guid: b29a908203f044a4d92ee48ba726af2c, type: 3}
@@ -3955,6 +3966,10 @@ PrefabInstance:
       propertyPath: driveText
       value: 
       objectReference: {fileID: 237314235}
+    - target: {fileID: 7694479547704584822, guid: 086dd464ece477e45b2b2d8dca771253, type: 3}
+      propertyPath: DoneButton
+      value: 
+      objectReference: {fileID: 412242942}
     - target: {fileID: 7694479547704584822, guid: 086dd464ece477e45b2b2d8dca771253, type: 3}
       propertyPath: OrderImage
       value: 
@@ -8423,7 +8438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptAnchor: {fileID: 1608389037}
-  CheckoutUI: {fileID: 1688607538}
+  checkoutUI: {fileID: 1688607538}
   rewardSystem: {fileID: 850080286}
   ChassiTrans: {fileID: 4675971}
 --- !u!114 &850080286

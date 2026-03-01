@@ -10,6 +10,9 @@ public class WorkbenchUI : MonoBehaviour
     public Image orderImage;
     public TMP_Text orderHeader;
 
+    [Header("Buttons")]
+    public Button DoneButton;
+
     [Header("Part Text Fields")]
     public TMP_Text gpuText;
     public TMP_Text cpuText;
@@ -26,7 +29,7 @@ public class WorkbenchUI : MonoBehaviour
         List<PCPart> order = OrderManager.Instance.currentOrder;
         if (order != null && order.Count > 0)
         {
-            // Uppdatera texten för varje del
+            // Uppdatera texten fï¿½r varje del
             foreach (PCPart part in order)
             {
                 switch (part.partType)
@@ -74,5 +77,10 @@ public class WorkbenchUI : MonoBehaviour
         {
             orderImage.gameObject.SetActive(false);
         }
+    }
+
+    public void SetButtoninteraction(bool set)
+    {
+        DoneButton.interactable = set;
     }
 }
