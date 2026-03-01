@@ -163,6 +163,13 @@ public class SelectionManager : MonoBehaviour
         if (!hit.collider.CompareTag(tag)) return false;
 
         PlaceAtSnap(hit);
+
+        if (BeginnerModeManager.instance != null)
+        {
+            BoxCollider slot = hit.collider as BoxCollider;
+            BeginnerModeManager.instance.MarkSlotAsUsed(slot);
+        }
+
         return true;
     }
 
