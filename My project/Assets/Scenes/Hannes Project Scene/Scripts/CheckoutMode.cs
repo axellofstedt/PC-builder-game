@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CheckoutMode : MonoBehaviour, IInteractable
 {
@@ -10,12 +11,15 @@ public class CheckoutMode : MonoBehaviour, IInteractable
     public string PromptText => "E - Checkout Mode";
     public bool Interactable { get; set; } = true;
 
-    public CheckoutUI CheckoutUI;
+    public CheckoutUI checkoutUI;
     public RewardSystem rewardSystem;
     public Transform ChassiTrans;
 
     private float orderTimer = 0f;
     private List<PCPart> currentOrder;
+
+
+    private GameObject CheckoutPC;
 
 
     enum CheckoutState
@@ -57,14 +61,18 @@ public class CheckoutMode : MonoBehaviour, IInteractable
     {
         // Generate random order and display it on the UI
         currentOrder = OrderManager.Instance.GetNewOrder();
-        CheckoutUI.TakeOrder(currentOrder);
+        checkoutUI.TakeOrder(currentOrder);
+
         currentCheckoutState = CheckoutState.Order;
         BotSpawner.Instance.GetFrontCustomerMovement().SetOrderingState();
+
+        // Skip if pc is ready
+        if (CheckoutPC != null) checkoutUI.PCReady();
     }
 
     public void CompleteOrder()
     {
-        CheckoutUI.CompleteOrder();
+        checkoutUI.CompleteOrder();
         currentCheckoutState = CheckoutState.Complete;
 
         // RewardSystem evaluates the order based on time taken and accuracy of the order
@@ -73,6 +81,8 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         int correctComponents = builtPC.Count(built => orderedPC.Any(order => order.partName == built.PartName));
         RewardResult orderReward = rewardSystem.Evaluate(orderTimer, correctComponents);
         Debug.Log($"Time Score: {orderReward.timeScore}, Accuracy Score: {orderReward.accuracyScore}, Final Score: {orderReward.finalScore}, Stars: {orderReward.stars}");
+        
+        ShowRewardScreen();
 
         // Timer, button or effect to show completion before resetting to waiting
         BotSpawner.Instance.RemoveFrontBot();
@@ -85,17 +95,18 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         orderTimer = 0f;
 
         // Destroy PC
-        GameObject pc = GameObject.Find("PC");
-        Destroy(pc);
+
+        Destroy(CheckoutPC);
 
         // Reset build
         SelectionManager.Instance.ResetBuild();
+        CheckoutPC = null;
 
     }
 
     public void NewCustomer()
     {
-        CheckoutUI.NewCustomer();
+        checkoutUI.NewCustomer();
         currentCheckoutState = CheckoutState.ReadyForOrder;
     }
 
@@ -106,20 +117,23 @@ public class CheckoutMode : MonoBehaviour, IInteractable
 
     public void PlacePCOnCheckout()
     {
-        GameObject pc = new GameObject("PC");
+
+        CheckoutPC = new GameObject("PC");
 
         SelectionManager selectionManager = SelectionManager.Instance;
         Selectable chassi = selectionManager.currentChassi;
         chassi.GetComponent<OpenCloseDoor>().closeDoor();
 
         // Place PC at chassi position and rotation
-        pc.transform.SetPositionAndRotation(chassi.transform.position, chassi.transform.rotation);
+
+        CheckoutPC.transform.SetPositionAndRotation(chassi.transform.position, chassi.transform.rotation);
 
         // Parent all selected objects to the PC
         foreach (Selectable obj in selectionManager.currentSelectableBuild)
         {
             Debug.Log($"Placing {obj.PartName} in PC");
-            obj.transform.SetParent(pc.transform, true);
+
+            obj.transform.SetParent(CheckoutPC.transform, true);
             
             // Remove hover interaction from chassi
             if (obj.PartType == PartType.Chassi) obj.GetComponent<PCPartHover>().hoverable = false;
@@ -129,15 +143,47 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         Renderer r = chassi.GetComponentInChildren<Renderer>();
         float bottomOffset = r.bounds.extents.y;
 
-        pc.transform.position += Vector3.up * bottomOffset;
+        CheckoutPC.transform.position += Vector3.up * bottomOffset;
 
         // Move to checkout
-        pc.transform.SetPositionAndRotation(ChassiTrans.position + Vector3.up * bottomOffset, ChassiTrans.rotation);
+        CheckoutPC.transform.SetPositionAndRotation(ChassiTrans.position + Vector3.up * bottomOffset, ChassiTrans.rotation);
 
         // Update ChecoutUI
-        CheckoutUI.PCReady();
+        if (currentCheckoutState == CheckoutState.Order) checkoutUI.PCReady();
+
+        // Escape WorkBenchMode
+        Escape();
     }
 
+    // Show reward screen with stars and scores
+    private void ShowRewardScreen()
+    {
+        checkoutUI.SetRewardPanel(true);
+
+        // RewardSystem evaluates the order based on time taken and accuracy of the order
+        List<Selectable> builtPC = SelectionManager.Instance.currentSelectableBuild;
+        List<PCPart> orderedPC = currentOrder;
+        int correctComponents = 0;
+        foreach (Selectable built in builtPC)
+        {
+            foreach (PCPart order in orderedPC)
+            {
+                if (built.PartName == order.partName)
+                {
+                    correctComponents++;
+                    break;
+                }
+            }
+        }
+        Debug.Log($"Correct Components: {correctComponents} out of {orderedPC.Count}");
+
+        RewardResult orderReward = rewardSystem.Evaluate(orderTimer, correctComponents);
+        Debug.Log($"Time Score: {orderReward.timeScore}, Accuracy Score: {orderReward.accuracyScore}, Final Score: {orderReward.finalScore}, Stars: {orderReward.stars}");
+
+        // Display the reward result on the UI
+        StartCoroutine(checkoutUI.ShowStats(orderReward));
+
+    }
 }
 
 
