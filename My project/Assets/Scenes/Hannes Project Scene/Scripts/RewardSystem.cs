@@ -18,7 +18,7 @@ public class RewardSystem : MonoBehaviour
         float finalScore = (timeScore + accuracyScore) / 2f;
         int stars = CalculateStars(finalScore);
 
-        return new RewardResult(timeScore, accuracyScore, finalScore, stars);
+        return new RewardResult(totalComponents, correctComponents, actualTime, timeScore, accuracyScore, finalScore, stars);
     }
 
     private float CalculateTimeScore(float actualTime)
@@ -49,14 +49,20 @@ public class RewardSystem : MonoBehaviour
 // Simple data container
 public struct RewardResult
 {
+    public int totalComponents;
+    public int correctComponents;
+    public float time;
     public float timeScore;
     public float accuracyScore;
     public float finalScore;
     public int stars;
 
-    public RewardResult(float time, float accuracy, float final, int stars)
+    public RewardResult(int totalComp, int correctComp, float time, float timeScore, float accuracy, float final, int stars)
     {
-        this.timeScore = time;
+        this.totalComponents = totalComp;
+        this.correctComponents = correctComp;
+        this.time = time;
+        this.timeScore = timeScore;
         this.accuracyScore = accuracy;
         this.finalScore = final;
         this.stars = stars;
