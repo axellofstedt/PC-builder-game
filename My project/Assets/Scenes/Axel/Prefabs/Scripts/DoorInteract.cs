@@ -8,12 +8,12 @@ public class DoorInteract : MonoBehaviour, IInteractable
     public string PromptText => "E - Open/Close Door";
     public bool Interactable { get; set; } = true;
 
-    OpenCloseDoor doorScript;
+    [SerializeField] OpenCloseDoor doorScript;
     public void Interact()
     {
-        OpenCloseDoor doorScript = GetComponent<OpenCloseDoor>();
         if (doorScript != null)
         {
+            Debug.Log("INTERACT");
             doorScript.interactDoor();
         }
     }

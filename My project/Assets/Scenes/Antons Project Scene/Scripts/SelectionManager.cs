@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using TMPro;
+using NUnit.Framework;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class SelectionManager : MonoBehaviour
 {
@@ -7,10 +10,17 @@ public class SelectionManager : MonoBehaviour
 
     [Header("Workbench")]
     [SerializeField] private PlacementZone workbenchZone;
+    // [SerializeField] private PlayerSoundEffects playerSoundEffects;
 
     public Selectable selectedObject;
     public bool cpuPlaced = false;
 
+    // [HideInInspector] public List<PCPart> currentBuild = new List<PCPart>();
+    [HideInInspector] public List<Selectable> currentSelectableBuild = new List<Selectable>();
+    [HideInInspector] public Selectable currentChassi;
+    
+    private OpenCloseDoor chassiDoor;
+    private OpenCloseDoor motherboardDoor;
 
     void Awake()
     {
@@ -25,12 +35,16 @@ public class SelectionManager : MonoBehaviour
         if (obj.currentZone.zoneType == ZoneType.Shelf)
         {
             MoveToWorkbench(obj);
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.pickupClip);
+            // playerSoundEffects.PlayPickUpSound();
             return;
         }
 
         if (obj.currentZone.zoneType == ZoneType.Workbench &&
             ModeManager.Instance.currentMode == GameMode.Workbench)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.pickupClip);
+            // playerSoundEffects.PlayPickUpSound();
             selectedObject = obj;
         }
     }
@@ -51,11 +65,27 @@ public class SelectionManager : MonoBehaviour
         obj.currentZone = workbenchZone;
         obj.currentSnapPoint = slot;
 
+        if(obj.PartType == PartType.Motherboard)
+        {
+            motherboardDoor = obj.GetComponentInChildren<OpenCloseDoor>();
+            Debug.Log(motherboardDoor);
+            motherboardDoor.openDoor();
+        }
+        else if (obj.PartType == PartType.Chassi)
+        {
+            // Open the chassi door when placing it on the workbench
+            chassiDoor = obj.GetComponentInChildren<OpenCloseDoor>();
+            chassiDoor.openDoor();
+            // Add the chassi to the current build list
+            currentSelectableBuild.Add(obj);
+            currentChassi = obj;
+        }
+
         // Lås tills workbench mode
         obj.LockInteraction();
     }
 
-    void PlaceOnSurface(Selectable obj, Vector3 surfacePosition)
+    public void PlaceOnSurface(Selectable obj, Vector3 surfacePosition)
     {
         Renderer r = obj.GetComponentInChildren<Renderer>();
         if (r == null) return;
@@ -70,6 +100,7 @@ public class SelectionManager : MonoBehaviour
 
     public void UnlockWorkbenchObjects()
     {
+        chassiDoor?.openDoor();
         foreach (Selectable s in FindObjectsByType<Selectable>(FindObjectsSortMode.None))
         {
             if (s.currentZone.zoneType == ZoneType.Workbench)
@@ -123,6 +154,7 @@ public class SelectionManager : MonoBehaviour
 
         flag = true;
         PlaceAtSnap(hit);
+        motherboardDoor?.GetComponent<OpenCloseDoor>().closeDoor();
         return true;
     }
 
@@ -140,6 +172,7 @@ public class SelectionManager : MonoBehaviour
         if (snap == null) return;
 
         Debug.Log($"{selectedObject.PartType} placed: {selectedObject.PartName} on {hit.collider.name} at: {snap}");
+        
         PlaceSelectedObject(snap);
     }
 
@@ -151,6 +184,12 @@ public class SelectionManager : MonoBehaviour
         selectedObject.RemoveHighlight();
         selectedObject.GetComponent<PCPartHover>().hoverable = false;
 
+        // Make a list of items in current pc build
+        // currentBuild.Add(selectedObject.GetComponent<PCPart>());
+        Debug.Log($"Adding {selectedObject.PartName} to currentSelectableBuild");
+        currentSelectableBuild.Add(selectedObject);
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.placeClip);
+        // playerSoundEffects.PlayPlaceSound();
         selectedObject = null;
     }
 
@@ -178,5 +217,20 @@ public class SelectionManager : MonoBehaviour
     {
         if (selectedObject != null) selectedObject.RemoveHighlight();
         selectedObject = null;
+    }
+
+    public void ResetBuild()
+    {
+        // currentBuild.Clear();
+        currentSelectableBuild.Clear();
+        currentChassi = null;
+        cpuPlaced = false;
+    }
+
+    public void DonePressed()
+    {
+        Debug.Log("Done Pressed");
+        chassiDoor?.closeDoor();
+        motherboardDoor?.closeDoor();
     }
 }
