@@ -47,7 +47,7 @@ public class Interactor : MonoBehaviour
         IInteractable hitInteractable = null;
 
         Ray ray = new Ray(interactorSource.position, interactorSource.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactorRange))
+        if (Physics.Raycast(ray, out RaycastHit hit, interactorRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
         {
             hitInteractable = hit.collider.GetComponentInParent<IInteractable>();
         }
@@ -68,7 +68,6 @@ public class Interactor : MonoBehaviour
             Input.GetKeyDown(currentInteractable.InteractKey))
         {
             currentInteractable.Interact();
-
             // Interactor animation
             // fPCharAnims.InteractAnimation();
 

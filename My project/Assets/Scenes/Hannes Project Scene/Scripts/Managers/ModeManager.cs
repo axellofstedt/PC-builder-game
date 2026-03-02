@@ -16,6 +16,7 @@ public class ModeManager : MonoBehaviour
     public FirstPersonController playerController;
     public Interactor playerInteractor;
     public GameObject crosshair;
+    public PlayerVisibility playerVisibility;
 
     [Header("Cameras")]
     public Camera checkoutCamera;
@@ -23,7 +24,7 @@ public class ModeManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private ModeUI[] modeUIs;
-    [SerializeField] private GameMode currentMode = GameMode.Player;
+    public GameMode currentMode = GameMode.Player;
 
     private void Awake()
     {
@@ -80,6 +81,7 @@ public class ModeManager : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        playerVisibility.SetVisibility(true);
 
         playerInteractor?.ShowLastPrompt();
     }
@@ -93,6 +95,7 @@ public class ModeManager : MonoBehaviour
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        playerVisibility.SetVisibility(false);
 
         playerInteractor?.ClearPrompt();
     }

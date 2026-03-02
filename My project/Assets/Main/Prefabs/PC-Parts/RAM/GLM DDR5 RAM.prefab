@@ -118,6 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4176967171589403397}
   - component: {fileID: 6679819068481765005}
+  - component: {fileID: 871931984410251337}
   m_Layer: 0
   m_Name: GLM DDR5 RAM
   m_TagString: Untagged
@@ -155,7 +156,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partData: {fileID: 11400000, guid: 7483fb6bf7972a141952390291e4b5e8, type: 2}
-  outline: {fileID: 0}
+--- !u!114 &871931984410251337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5986660427755558698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partData: {fileID: 11400000, guid: 7483fb6bf7972a141952390291e4b5e8, type: 2}
+  currentZone: {fileID: 0}
+  currentSnapPoint: {fileID: 0}
 --- !u!1 &7057872028797385060
 GameObject:
   m_ObjectHideFlags: 0

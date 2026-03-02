@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7380863712733180854}
   - component: {fileID: 6800273182808691482}
+  - component: {fileID: 8827844900227282750}
   m_Layer: 0
   m_Name: LAVIDA 2005eX
   m_TagString: Untagged
@@ -47,7 +48,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partData: {fileID: 11400000, guid: 00e938276e8ff004485c71f178ae9544, type: 2}
-  outline: {fileID: 0}
+--- !u!114 &8827844900227282750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987808466775227611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b596041a52d66c9478eea932d31c135e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partData: {fileID: 11400000, guid: 00e938276e8ff004485c71f178ae9544, type: 2}
+  currentZone: {fileID: 0}
+  currentSnapPoint: {fileID: 0}
 --- !u!1 &2892600833215900535
 GameObject:
   m_ObjectHideFlags: 0

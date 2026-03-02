@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -5,11 +6,16 @@ using UnityEngine.UI;
 
 public class CheckoutUI : MonoBehaviour
 {
+    [Header("Buttons")]
     public Button takeOrderButton;
     public Button closeOrderButton;
-    public Image orderImage;
+    public Button giveOrderButton;
 
-    // Text fields for each part type
+    [Header("Order Image & Header")]
+    public Image orderImage;
+    public TMP_Text orderHeader;
+
+    [Header("Part Text Fields")]
     public TMP_Text gpuText;
     public TMP_Text cpuText;
     public TMP_Text ramText;
@@ -19,6 +25,16 @@ public class CheckoutUI : MonoBehaviour
     public TMP_Text chassiText;
     public TMP_Text driveText;
     public TMP_Text fanText;
+
+    [Header("Reward Screen")]
+    public GameObject rewardPanel;
+    public TMP_Text timeText;
+    public TMP_Text componentsText;
+
+    [Header("Stars")]
+    [SerializeField] private Image[] starImages;
+    [SerializeField] private Sprite filledStar;
+    [SerializeField] private Sprite emptyStar;
 
     public void NewCustomer()
     {
@@ -77,10 +93,52 @@ public class CheckoutUI : MonoBehaviour
         orderImage.gameObject.SetActive(true);
     }
 
+    public void PCReady()
+    {
+        closeOrderButton.gameObject.SetActive(false);
+        giveOrderButton.gameObject.SetActive(true);
+    }
+
     public void CompleteOrder()
     {
         takeOrderButton.gameObject.SetActive(false);
         closeOrderButton.gameObject.SetActive(false);
+        giveOrderButton.gameObject.SetActive(false);
         orderImage.gameObject.SetActive(false);
+    }
+
+    // Reward Screen UI
+    
+    public void SetRewardPanel(bool set)
+    {
+        rewardPanel.SetActive(set);
+    }
+
+    public IEnumerator ShowStats(RewardResult orderReward)
+    {
+        yield return new WaitForSeconds(1.7f);
+        timeText.text = $"Time: {orderReward.time:F2} seconds";
+
+        yield return new WaitForSeconds(1f);
+        componentsText.text = $"Correct components: {orderReward.correctComponents} / {orderReward.totalComponents}";
+
+        yield return new WaitForSeconds(.8f);
+        yield return ShowStars(orderReward.stars);
+
+        yield return new WaitForSeconds(4f);
+        SetRewardPanel(false);
+    }
+
+    private IEnumerator ShowStars(int starCount)
+    {
+        for (int i = 0; i < starImages.Length; i++)
+        {
+            yield return new WaitForSeconds(0.8f);
+
+            if (i < starCount)
+                starImages[i].sprite = filledStar;
+            else
+                starImages[i].sprite = emptyStar;
+        }
     }
 }

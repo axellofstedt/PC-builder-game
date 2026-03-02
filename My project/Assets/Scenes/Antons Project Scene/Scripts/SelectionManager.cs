@@ -1,173 +1,94 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using TMPro;
+using NUnit.Framework;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class SelectionManager : MonoBehaviour
 {
-   public static SelectionManager Instance;
-   private Selectable selectedObject;
-   public TextMeshProUGUI heldItemText;
-   public Transform workbenchTransform;
-   public PlacementZone workbenchZone;
-   public Transform snapPoint;
-   public bool cpuPlaced = false;
+    public static SelectionManager Instance;
+
+    [Header("Workbench")]
+    [SerializeField] private PlacementZone workbenchZone;
+    // [SerializeField] private PlayerSoundEffects playerSoundEffects;
+
+    public Selectable selectedObject;
+    public bool cpuPlaced = false;
+
+    // [HideInInspector] public List<PCPart> currentBuild = new List<PCPart>();
+    [HideInInspector] public List<Selectable> currentSelectableBuild = new List<Selectable>();
+    [HideInInspector] public Selectable currentChassi;
+    
+    private OpenCloseDoor chassiDoor;
+    private OpenCloseDoor motherboardDoor;
 
     void Awake()
     {
         Instance = this;
     }
 
-    void Update()
-    {
-        if(Input.GetMouseButtonDown(0))
-        {
-            HandleClick();
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Deselect();
-        }
-    }
-
-    void HandleClick()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if(!Physics.Raycast(ray, out hit))
-        {
-            return;
-        }
-
-        if (selectedObject != null)
-        {
-            if (hit.collider.CompareTag("CPU") && selectedObject.GetPartType().ToString() == "CPU")
-            {
-                cpuPlaced = true;
-                Debug.Log("CPU placed on motherboard" + selectedObject.GetPartName());
-                Transform snapPoint = hit.collider.GetComponentInChildren<Transform>();
-                PlaceSelectedObject(snapPoint);
-            }
-            else if (hit.collider.CompareTag("CPU") && selectedObject.GetPartType().ToString() == "CPUCooling" && cpuPlaced)
-            {
-                Debug.Log("CPU cooler placed on CPU" + selectedObject.GetPartName());
-                Transform snapPoint = hit.collider.transform.Find("Snap_Point");
-                PlaceSelectedObject(snapPoint);
-            }
-            else if (hit.collider.CompareTag("Drive") && selectedObject.GetPartType().ToString() == "Drive")
-            {
-                Debug.Log("Drive placed on motherboard" + selectedObject.GetPartName());
-                Transform snapPoint = hit.collider.transform.Find("Snap_Point");
-                PlaceSelectedObject(snapPoint);
-            }
-            else if (hit.collider.CompareTag("Fan") && selectedObject.GetPartType().ToString() == "Fan")
-            {
-                Debug.Log("Fan placed in chassi" + selectedObject.GetPartName());
-                Transform snapPoint = hit.collider.transform.Find("Snap_Point");
-                PlaceSelectedObject(snapPoint);
-            }
-            else if (hit.collider.CompareTag("GPU") && selectedObject.GetPartType().ToString() == "GPU")
-            {
-                Debug.Log("Graphics card placed on motherboard" + selectedObject.GetPartName());
-                Transform snapPoint = hit.collider.GetComponentInChildren<Transform>();
-                PlaceSelectedObject(snapPoint);
-            }
-            else if (hit.collider.CompareTag("Motherboard") && selectedObject.GetPartType().ToString() == "Motherboard")
-            {
-                Debug.Log("Motherbard placed in chassi" + selectedObject.GetPartName());
-                Transform snapPoint = hit.collider.transform.Find("Snap_Point");
-                PlaceSelectedObject(snapPoint);
-            }
-            else if (hit.collider.CompareTag("PSU") && selectedObject.GetPartType().ToString() == "PSU")
-            {
-                Debug.Log("Power supply placed in chassi" + selectedObject.GetPartName());
-                Transform snapPoint = hit.collider.transform.Find("Snap_Point");
-                PlaceSelectedObject(snapPoint);
-            }
-            else if (hit.collider.CompareTag("RAM") && selectedObject.GetPartType().ToString() == "RAM")
-            {
-                RamSlot slot = hit.collider.GetComponent<RamSlot>();
-                if(slot != null)
-                {
-                    return;
-                }
-                if (slot.occupied)
-                {
-                    Debug.Log("Ram slot taken");
-                }
-                Debug.Log("RAM placed on motherboard" + selectedObject.GetPartName());
-                //Transform snapPoint = hit.collider.GetComponentInChildren<Transform>();
-                PlaceSelectedObject(slot.snapPoint);
-                slot.occupied = true;
-                return;
-            }
-        }
-
-
-        Selectable selectable = hit.collider.GetComponentInParent<Selectable>();
-
-        if (selectable != null)
-        {
-            SelectObject(selectable);
-            return;
-        }
-        Debug.Log(hit.collider.gameObject.name);
-    }
-
-
     public void SelectObject(Selectable obj)
     {
-        obj.OnSelected();
+        if (!obj.CanInteract)
+            return;
 
-        if (obj.currentZone == null)
+        if (obj.currentZone.zoneType == ZoneType.Shelf)
         {
-            Debug.Log("Zone null");
+            MoveToWorkbench(obj);
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.pickupClip);
+            // playerSoundEffects.PlayPickUpSound();
             return;
         }
 
-        switch (obj.currentZone.zoneType)
+        if (obj.currentZone.zoneType == ZoneType.Workbench &&
+            ModeManager.Instance.currentMode == GameMode.Workbench)
         {
-            case ZoneType.Shelf:
-                Debug.Log("Movede to bench" + obj.GetPartName());
-                MoveToWorkBench(obj);
-                break;
-        
-            case ZoneType.Workbench:
-                selectedObject = obj;
-                UpdateHeldItemUI();
-                Debug.Log("Selected" + obj.GetPartName());
-                break;
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.pickupClip);
+            // playerSoundEffects.PlayPickUpSound();
+            selectedObject = obj;
         }
     }
 
-    public void MoveToWorkBench(Selectable obj)
+    void MoveToWorkbench(Selectable obj)
     {
-        if(workbenchZone == null)
+
+        Transform slot = workbenchZone.GetSlotForPart(obj.PartType);
+        if (slot == null)
         {
+            Debug.LogWarning($"Ingen plats fÃ¶r {obj.PartType}");
             return;
         }
-        Transform slot = workbenchZone.GetSlotForPart(obj.GetPartType());
 
-        if (slot != null)
+        PlaceOnSurface(obj, slot.position);
+        obj.transform.rotation = slot.rotation;
+
+        obj.currentZone = workbenchZone;
+        obj.currentSnapPoint = slot;
+
+        if(obj.PartType == PartType.Motherboard)
         {
-            PlaceOnSurface(obj, slot.position);
-            obj.transform.rotation = slot.rotation;
-            obj.currentZone = workbenchZone;
-            obj.currentSnapPoint = slot;
+            motherboardDoor = obj.GetComponentInChildren<OpenCloseDoor>();
+            Debug.Log(motherboardDoor);
+            motherboardDoor.openDoor();
         }
-        else
+        else if (obj.PartType == PartType.Chassi)
         {
-            Debug.LogWarning("Ingen ledig plats på workbench för " + obj.GetPartType());
+            // Open the chassi door when placing it on the workbench
+            chassiDoor = obj.GetComponentInChildren<OpenCloseDoor>();
+            chassiDoor.openDoor();
+            // Add the chassi to the current build list
+            currentSelectableBuild.Add(obj);
+            currentChassi = obj;
         }
+
+        // LÃ¥s tills workbench mode
+        obj.LockInteraction();
     }
 
-    void PlaceOnSurface(Selectable obj, Vector3 surfacePosition)
+    public void PlaceOnSurface(Selectable obj, Vector3 surfacePosition)
     {
         Renderer r = obj.GetComponentInChildren<Renderer>();
-        if (r == null)
-        {
-            Debug.LogError("No renderer found on object");
-            return;
-        }
+        if (r == null) return;
 
         float bottomOffset = r.bounds.min.y - obj.transform.position.y;
 
@@ -177,41 +98,146 @@ public class SelectionManager : MonoBehaviour
         obj.transform.position = newPos;
     }
 
+    public void UnlockWorkbenchObjects()
+    {
+        chassiDoor?.openDoor();
+        foreach (Selectable s in FindObjectsByType<Selectable>(FindObjectsSortMode.None))
+        {
+            if (s.currentZone.zoneType == ZoneType.Workbench)
+            {
+                s.UnlockInteraction();
+            }
+        }
+    }
+
+
+    // In Worbech Mode
+
+
+
+    public bool TryPlaceOnTarget(RaycastHit hit)
+    {
+        switch (SelectionManager.Instance.selectedObject.PartType)
+        {
+            case PartType.CPU:
+                return TryPlace(hit, "CPU", ref cpuPlaced);
+
+            case PartType.CPUCooling:
+                if (!cpuPlaced) return false;
+                return TryPlace(hit, "CPU");
+
+            case PartType.RAM:
+                return TryPlaceRam(hit);
+
+            case PartType.GPU:
+                return TryPlace(hit, "GPU");
+
+            case PartType.Drive:
+                return TryPlace(hit, "Drive");
+
+            case PartType.Fan:
+                return TryPlace(hit, "Fan");
+
+            case PartType.Motherboard:
+                return TryPlace(hit, "Motherboard");
+
+            case PartType.PSU:
+                return TryPlace(hit, "PSU");
+        }
+
+        return false;
+    }
+
+    bool TryPlace(RaycastHit hit, string tag, ref bool flag)
+    {
+        if (!hit.collider.CompareTag(tag)) return false;
+
+        flag = true;
+        PlaceAtSnap(hit);
+        motherboardDoor?.GetComponent<OpenCloseDoor>().closeDoor();
+        return true;
+    }
+
+    bool TryPlace(RaycastHit hit, string tag)
+    {
+        if (!hit.collider.CompareTag(tag)) return false;
+
+        PlaceAtSnap(hit);
+
+        if (BeginnerModeManager.instance != null)
+        {
+            BoxCollider slot = hit.collider as BoxCollider;
+            BeginnerModeManager.instance.MarkSlotAsUsed(slot);
+        }
+
+        return true;
+    }
+
+    void PlaceAtSnap(RaycastHit hit)
+    {
+        Transform snap = hit.collider.transform.Find("Snap_Point");
+        if (snap == null) return;
+
+        Debug.Log($"{selectedObject.PartType} placed: {selectedObject.PartName} on {hit.collider.name} at: {snap}");
+        
+        PlaceSelectedObject(snap);
+    }
+
     void PlaceSelectedObject(Transform snapPoint)
     {
         selectedObject.transform.position = snapPoint.position;
         selectedObject.transform.rotation = snapPoint.rotation;
-        Debug.Log(
-     "MB rot AFTER: " + selectedObject.transform.rotation.eulerAngles
- );
+        
+        selectedObject.RemoveHighlight();
+        selectedObject.GetComponent<PCPartHover>().hoverable = false;
+
+        // Make a list of items in current pc build
+        // currentBuild.Add(selectedObject.GetComponent<PCPart>());
+        Debug.Log($"Adding {selectedObject.PartName} to currentSelectableBuild");
+        currentSelectableBuild.Add(selectedObject);
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.placeClip);
+        // playerSoundEffects.PlayPlaceSound();
         selectedObject = null;
-        UpdateHeldItemUI();
     }
 
-    void Deselect()
+    bool TryPlaceRam(RaycastHit hit)
     {
-        if (selectedObject != null)
+        RamSlot slot = hit.collider.GetComponent<RamSlot>();
+        if (slot == null) return false;
+
+        if (slot.occupied)
         {
-            Debug.Log(selectedObject.name + " deselected");
-            selectedObject = null;
+            Debug.Log("Ram slot taken");
+            return true;
         }
-        UpdateHeldItemUI();
+        Debug.Log("Placing RAM in slot");
+        Debug.Log(slot);
+        Debug.Log($"Snap point: {slot.snapPoint.position}");
+        PlaceSelectedObject(slot.snapPoint);
+        slot.occupied = true;
+
+        Debug.Log("RAM placed");
+        return true;
     }
 
-    void UpdateHeldItemUI()
+    public void Deselect()
     {
-        if (selectedObject == null)
-        {
-            heldItemText.text = "";
-            return;
-        }
+        if (selectedObject != null) selectedObject.RemoveHighlight();
+        selectedObject = null;
+    }
 
-        string partName = selectedObject.GetPartName();
-        //string instruction = GetInstructionForPart(selectedObject.GetPartType());
-        string partType = selectedObject.GetPartType().ToString();
-        heldItemText.text =
-            $"Du håller i: {partType}\n" +
-            $"Place correctly in chassi\n" +
-            $"Press [p] to deselect";
+    public void ResetBuild()
+    {
+        // currentBuild.Clear();
+        currentSelectableBuild.Clear();
+        currentChassi = null;
+        cpuPlaced = false;
+    }
+
+    public void DonePressed()
+    {
+        Debug.Log("Done Pressed");
+        chassiDoor?.closeDoor();
+        motherboardDoor?.closeDoor();
     }
 }
