@@ -16,13 +16,13 @@ public class WorkbenchMode : MonoBehaviour, IInteractable
     {
         ModeManager.Instance.SetMode(GameMode.Workbench);
 
-        // Lås upp alla workbench-objekt
+        // Lï¿½s upp alla workbench-objekt
         SelectionManager.Instance.UnlockWorkbenchObjects();
 
         // Visa Order Image
         workbenchUI.ShowOrderImage();
 
-        // Stäng av Interaction Trigger
+        // Stï¿½ng av Interaction Trigger
         GetComponent<BoxCollider>().enabled = false;
     }
 
@@ -36,6 +36,7 @@ public class WorkbenchMode : MonoBehaviour, IInteractable
     {
         if (Input.GetMouseButtonDown(0)) { HandleClick(); }
         if (Input.GetKeyDown(KeyCode.Escape)) { Escape(); }
+        if (SelectionManager.Instance.currentChassi != null) { workbenchUI.SetButtoninteraction(true); }
     }
 
     void HandleClick()
@@ -56,7 +57,12 @@ public class WorkbenchMode : MonoBehaviour, IInteractable
     public void Escape()
     {
         ModeManager.Instance.SetMode(GameMode.Player);
-        // Sätt på Interaction Trigger
+        // Sï¿½tt pï¿½ Interaction Trigger
         GetComponent<BoxCollider>().enabled = true;
+    }
+
+    public void PCDone()
+    {
+        workbenchUI.DoneButton.gameObject.SetActive(false);
     }
 }
