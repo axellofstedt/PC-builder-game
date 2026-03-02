@@ -11262,6 +11262,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 340617250708233866, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 340617250708233866, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
+      propertyPath: m_AllowAutoConnect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4471130181799547144, guid: f8d90c2cb44042d4b98453329da01681, type: 3}
       propertyPath: m_Name
       value: Scenery
@@ -12073,7 +12081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6387828607079224766, guid: b29a908203f044a4d92ee48ba726af2c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.4085789
+      value: 3.7
       objectReference: {fileID: 0}
     - target: {fileID: 6387828607079224766, guid: b29a908203f044a4d92ee48ba726af2c, type: 3}
       propertyPath: m_LocalPosition.z
