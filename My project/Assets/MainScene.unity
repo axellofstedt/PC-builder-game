@@ -12403,6 +12403,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1561536816}
     - target: {fileID: 4213462269436310792, guid: 26b1601e602e6de429f23ccc04baa10f, type: 3}
+      propertyPath: beginnerMode
+      value: 
+      objectReference: {fileID: 58739117}
+    - target: {fileID: 4213462269436310792, guid: 26b1601e602e6de429f23ccc04baa10f, type: 3}
       propertyPath: workBenchCamera
       value: 
       objectReference: {fileID: 513331083}

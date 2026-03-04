@@ -8,6 +8,14 @@ public class BeginnerModeManager : MonoBehaviour
     private BoxCollider[] allSlots;
     private HashSet<BoxCollider> usedSlots = new HashSet<BoxCollider>();
 
+    private void Update()
+    {
+        if(ModeManager.Instance.currentMode != GameMode.Workbench)
+        {
+            DisableBeginnerMode();
+        }
+    }
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -49,6 +57,19 @@ public class BeginnerModeManager : MonoBehaviour
             Outline outline = box.GetComponentInChildren<Outline>();
             if (outline != null)
                 outline.enabled = isActive;
+        }
+    }
+
+    public void DisableBeginnerMode()
+    {
+        foreach (var box in allSlots)
+        {
+            if (box.CompareTag("Untagged")) continue;
+            if (usedSlots.Contains(box)) continue;
+
+            Outline outline = box.GetComponentInChildren<Outline>();
+            if (outline != null)
+                outline.enabled = false;
         }
     }
 
