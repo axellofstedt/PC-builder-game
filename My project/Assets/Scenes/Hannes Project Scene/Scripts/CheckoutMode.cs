@@ -103,6 +103,8 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         // Reset build
        // SelectionManager.Instance.ResetBuild();
         CheckoutPC = null;
+
+        DayNightManager.Instance.PlayerLeftComputer();
     }
 
     private void ReturnAllBuildPartsToShelves()
