@@ -9,7 +9,7 @@ public class SelectionManager : MonoBehaviour
     public static SelectionManager Instance;
 
     [Header("Workbench")]
-    [SerializeField] private PlacementZone workbenchZone;
+    [SerializeField] public PlacementZone workbenchZone;
     // [SerializeField] private PlayerSoundEffects playerSoundEffects;
 
     public Selectable selectedObject;
@@ -51,7 +51,6 @@ public class SelectionManager : MonoBehaviour
 
     void MoveToWorkbench(Selectable obj)
     {
-
         Transform slot = workbenchZone.GetSlotForPart(obj.PartType);
         if (slot == null)
         {
@@ -112,8 +111,6 @@ public class SelectionManager : MonoBehaviour
 
 
     // In Worbech Mode
-
-
 
     public bool TryPlaceOnTarget(RaycastHit hit)
     {
@@ -239,5 +236,21 @@ public class SelectionManager : MonoBehaviour
         Debug.Log("Done Pressed");
         chassiDoor?.closeDoor();
         motherboardDoor?.closeDoor();
+    }
+
+    public void ReturnPartToShelf(Selectable part)
+    {
+        // Flytta tillbaka till startpositionen
+        part.transform.SetParent(null); // lossna från PC/Checkout
+        part.transform.position = part.originalPos;
+        part.transform.rotation = part.originalRot;
+
+        part.currentZone = part.originalZone;
+
+        part.currentSnapPoint = null; // eller behåll om du vill
+
+        part.UnlockInteraction();
+        part.GetComponent<PCPartHover>().hoverable = true;
+        part.RemoveHighlight();
     }
 }

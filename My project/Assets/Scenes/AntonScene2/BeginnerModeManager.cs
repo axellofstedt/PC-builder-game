@@ -12,6 +12,7 @@ public class BeginnerModeManager : MonoBehaviour
     {
         if(ModeManager.Instance.currentMode != GameMode.Workbench)
         {
+            
             DisableBeginnerMode();
         }
     }
@@ -62,14 +63,17 @@ public class BeginnerModeManager : MonoBehaviour
 
     public void DisableBeginnerMode()
     {
-        foreach (var box in allSlots)
+        if(isActive != false)
         {
-            if (box.CompareTag("Untagged")) continue;
-            if (usedSlots.Contains(box)) continue;
+            foreach (var box in allSlots)
+            {
+                if (box.CompareTag("Untagged")) continue;
+                if (usedSlots.Contains(box)) continue;
 
-            Outline outline = box.GetComponentInChildren<Outline>();
-            if (outline != null)
-                outline.enabled = false;
+                Outline outline = box.GetComponentInChildren<Outline>();
+                if (outline != null)
+                    outline.enabled = false;
+            }
         }
     }
 
@@ -81,5 +85,10 @@ public class BeginnerModeManager : MonoBehaviour
             outline.enabled = false;
 
         usedSlots.Add(box);
+    }
+
+    public void ResetBeginnerMode()
+    {
+        usedSlots.Clear();
     }
 }

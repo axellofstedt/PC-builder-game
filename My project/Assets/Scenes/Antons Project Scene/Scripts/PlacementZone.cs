@@ -52,6 +52,12 @@ public class PlacementZone : MonoBehaviour
             }
         }
     }
+
+    public void ResetSlots()
+    {
+        for (int i = 0; i < slots.Count; i++)
+            slots[i].occupied = false;
+    }
 }
 
 [System.Serializable]

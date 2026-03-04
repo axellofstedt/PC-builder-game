@@ -8,6 +8,10 @@ public class Selectable : MonoBehaviour
     public PlacementZone currentZone;
     public Transform currentSnapPoint;
 
+    public Vector3 originalPos;
+    public Quaternion originalRot;
+    public PlacementZone originalZone;
+
     // Styr om objektet får interageras med
     public bool CanInteract { get; private set; } = true;
 
@@ -15,6 +19,15 @@ public class Selectable : MonoBehaviour
     public string PartName => partData.partName;
 
     private Outline outline;
+
+    private void Awake()
+    {
+        originalPos = transform.position;
+        originalRot = transform.rotation;
+        originalZone = currentZone;
+
+    }
+
     void Start()
     {
         outline = gameObject.GetComponent<Outline>();

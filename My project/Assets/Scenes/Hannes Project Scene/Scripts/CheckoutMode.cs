@@ -94,14 +94,34 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         // Reset order timer
         orderTimer = 0f;
 
+        BeginnerModeManager.instance?.ResetBeginnerMode();
+        ReturnAllBuildPartsToShelves();
+        SelectionManager.Instance.workbenchZone.ResetSlots();
         // Destroy PC
-
         Destroy(CheckoutPC);
 
         // Reset build
-        SelectionManager.Instance.ResetBuild();
+       // SelectionManager.Instance.ResetBuild();
         CheckoutPC = null;
+    }
 
+    private void ReturnAllBuildPartsToShelves()
+    {
+        Selectable[] allParts = FindObjectsOfType<Selectable>();
+
+        foreach (Selectable part in allParts)
+        {
+            // Flytta tillbaka om de är på workbench eller i datorn
+            if (part.currentZone != null &&
+                (part.currentZone.zoneType == ZoneType.Workbench ||
+                 part.transform.parent != null)) // parent != null -> kan vara i CheckoutPC
+            {
+                SelectionManager.Instance.ReturnPartToShelf(part);
+            }
+        }
+
+        // Rensa SelectionManager-listor
+        SelectionManager.Instance.ResetBuild();
     }
 
     public void NewCustomer()

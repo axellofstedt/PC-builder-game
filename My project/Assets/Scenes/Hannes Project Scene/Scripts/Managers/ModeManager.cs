@@ -65,7 +65,7 @@ public class ModeManager : MonoBehaviour
 
         UpdateUI();
     }
-
+     
     private void ExitCurrentMode()
     {
         if (currentMode == GameMode.Player)
