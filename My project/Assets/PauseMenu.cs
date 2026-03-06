@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
     public FirstPersonController firstPersonController;
     public GameObject settingsPanel;
     public GameObject reticle;
+    public GameObject menuButtons;
 
     void Update()
     {
@@ -53,10 +54,12 @@ public class PauseMenu : MonoBehaviour
     public void OpenSettings()
     {
         settingsPanel.SetActive(true);
+        menuButtons.SetActive(false);
     }
 
     public void CloseSettings()
     {
         settingsPanel.SetActive(false);
+        menuButtons.SetActive(true);
     }
 }
