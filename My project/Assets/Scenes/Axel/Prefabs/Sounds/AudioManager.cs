@@ -16,6 +16,8 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Mixer")]
     [SerializeField] private AudioMixer mixer;
 
+    public float currentVolume = 1f;
+
     void Awake()
     {
         if (Instance == null)
@@ -59,6 +61,7 @@ public class AudioManager : MonoBehaviour
         Debug.Log($"SetMusicVolume called on: {gameObject.name}");
         //mixer.SetFloat("MusicVolume", ToDecibels(volume));
         musicSource.volume = volume;
+        currentVolume = volume;
     }
 
     public void SetSFXVolume(float volume)
