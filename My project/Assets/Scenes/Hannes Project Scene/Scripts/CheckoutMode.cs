@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -69,8 +70,13 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         // Skip if pc is ready
         if (CheckoutPC != null) checkoutUI.PCReady();
     }
-
+    
     public void CompleteOrder()
+    {
+        CompleteOrderCoroutine();
+    }
+
+    private IEnumerator CompleteOrderCoroutine()
     {
         checkoutUI.CompleteOrder();
         currentCheckoutState = CheckoutState.Complete;
@@ -83,6 +89,8 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         Debug.Log($"Time Score: {orderReward.timeScore}, Accuracy Score: {orderReward.accuracyScore}, Final Score: {orderReward.finalScore}, Stars: {orderReward.stars}");
         
         ShowRewardScreen();
+
+        yield return new WaitForSeconds(10f);
 
         // Timer, button or effect to show completion before resetting to waiting
         BotSpawner.Instance.RemoveFrontBot();
