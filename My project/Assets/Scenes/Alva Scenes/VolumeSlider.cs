@@ -6,12 +6,20 @@ public class VolumeSlider : MonoBehaviour
     public enum VolumeType { Music, SFX }
     public VolumeType volumeType;
 
+    private Slider slider;
+
     void Awake()
     {
-        GetComponent<Slider>().onValueChanged.AddListener(OnValueChanged);
+        slider = GetComponent<Slider>();
+        slider.onValueChanged.AddListener(OnValueChanged);
     }
 
-    void OnValueChanged(float value)
+    void Start()
+    {
+        if (AudioManager.Instance != null) slider.value = AudioManager.Instance.currentVolume;
+    }
+
+    public void OnValueChanged(float value)
     {
         Debug.Log("Slider changed: " + value);
 
@@ -20,8 +28,6 @@ public class VolumeSlider : MonoBehaviour
             Debug.LogError("AudioManager.Instance är NULL");
             return;
         }
-
-        Debug.Log("Calling AudioManager on: " + AudioManager.Instance.gameObject.name);
 
         if (volumeType == VolumeType.Music)
             AudioManager.Instance.SetMusicVolume(value);
