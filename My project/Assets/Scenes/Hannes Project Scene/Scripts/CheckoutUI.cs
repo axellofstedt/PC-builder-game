@@ -11,20 +11,9 @@ public class CheckoutUI : MonoBehaviour
     public Button closeOrderButton;
     public Button giveOrderButton;
 
-    [Header("Order Image & Header")]
+    [Header("Order Image")]
     public Image orderImage;
-    public TMP_Text orderHeader;
-
-    [Header("Part Text Fields")]
-    public TMP_Text gpuText;
-    public TMP_Text cpuText;
-    public TMP_Text ramText;
-    public TMP_Text motherboardText;
-    public TMP_Text psuText;
-    public TMP_Text cpuCoolingText;
-    public TMP_Text chassiText;
-    public TMP_Text driveText;
-    public TMP_Text fanText;
+    private OrderImage orderImageScript;
 
     [Header("Reward Screen")]
     public GameObject rewardPanel;
@@ -36,6 +25,16 @@ public class CheckoutUI : MonoBehaviour
     [SerializeField] private Sprite filledStar;
     [SerializeField] private Sprite emptyStar;
 
+    [Header("OrderScrrenToggleButtons")]
+    public Button ActivateOrderOnPlayerScreenButton;
+    public Button DeactivateOrderOnPlayerScreenButton;
+
+    private void Awake()
+    {
+        orderImageScript = orderImage.GetComponent<OrderImage>();
+    }
+
+
     public void NewCustomer()
     {
         takeOrderButton.gameObject.SetActive(true);
@@ -45,52 +44,12 @@ public class CheckoutUI : MonoBehaviour
 
     public void TakeOrder(List<PCPart> pcOrder)
     {
-        // Uppdatera texten för varje del
-        foreach (PCPart part in pcOrder)
-        {
-            switch (part.partType)
-            {
-                case PartType.GPU:
-                    gpuText.text = part.partName;
-                    break;
-
-                case PartType.CPU:
-                    cpuText.text = part.partName;
-                    break;
-
-                case PartType.RAM:
-                    ramText.text = part.partName;
-                    break;
-
-                case PartType.Motherboard:
-                    motherboardText.text = part.partName;
-                    break;
-
-                case PartType.PSU:
-                    psuText.text = part.partName;
-                    break;
-
-                case PartType.CPUCooling:
-                    cpuCoolingText.text = part.partName;
-                    break;
-
-                case PartType.Chassi:
-                    chassiText.text = part.partName;
-                    break;
-
-                case PartType.Drive:
-                    driveText.text = part.partName;
-                    break;
-
-                case PartType.Fan:
-                    fanText.text = part.partName;
-                    break;
-            }
-        }
+        orderImageScript.SetOrderText();
 
         takeOrderButton.gameObject.SetActive(false);
         closeOrderButton.gameObject.SetActive(true);
         orderImage.gameObject.SetActive(true);
+        ActivateOrderOnPlayerScreenButton.gameObject.SetActive(true);
     }
 
     public void PCReady()
@@ -105,6 +64,8 @@ public class CheckoutUI : MonoBehaviour
         closeOrderButton.gameObject.SetActive(false);
         giveOrderButton.gameObject.SetActive(false);
         orderImage.gameObject.SetActive(false);
+        ActivateOrderOnPlayerScreenButton.gameObject.SetActive(false);
+        DeactivateOrderOnPlayerScreenButton.gameObject.SetActive(false);
     }
 
     // Reward Screen UI
@@ -140,5 +101,18 @@ public class CheckoutUI : MonoBehaviour
             else
                 starImages[i].sprite = emptyStar;
         }
+    }
+
+    // Order screen toggle buttons
+    public void SetScreenOrderClicked()
+    {
+        ActivateOrderOnPlayerScreenButton.gameObject.SetActive(false);
+        DeactivateOrderOnPlayerScreenButton.gameObject.SetActive(true);
+    }
+
+    public void RemoveScreenOrderClicked()
+    {
+        ActivateOrderOnPlayerScreenButton.gameObject.SetActive(true);
+        DeactivateOrderOnPlayerScreenButton.gameObject.SetActive(false);
     }
 }

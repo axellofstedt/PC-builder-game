@@ -15,6 +15,8 @@ public class SelectionManager : MonoBehaviour
     public Selectable selectedObject;
     public bool cpuPlaced = false;
 
+    public OrderImage orderImageScript;
+
     // [HideInInspector] public List<PCPart> currentBuild = new List<PCPart>();
     [HideInInspector] public List<Selectable> currentSelectableBuild = new List<Selectable>();
     [HideInInspector] public Selectable currentChassi;
@@ -82,6 +84,9 @@ public class SelectionManager : MonoBehaviour
 
         // Lås tills workbench mode
         obj.LockInteraction();
+
+        // Strike component on order
+        orderImageScript.StrikeComponent(obj);
     }
 
     public void PlaceOnSurface(Selectable obj, Vector3 surfacePosition)
