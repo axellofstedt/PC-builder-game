@@ -53,11 +53,11 @@ public class SelectionManager : MonoBehaviour
         if (obj.currentZone.zoneType == ZoneType.Workbench &&
             ModeManager.Instance.currentMode == GameMode.Player)
         {
-            if (currentSelectableBuild.Count <= 1)
+            if (currentSelectableBuild.Count <= 1 || obj.PartType != PartType.Chassi)
                 ReturnPartToShelf(obj);
             else
             {
-                Debug.Log("Can't return part to shelf, u have to finish the build");
+                Debug.Log("Can't return chassi to shelf, u have to finish the build");
                 foreach (Selectable s in currentSelectableBuild)
                     Debug.Log(s.PartName);
             }
@@ -130,7 +130,7 @@ public class SelectionManager : MonoBehaviour
 
     public bool TryPlaceOnTarget(RaycastHit hit)
     {
-        switch (SelectionManager.Instance.selectedObject.PartType)
+        switch (selectedObject.PartType)
         {
             case PartType.CPU:
                 return TryPlace(hit, "CPU", ref cpuPlaced);
