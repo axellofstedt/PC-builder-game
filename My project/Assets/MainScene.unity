@@ -13111,6 +13111,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorkBenchUSETHIS
       objectReference: {fileID: 0}
+    - target: {fileID: 3696438427044452021, guid: 26b1601e602e6de429f23ccc04baa10f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 26.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3696438427044452021, guid: 26b1601e602e6de429f23ccc04baa10f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.67
+      objectReference: {fileID: 0}
     - target: {fileID: 4213462269436310792, guid: 26b1601e602e6de429f23ccc04baa10f, type: 3}
       propertyPath: workbenchUI
       value: 
