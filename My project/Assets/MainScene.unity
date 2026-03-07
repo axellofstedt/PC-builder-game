@@ -12360,7 +12360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2393255411289699879, guid: 26b1601e602e6de429f23ccc04baa10f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.360497
+      value: 4.176
       objectReference: {fileID: 0}
     - target: {fileID: 2393255411289699879, guid: 26b1601e602e6de429f23ccc04baa10f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12368,7 +12368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2393255411289699879, guid: 26b1601e602e6de429f23ccc04baa10f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.4871713
+      value: 1.49
       objectReference: {fileID: 0}
     - target: {fileID: 2393255411289699879, guid: 26b1601e602e6de429f23ccc04baa10f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13664,7 +13664,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "G\xE5 med WASD och ta datordelar f\xF6r att s\xE4tta i datorn oc hfooooooooooooooooooooooooooooooooo"
+  m_text: -....-
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15800,6 +15800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectiveText: {fileID: 1284803979}
+  checkoutMode: {fileID: 850080274}
 --- !u!43 &1430598551
 Mesh:
   m_ObjectHideFlags: 0

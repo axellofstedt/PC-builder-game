@@ -10,6 +10,7 @@ public class CheckoutMode : MonoBehaviour, IInteractable
     public KeyCode InteractKey => KeyCode.E;
     public string PromptText => "E - Checkout Mode";
     public bool Interactable { get; set; } = true;
+    public bool hasTakenOrder { get; private set; } = false;
 
     public CheckoutUI checkoutUI;
     public RewardSystem rewardSystem;
@@ -68,6 +69,7 @@ public class CheckoutMode : MonoBehaviour, IInteractable
 
         // Skip if pc is ready
         if (CheckoutPC != null) checkoutUI.PCReady();
+        hasTakenOrder = true;
     }
 
     public void CompleteOrder()

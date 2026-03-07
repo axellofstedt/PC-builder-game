@@ -4,8 +4,14 @@ using TMPro;
 public class TutorialScript : MonoBehaviour
 {
     public TextMeshProUGUI objectiveText;
+    public CheckoutMode checkoutMode;
 
     private int currentObjective = 0;
+
+    private bool w = false;
+    private bool a = false;
+    private bool s = false;
+    private bool d = false;
 
     void Start()
     {
@@ -15,6 +21,7 @@ public class TutorialScript : MonoBehaviour
     void Update()
     {
         CheckObjectives();
+        
     }
 
     void ShowObjective()
@@ -26,14 +33,19 @@ public class TutorialScript : MonoBehaviour
             objectiveText.text = "Behind the counter, take an order from a customer.";
 
         else if (currentObjective == 2)
-            objectiveText.text = "Sprint with SHIFT";
+            objectiveText.text = "Go to the storage room and collect the order!";
+        else if (currentObjective == 3)
+            objectiveText.text = "Assemble the PC at the building table. If you forgot a part, DO NOT PRESS DONE!";
+        else if (currentObjective == 4)
+            objectiveText.text = "Click done and go back to the counte. Return the PC!";
 
         else
             objectiveText.text = "";
     }
 
     void CheckObjectives()
-    {   switch( currentObjective)
+    {
+        switch (currentObjective)
         {
             case 0:
                 {
@@ -44,47 +56,67 @@ public class TutorialScript : MonoBehaviour
                     }
                     break;
                 }
+            case 1:
+                {
+                    if (Objective1())
+                    {
+                        Next();
+                        break;
+                    }
+                    break;
+                }
+            case 2:
+                {
+                    if (Objective2())
+                    {
+                        Next();
+                        break;
+                    }
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
         }
-    }
 
-    private bool Objective0()
-    {
-        bool w = false;
-        bool a = false;
-        bool s = false;
-        bool d = false;
-        if(Input.GetKey(KeyCode.W))
-            { w = true; }
-        if (Input.GetKey(KeyCode.A))
-            { a = true; }
-        if (Input.GetKey(KeyCode.S))
-            { s = true; }
-        if (Input.GetKey(KeyCode.D))
-            { d = true; }
-        if (w && a && s && d)
+        bool Objective0()
         {
-            return true;
+            if (Input.GetKey(KeyCode.W))
+            { w = true; }
+            if (Input.GetKey(KeyCode.A))
+            { a = true; }
+            if (Input.GetKey(KeyCode.S))
+            { s = true; }
+            if (Input.GetKey(KeyCode.D))
+            { d = true; }
+            if (w && a && s && d)
+            {
+                return true;
+            }
+            return false;
         }
-        return false;
-    }
 
-    private bool Objective1()
-    {
-        if(Input.GetKey(KeyCode.LeftShift))
+         bool Objective1()
+        {
+            if (checkoutMode.hasTakenOrder)
             { return true; }
-        return false; 
-    }
+            return false;
+        }
 
-    private bool Objective2()
-    {
-        if (Input.GetKey(KeyCode.LeftShift))
-        { return true; }
-        return false;
-    }
+        bool Objective2()
+        {
+            if (checkoutMode.hasTakenOrder)
+            { 
+                return true; 
+            }
+            return false;
+        }
 
-    private void Next()
-    {
-        currentObjective++;
-        ShowObjective();
+        void Next()
+        {
+            currentObjective++;
+            ShowObjective();
+        }
     }
 }
