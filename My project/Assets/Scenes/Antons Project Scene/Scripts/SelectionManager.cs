@@ -54,7 +54,10 @@ public class SelectionManager : MonoBehaviour
             ModeManager.Instance.currentMode == GameMode.Player)
         {
             if (currentSelectableBuild.Count <= 1 || obj.PartType != PartType.Chassi)
+            {
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.pickupClip);
                 ReturnPartToShelf(obj);
+            } 
             else
             {
                 Debug.Log("Can't return chassi to shelf, u have to finish the build");
@@ -116,13 +119,6 @@ public class SelectionManager : MonoBehaviour
     public void UnlockWorkbenchObjects()
     {
         chassiDoor?.openDoor();
-        foreach (Selectable s in FindObjectsByType<Selectable>(FindObjectsSortMode.None))
-        {
-            if (s.currentZone.zoneType == ZoneType.Workbench)
-            {
-                s.UnlockInteraction();
-            }
-        }
     }
 
 
