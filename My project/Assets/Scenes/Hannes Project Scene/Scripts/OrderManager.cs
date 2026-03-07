@@ -1,6 +1,6 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class OrderManager : MonoBehaviour
 {
@@ -10,6 +10,8 @@ public class OrderManager : MonoBehaviour
     
     public List<PCPart> currentOrder;
 
+    public int numberOfRams;
+
     private void Awake()
     {
         Instance = this;
@@ -18,6 +20,7 @@ public class OrderManager : MonoBehaviour
     public List<PCPart> GetNewOrder()
     {
         currentOrder = pcGenerator.GetNewPC();
+        numberOfRams = currentOrder.Count(part => part.partType == PartType.RAM);
         return currentOrder;
     }
 

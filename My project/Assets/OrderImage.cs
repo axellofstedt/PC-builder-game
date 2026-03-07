@@ -14,6 +14,8 @@ public class OrderImage : MonoBehaviour
     public TMP_Text driveText;
     public TMP_Text fanText;
 
+    public int numberOfStrikedRams = 0;
+
 
     public void SetOrderText()
     {
@@ -59,6 +61,7 @@ public class OrderImage : MonoBehaviour
                     break;
             }
         }
+        ramText.text = OrderManager.Instance.numberOfRams + "x " + ramText.text;
     }
 
     public void StrikeComponent(Selectable obj)
@@ -77,7 +80,9 @@ public class OrderImage : MonoBehaviour
                         cpuText.text = "<s>" + cpuText.text + "</s>";
                         break;
                     case PartType.RAM:
-                        ramText.text = "<s>" + ramText.text + "</s>";
+                        numberOfStrikedRams++;
+                        if (numberOfStrikedRams >= OrderManager.Instance.numberOfRams * OrderManager.Instance.numberOfRams)
+                            ramText.text = "<s>" + ramText.text + "</s>";
                         break;
                     case PartType.Motherboard:
                         motherboardText.text = "<s>" + motherboardText.text + "</s>";

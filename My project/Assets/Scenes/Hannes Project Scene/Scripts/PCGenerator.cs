@@ -16,11 +16,10 @@ public class PCGenerator : MonoBehaviour
 
     public List<PCPart> GetNewPC()
     {
-        return new List<PCPart>
+        List<PCPart> pc = new List<PCPart>
         {
             GetRandom(gpus),
             GetRandom(cpus),
-            GetRandom(rams),
             GetRandom(motherboards),
             GetRandom(psus),
             GetRandom(cpuCoolers),
@@ -28,6 +27,15 @@ public class PCGenerator : MonoBehaviour
             GetRandom(drives),
             GetRandom(fans),
         };
+
+        PCPart ram = GetRandom(rams); // Same RAM model for all sticks
+        int numberOfRams = Random.Range(1, 5); // 1 to 4 RAM sticks
+        for (int i = 0; i < numberOfRams; i++)
+        {
+            pc.Add(ram);
+        }
+
+        return pc;
     }
 
     PCPart GetRandom(List<PCPart> list)
