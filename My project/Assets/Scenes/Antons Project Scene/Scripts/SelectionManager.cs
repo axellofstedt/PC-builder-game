@@ -245,6 +245,7 @@ public class SelectionManager : MonoBehaviour
         currentSelectableBuild.Clear();
         currentChassi = null;
         cpuPlaced = false;
+        orderImageScript.numberOfStrikedRams = 0;
     }
 
     public void DonePressed()
