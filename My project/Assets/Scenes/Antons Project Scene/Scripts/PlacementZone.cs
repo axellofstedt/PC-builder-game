@@ -45,6 +45,7 @@ public class PlacementZone : MonoBehaviour
     {
         foreach (var slot in slots)
         {
+            Debug.Log($"delen: {slot.partType} passar? {slot.snapPoint == snapPoint}");
             if (slot.snapPoint == snapPoint)
             {
                 slot.occupied = false;

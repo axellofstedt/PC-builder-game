@@ -49,6 +49,20 @@ public class SelectionManager : MonoBehaviour
             // playerSoundEffects.PlayPickUpSound();
             selectedObject = obj;
         }
+        
+        if (obj.currentZone.zoneType == ZoneType.Workbench &&
+            ModeManager.Instance.currentMode == GameMode.Player)
+        {
+            if (currentSelectableBuild.Count <= 1)
+                ReturnPartToShelf(obj);
+            else
+            {
+                Debug.Log("Can't return part to shelf, u have to finish the build");
+                foreach (Selectable s in currentSelectableBuild)
+                    Debug.Log(s.PartName);
+            }
+        }
+                
     }
 
     void MoveToWorkbench(Selectable obj)
@@ -81,9 +95,6 @@ public class SelectionManager : MonoBehaviour
             currentSelectableBuild.Add(obj);
             currentChassi = obj;
         }
-
-        // Lås tills workbench mode
-        obj.LockInteraction();
 
         // Strike component on order
         orderImageScript.StrikeComponent(obj);
@@ -245,6 +256,16 @@ public class SelectionManager : MonoBehaviour
 
     public void ReturnPartToShelf(Selectable part)
     {
+        // Reset from wokbench slot occupied
+        workbenchZone.FreeSlot(part.currentSnapPoint);
+
+        // if chassi close door and remove from current build list
+        if (part.PartType == PartType.Chassi)
+        {
+            chassiDoor?.closeDoor();
+            currentChassi = null;
+        }
+
         // Flytta tillbaka till startpositionen
         part.transform.SetParent(null); // lossna från PC/Checkout
         part.transform.position = part.originalPos;
