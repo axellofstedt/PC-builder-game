@@ -59,10 +59,12 @@ public class WorkbenchMode : MonoBehaviour, IInteractable
         ModeManager.Instance.SetMode(GameMode.Player);
         // S�tt p� Interaction Trigger
         GetComponent<BoxCollider>().enabled = true;
+        SelectionManager.Instance.Deselect();
     }
 
     public void PCDone()
     {
         workbenchUI.DoneButton.gameObject.SetActive(false);
+        Escape();
     }
 }

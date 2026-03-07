@@ -178,9 +178,6 @@ public class CheckoutMode : MonoBehaviour, IInteractable
 
         // Update ChecoutUI
         if (currentCheckoutState == CheckoutState.Order) checkoutUI.PCReady();
-
-        // Escape WorkBenchMode
-        Escape();
     }
 
     // Show reward screen with stars and scores
