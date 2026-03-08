@@ -36,7 +36,6 @@ public class WorkbenchMode : MonoBehaviour, IInteractable
     {
         if (Input.GetMouseButtonDown(0)) { HandleClick(); }
         if (Input.GetKeyDown(KeyCode.Escape)) { Escape(); }
-        if (SelectionManager.Instance.currentChassi != null) { workbenchUI.SetButtoninteraction(true); }
     }
 
     void HandleClick()
@@ -64,7 +63,12 @@ public class WorkbenchMode : MonoBehaviour, IInteractable
 
     public void PCDone()
     {
-        workbenchUI.DoneButton.gameObject.SetActive(false);
+        workbenchUI.SetButtoninteraction(false);
         Escape();
+    }
+
+    public void SetDoneButton(bool set)
+    {
+        workbenchUI.SetButtoninteraction(set);
     }
 }
