@@ -7,18 +7,21 @@ public class RewardSystem : MonoBehaviour
     public float maxAllowedTime = 300f; // seconds
 
     [Header("Order settings")]
-    public int totalComponents = 9;
+    public int TotalComponents { get; set; } = 9;
 
     // Main evaluation method
     public RewardResult Evaluate(float actualTime, int correctComponents)
     {
+        // Set total components based on the current order
+        TotalComponents = OrderManager.Instance.currentOrder.Count;
+
         float timeScore = CalculateTimeScore(actualTime);
         float accuracyScore = CalculateAccuracyScore(correctComponents);
 
         float finalScore = (timeScore + accuracyScore) / 2f;
         int stars = CalculateStars(finalScore);
 
-        return new RewardResult(totalComponents, correctComponents, actualTime, timeScore, accuracyScore, finalScore, stars);
+        return new RewardResult(TotalComponents, correctComponents, actualTime, timeScore, accuracyScore, finalScore, stars);
     }
 
     private float CalculateTimeScore(float actualTime)
@@ -30,8 +33,8 @@ public class RewardSystem : MonoBehaviour
 
     private float CalculateAccuracyScore(int correctComponents)
     {
-        if (totalComponents == 0) return 0;
-        float score = (float)correctComponents / totalComponents;
+        if (TotalComponents == 0) return 0;
+        float score = (float)correctComponents / TotalComponents;
         return Mathf.Clamp01(score);
     }
 

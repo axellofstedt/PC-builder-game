@@ -75,7 +75,8 @@ public class CheckoutMode : MonoBehaviour, IInteractable
     
     public void CompleteOrder()
     {
-        CompleteOrderCoroutine();
+        Debug.Log("Give order pressed");
+        StartCoroutine(CompleteOrderCoroutine());
     }
 
     private IEnumerator CompleteOrderCoroutine()
@@ -113,6 +114,9 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         // Reset build
        // SelectionManager.Instance.ResetBuild();
         CheckoutPC = null;
+
+        //DayNightManager.Instance.StartNewDay();
+
     }
 
     private void ReturnAllBuildPartsToShelves()
@@ -180,9 +184,6 @@ public class CheckoutMode : MonoBehaviour, IInteractable
 
         // Update ChecoutUI
         if (currentCheckoutState == CheckoutState.Order) checkoutUI.PCReady();
-
-        // Escape WorkBenchMode
-        Escape();
     }
 
     // Show reward screen with stars and scores
@@ -212,7 +213,6 @@ public class CheckoutMode : MonoBehaviour, IInteractable
 
         // Display the reward result on the UI
         StartCoroutine(checkoutUI.ShowStats(orderReward));
-
     }
 }
 

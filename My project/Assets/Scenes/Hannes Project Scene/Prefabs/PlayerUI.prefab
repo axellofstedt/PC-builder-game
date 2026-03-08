@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptText: {fileID: 5321078460074094677}
+  defaultOffsetY: -493
+  workbenchOffsetY: 106.1
 --- !u!114 &6215288736227308402
 MonoBehaviour:
   m_ObjectHideFlags: 0
