@@ -16,9 +16,6 @@ public class WorkbenchMode : MonoBehaviour, IInteractable
     {
         ModeManager.Instance.SetMode(GameMode.Workbench);
 
-        // L�s upp alla workbench-objekt
-        SelectionManager.Instance.UnlockWorkbenchObjects();
-
         // Visa Order Image
         workbenchUI.ShowOrderImage();
 

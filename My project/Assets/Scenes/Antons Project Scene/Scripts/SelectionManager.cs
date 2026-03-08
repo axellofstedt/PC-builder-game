@@ -125,11 +125,6 @@ public class SelectionManager : MonoBehaviour
         obj.transform.position = newPos;
     }
 
-    public void UnlockWorkbenchObjects()
-    {
-        chassiDoor?.openDoor();
-    }
-
 
     // In Worbech Mode
 
