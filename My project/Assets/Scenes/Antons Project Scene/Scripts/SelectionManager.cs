@@ -24,9 +24,15 @@ public class SelectionManager : MonoBehaviour
     private OpenCloseDoor chassiDoor;
     private OpenCloseDoor motherboardDoor;
 
+    private int numeberOfPlacedParts;
     void Awake()
     {
         Instance = this;
+    }
+
+    public int GetNumberPlaced()
+    {
+        return numeberOfPlacedParts;
     }
 
     public void SelectObject(Selectable obj)
@@ -187,6 +193,7 @@ public class SelectionManager : MonoBehaviour
 
     void PlaceSelectedObject(Transform snapPoint)
     {
+
         selectedObject.transform.position = snapPoint.position;
         selectedObject.transform.rotation = snapPoint.rotation;
         
@@ -200,6 +207,7 @@ public class SelectionManager : MonoBehaviour
         AudioManager.Instance.PlaySFX(AudioManager.Instance.placeClip);
         // playerSoundEffects.PlayPlaceSound();
         selectedObject = null;
+        numeberOfPlacedParts++;
     }
 
     bool TryPlaceRam(RaycastHit hit)

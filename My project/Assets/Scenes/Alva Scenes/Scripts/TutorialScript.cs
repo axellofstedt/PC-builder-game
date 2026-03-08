@@ -5,6 +5,7 @@ public class TutorialScript : MonoBehaviour
 {
     public TextMeshProUGUI objectiveText;
     public CheckoutMode checkoutMode;
+    public PlacementZone placementZone;
 
     private int currentObjective = 0;
 
@@ -35,7 +36,7 @@ public class TutorialScript : MonoBehaviour
         else if (currentObjective == 2)
             objectiveText.text = "Go to the storage room and collect the order!";
         else if (currentObjective == 3)
-            objectiveText.text = "Assemble the PC at the building table. If you forgot a part, DO NOT PRESS DONE!";
+            objectiveText.text = "Assemble the PC at the building table. If you have a wrong part, DO NOT PRESS DONE!";
         else if (currentObjective == 4)
             objectiveText.text = "Click done and go back to the counte. Return the PC!";
 
@@ -74,6 +75,24 @@ public class TutorialScript : MonoBehaviour
                     }
                     break;
                 }
+            case 3:
+                {
+                    if (Objective3())
+                    {
+                        Next();
+                        break;
+                    }
+                    break;
+                }
+            case 4:
+                {
+                    if (Objective4())
+                    {
+                        Next();
+                        break;
+                    }
+                    break;
+                }
             default:
                 {
                     break;
@@ -106,9 +125,28 @@ public class TutorialScript : MonoBehaviour
 
         bool Objective2()
         {
-            if (checkoutMode.hasTakenOrder)
+            Debug.Log(placementZone.NumberOfFreeSlots());
+            if (placementZone.NumberOfFreeSlots() == 0)
             { 
                 return true; 
+            }
+            return false;
+        }
+
+        bool Objective3()
+        {
+            if (SelectionManager.Instance.GetNumberPlaced() >= 8)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        bool Objective4()
+        {
+            if (SelectionManager.Instance.GetNumberPlaced() == 9)
+            {
+                return true;
             }
             return false;
         }

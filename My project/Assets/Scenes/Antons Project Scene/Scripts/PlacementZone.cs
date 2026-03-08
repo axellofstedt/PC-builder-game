@@ -53,6 +53,21 @@ public class PlacementZone : MonoBehaviour
         }
     }
 
+    public int NumberOfFreeSlots()
+    {
+        int counter = 9;
+        Debug.Log(counter);
+        foreach (var slot in slots)
+        {
+            if(slot.occupied == true)
+            {
+                counter--;
+                Debug.Log(counter);
+            }
+        }
+        return counter;
+    }
+
     public void ResetSlots()
     {
         for (int i = 0; i < slots.Count; i++)
