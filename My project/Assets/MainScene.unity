@@ -4427,6 +4427,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &419975225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7621748954107401939, guid: 9d645f1f55544d545bff0948b8f88c37, type: 3}
+  m_PrefabInstance: {fileID: 2082066810}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &425233474 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 167516691079258343, guid: b29a908203f044a4d92ee48ba726af2c, type: 3}
@@ -11259,7 +11264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb11469c225243d459d11b96376cbbdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAllowedTime: 120
 --- !u!65 &850080292
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19667,6 +19671,10 @@ PrefabInstance:
       propertyPath: reticle
       value: 
       objectReference: {fileID: 1102889015}
+    - target: {fileID: 4018377874014136698, guid: 69e453f3c49dfd74b994a0f875491ee0, type: 3}
+      propertyPath: TutorialCanvas
+      value: 
+      objectReference: {fileID: 419975225}
     - target: {fileID: 4018377874014136698, guid: 69e453f3c49dfd74b994a0f875491ee0, type: 3}
       propertyPath: firstPersonController
       value: 
