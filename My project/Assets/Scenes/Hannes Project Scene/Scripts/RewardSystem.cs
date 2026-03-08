@@ -4,10 +4,16 @@ using UnityEngine.Rendering;
 public class RewardSystem : MonoBehaviour
 {
     [Header("Time settings")]
-    public float maxAllowedTime = 300f; // seconds
+    private float maxAllowedTime = GameSettings.buildTime; // This will be set dynamically based on the difficulty slider
 
     [Header("Order settings")]
     public int TotalComponents { get; set; } = 9;
+
+    private void Update()
+    {
+        maxAllowedTime = GameSettings.buildTime; // Update max allowed time based on the current difficulty setting
+        // print($"Updated max allowed time: {maxAllowedTime:F2}s");
+    }
 
     // Main evaluation method
     public RewardResult Evaluate(float actualTime, int correctComponents)
@@ -20,6 +26,8 @@ public class RewardSystem : MonoBehaviour
 
         float finalScore = (timeScore + accuracyScore) / 2f;
         int stars = CalculateStars(finalScore);
+
+        Debug.Log($"Evaluation: Time={actualTime:F2}s, Correct={correctComponents}/{TotalComponents}, TimeScore={timeScore:F2}, AccuracyScore={accuracyScore:F2}, FinalScore={finalScore:F2}, Stars={stars}, maxTime: {maxAllowedTime}");
 
         return new RewardResult(TotalComponents, correctComponents, actualTime, timeScore, accuracyScore, finalScore, stars);
     }
