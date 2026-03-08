@@ -88,6 +88,7 @@ public class CheckoutUI : MonoBehaviour
 
         yield return new WaitForSeconds(4f);
         SetRewardPanel(false);
+        DayNightManager.Instance.StartNewDay();
     }
 
     private IEnumerator ShowStars(int starCount)

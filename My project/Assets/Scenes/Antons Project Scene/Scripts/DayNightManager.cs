@@ -34,20 +34,29 @@ public class DayNightManager : MonoBehaviour
         // Räkna dagstid
         timer += Time.deltaTime;
 
-        bool rewardPanelActive = rewardPanel != null && rewardPanel.activeInHierarchy;
 
         // Fade sker endast om Return PC lämnats och dagens tid är slut
-        if (returnPCLämnad && !dayEnding && timer >= dayDuration && !rewardPanelActive)
+       /* if (returnPCLämnad && !dayEnding && timer >= dayDuration && !rewardPanelActive)
+        {
+            dayEnding = true;
+            StartCoroutine(EndDaySequence());
+        }*/
+    }
+
+    public void StartNewDay()
+    {
+        if (!dayEnding)
         {
             dayEnding = true;
             StartCoroutine(EndDaySequence());
         }
     }
-
     // Anropas när Return PC lämnas tillbaka
     public void OnReturnPCClicked()
     {
         returnPCLämnad = true;
+        bool rewardPanelActive = rewardPanel != null && rewardPanel.activeInHierarchy;
+
     }
 
     private IEnumerator EndDaySequence()
