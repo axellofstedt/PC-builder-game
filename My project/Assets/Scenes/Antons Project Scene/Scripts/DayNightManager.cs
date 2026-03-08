@@ -65,7 +65,7 @@ public class DayNightManager : MonoBehaviour
         yield return StartCoroutine(Fade(0f, 1f));
 
         // Visa dagtext
-        dayText.text = "Dag " + currentDay;
+        dayText.text = "Day " + currentDay;
         dayText.gameObject.SetActive(true);
 
         // Vänta 2 sekunder för att spelaren ska se texten

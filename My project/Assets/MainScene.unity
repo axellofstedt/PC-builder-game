@@ -16423,6 +16423,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 425768934}
     - target: {fileID: 1945249099442582115, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
+      propertyPath: dayDuration
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1945249099442582115, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
       propertyPath: rewardPanel
       value: 
       objectReference: {fileID: 2117108030}
@@ -22898,6 +22902,14 @@ PrefabInstance:
     - target: {fileID: 7370164558066570232, guid: 9d645f1f55544d545bff0948b8f88c37, type: 3}
       propertyPath: m_Name
       value: MainCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610652947056659599, guid: 9d645f1f55544d545bff0948b8f88c37, type: 3}
+      propertyPath: m_margin.x
+      value: -136.91933
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610652947056659599, guid: 9d645f1f55544d545bff0948b8f88c37, type: 3}
+      propertyPath: m_margin.z
+      value: -151.7752
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3517026455489355809, guid: 9d645f1f55544d545bff0948b8f88c37, type: 3}
