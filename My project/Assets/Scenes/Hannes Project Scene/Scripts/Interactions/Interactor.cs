@@ -44,6 +44,12 @@ public class Interactor : MonoBehaviour
 
     private void HandleRaycast()
     {
+        if (ModeManager.Instance.currentMode != GameMode.Player)
+        {
+            ClearPrompt();
+            return;
+        }
+
         IInteractable hitInteractable = null;
 
         Ray ray = new Ray(interactorSource.position, interactorSource.forward);
