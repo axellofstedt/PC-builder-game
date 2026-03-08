@@ -10,6 +10,7 @@ public class SelectionManager : MonoBehaviour
 
     [Header("Workbench")]
     [SerializeField] public PlacementZone workbenchZone;
+    public WorkbenchMode workbenchMode;
     // [SerializeField] private PlayerSoundEffects playerSoundEffects;
 
     public Selectable selectedObject;
@@ -103,6 +104,8 @@ public class SelectionManager : MonoBehaviour
             // Add the chassi to the current build list
             currentSelectableBuild.Add(obj);
             currentChassi = obj;
+            // Enable the done button when the chassi is placed
+            workbenchMode.SetDoneButton(true);
         }
 
         // Strike component on order
@@ -120,11 +123,6 @@ public class SelectionManager : MonoBehaviour
         newPos.y -= bottomOffset;
 
         obj.transform.position = newPos;
-    }
-
-    public void UnlockWorkbenchObjects()
-    {
-        chassiDoor?.openDoor();
     }
 
 

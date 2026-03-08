@@ -66,6 +66,12 @@ public class CheckoutUI : MonoBehaviour
         orderImage.gameObject.SetActive(false);
         ActivateOrderOnPlayerScreenButton.gameObject.SetActive(false);
         DeactivateOrderOnPlayerScreenButton.gameObject.SetActive(false);
+
+        // Reset reward text and stars
+        timeText.text = "";
+        componentsText.text = "";
+        foreach (var star in starImages)
+            star.sprite = emptyStar;
     }
 
     // Reward Screen UI
