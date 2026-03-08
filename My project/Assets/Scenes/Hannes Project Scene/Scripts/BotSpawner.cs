@@ -39,6 +39,8 @@ public class BotSpawner : MonoBehaviour
     {
         timer += Time.deltaTime;  
 
+        if (spawnedBots.Count >= maxQueueSize) timer = 0f;
+
         if (spawnedBots.Count < maxQueueSize && timer >= spawnInterval)
         {
             SpawnBot();

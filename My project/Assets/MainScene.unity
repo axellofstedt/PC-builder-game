@@ -4563,6 +4563,10 @@ PrefabInstance:
       propertyPath: maxQueueSize
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1167473007082510609, guid: 989262601c153014bba86badbf25cd5c, type: 3}
+      propertyPath: spawnInterval
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 6148755412644564043, guid: 989262601c153014bba86badbf25cd5c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.13
