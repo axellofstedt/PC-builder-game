@@ -16414,6 +16414,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1945249099442582115, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
+      propertyPath: dayText
+      value: 
+      objectReference: {fileID: 1795400987}
+    - target: {fileID: 1945249099442582115, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
+      propertyPath: fadeImage
+      value: 
+      objectReference: {fileID: 425768934}
+    - target: {fileID: 1945249099442582115, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
+      propertyPath: rewardPanel
+      value: 
+      objectReference: {fileID: 2117108030}
     - target: {fileID: 3886962564260874398, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
       propertyPath: m_Name
       value: Managers
@@ -16426,6 +16438,18 @@ PrefabInstance:
       propertyPath: orderImageScript
       value: 
       objectReference: {fileID: 1902625492}
+    - target: {fileID: 6461913303633024991, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
+      propertyPath: checkoutMode
+      value: 
+      objectReference: {fileID: 850080274}
+    - target: {fileID: 6461913303633024991, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
+      propertyPath: objectiveText
+      value: 
+      objectReference: {fileID: 1779290380}
+    - target: {fileID: 6461913303633024991, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
+      propertyPath: placementZone
+      value: 
+      objectReference: {fileID: 2052457988}
     - target: {fileID: 8218501201807146872, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
       propertyPath: PlayerCamera
       value: 
@@ -19568,6 +19592,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &1779290380 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7610652947056659599, guid: 9d645f1f55544d545bff0948b8f88c37, type: 3}
+  m_PrefabInstance: {fileID: 2082066810}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1791366646
 PrefabInstance:
   m_ObjectHideFlags: 0
