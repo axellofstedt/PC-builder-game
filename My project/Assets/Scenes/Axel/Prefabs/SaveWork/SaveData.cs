@@ -2,7 +2,8 @@
 public class SaveData
 {
     public int dayNumber;
-    public float reputation;
+    public float averageScore;
+    public int totalOrdersCompleted;
 
     public float sfxVolume;
     public float musicVolume;

@@ -7,11 +7,25 @@ public class RewardSystem : MonoBehaviour
     private float maxAllowedTime = GameSettings.buildTime; // This will be set dynamically based on the difficulty slider
 
     [Header("Order settings")]
+    public static RewardSystem Instance;
     public int TotalComponents { get; set; } = 9;
-    int totalOrdersCompleted = 0; // Increment this every time an order is completed
+    public int totalOrdersCompleted = 0; // Increment this every time an order is completed
     float totalDailyScore = 0f;//change every time score is calculated
-    float averageScore = 0f;
+    public float averageScore = 0f;
     public GameObject[] stars;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        DisplayStars();
+    }
 
     private void Update()
     {

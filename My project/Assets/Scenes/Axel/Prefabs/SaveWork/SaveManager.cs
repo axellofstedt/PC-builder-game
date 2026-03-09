@@ -35,6 +35,9 @@ public class SaveManager : MonoBehaviour
         data.musicVolume = 0;
         data.musicVolume = AudioManager.Instance.musicSource.volume;
         data.difficulty = GameSettings.buildTime;
+        data.averageScore = RewardSystem.Instance.averageScore;
+        data.totalOrdersCompleted = RewardSystem.Instance.totalOrdersCompleted;
+
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(path, json);
@@ -51,7 +54,8 @@ public class SaveManager : MonoBehaviour
 
         // gameplay
         DayNightManager.Instance.SetCurrentDay(data.dayNumber);
-        //storeManager.reputation = data.reputation;
+        RewardSystem.Instance.averageScore = (data.averageScore);
+        RewardSystem.Instance.totalOrdersCompleted = (data.totalOrdersCompleted);
 
         // settings
         AudioManager.Instance.SetSFXVolume(data.sfxVolume);
