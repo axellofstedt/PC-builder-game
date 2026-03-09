@@ -45,7 +45,7 @@ public class DayNightManager : MonoBehaviour
 
     public void StartNewDay()
     {
-        if (!dayEnding)
+        if (!dayEnding && timer >= dayDuration)
         {
             dayEnding = true;
             StartCoroutine(EndDaySequence());
