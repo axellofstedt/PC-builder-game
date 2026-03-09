@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject settingsPanel;
     public GameObject reticle;
     public GameObject menuButtons;
+    public GameObject TutorialCanvas;
 
     void Update()
     {
@@ -28,6 +29,8 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         reticle.SetActive(false);
+
+        TutorialCanvas.SetActive(false);
     }
 
     public void Resume()
@@ -40,6 +43,8 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         reticle.SetActive(true);
+
+        TutorialCanvas.SetActive(true);
     }
 
     public void QuitToMainMenu()

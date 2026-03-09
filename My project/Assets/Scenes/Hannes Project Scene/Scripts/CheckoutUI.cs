@@ -10,6 +10,7 @@ public class CheckoutUI : MonoBehaviour
     public Button takeOrderButton;
     public Button closeOrderButton;
     public Button giveOrderButton;
+    public Button exitModeButton;
 
     [Header("Order Image")]
     public Image orderImage;
@@ -37,8 +38,10 @@ public class CheckoutUI : MonoBehaviour
 
     public void NewCustomer()
     {
+        exitModeButton.gameObject.SetActive(false);
         takeOrderButton.gameObject.SetActive(true);
         closeOrderButton.gameObject.SetActive(false);
+        giveOrderButton.gameObject.SetActive(false);
         orderImage.gameObject.SetActive(false);
     }
 
@@ -66,6 +69,12 @@ public class CheckoutUI : MonoBehaviour
         orderImage.gameObject.SetActive(false);
         ActivateOrderOnPlayerScreenButton.gameObject.SetActive(false);
         DeactivateOrderOnPlayerScreenButton.gameObject.SetActive(false);
+
+        // Reset reward text and stars
+        timeText.text = "";
+        componentsText.text = "";
+        foreach (var star in starImages)
+            star.sprite = emptyStar;
     }
 
     // Reward Screen UI
@@ -102,6 +111,17 @@ public class CheckoutUI : MonoBehaviour
             else
                 starImages[i].sprite = emptyStar;
         }
+    }
+
+    public void WaitingForCustomer()
+    {
+        exitModeButton.gameObject.SetActive(true);
+        takeOrderButton.gameObject.SetActive(false);
+        closeOrderButton.gameObject.SetActive(false);
+        giveOrderButton.gameObject.SetActive(false);
+        orderImage.gameObject.SetActive(false);
+        ActivateOrderOnPlayerScreenButton.gameObject.SetActive(false);
+        DeactivateOrderOnPlayerScreenButton.gameObject.SetActive(false);
     }
 
     // Order screen toggle buttons

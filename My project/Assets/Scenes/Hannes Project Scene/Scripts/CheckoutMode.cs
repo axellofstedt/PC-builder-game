@@ -34,6 +34,11 @@ public class CheckoutMode : MonoBehaviour, IInteractable
 
     private CheckoutState currentCheckoutState = CheckoutState.Waiting;
 
+    void Start()
+    {
+        WaitingForCustomer();
+    }
+
     public void Interact()
     {
         ModeManager.Instance.SetMode(GameMode.Checkout);
@@ -98,6 +103,7 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         // Timer, button or effect to show completion before resetting to waiting
         BotSpawner.Instance.RemoveFrontBot();
         currentCheckoutState = CheckoutState.Waiting;
+        WaitingForCustomer();
 
         // Reset current order
         OrderManager.Instance.ClearOrder();
@@ -108,6 +114,7 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         BeginnerModeManager.instance?.ResetBeginnerMode();
         ReturnAllBuildPartsToShelves();
         SelectionManager.Instance.workbenchZone.ResetSlots();
+        SelectionManager.Instance.ResetRamSlots();
         // Destroy PC
         Destroy(CheckoutPC);
 
@@ -117,6 +124,11 @@ public class CheckoutMode : MonoBehaviour, IInteractable
 
         //DayNightManager.Instance.StartNewDay();
 
+    }
+
+    private void WaitingForCustomer()
+    {
+        checkoutUI.WaitingForCustomer();
     }
 
     private void ReturnAllBuildPartsToShelves()

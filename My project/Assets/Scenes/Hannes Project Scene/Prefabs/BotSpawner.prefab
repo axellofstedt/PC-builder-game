@@ -122,6 +122,7 @@ MonoBehaviour:
   - {fileID: 1493582760632338203}
   - {fileID: 1483421179562016162}
   distanceBetweenBots: 2
+  maxQueueSize: 3
 --- !u!1 &7447205088375723956
 GameObject:
   m_ObjectHideFlags: 0
