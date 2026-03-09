@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using static Unity.VisualScripting.Member;
@@ -9,10 +11,15 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] public AudioSource musicSource;
     [SerializeField] public AudioSource sfxSource;
+
     [Header("Audio Clips")]
     [SerializeField] public AudioClip musicClip;
     [SerializeField] public AudioClip pickupClip;
     [SerializeField] public AudioClip placeClip;
+    [SerializeField] public AudioClip starPling;
+
+    [SerializeField] public List<AudioClip> partyPhilSFX;
+
     [Header("Audio Mixer")]
     [SerializeField] public AudioMixer mixer;
 
@@ -58,7 +65,7 @@ public class AudioManager : MonoBehaviour
         localSource.PlayOneShot(clip);
     }
 
-    // volume: 0–1
+    // volume: 0ï¿½1
     public void SetMusicVolume(float volume)
     {
         Debug.Log($"SetMusicVolume called on: {gameObject.name}");
