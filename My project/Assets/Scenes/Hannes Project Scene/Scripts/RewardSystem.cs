@@ -8,7 +8,9 @@ public class RewardSystem : MonoBehaviour
 
     [Header("Order settings")]
     public int TotalComponents { get; set; } = 9;
-
+    int totalOrdersCompleted = 0; // Increment this every time an order is completed
+    float totalDailyScore = 0f;//change every time score is calculated
+    float averageScore = 0f;
     private void Update()
     {
         maxAllowedTime = GameSettings.buildTime; // Update max allowed time based on the current difficulty setting
@@ -18,6 +20,7 @@ public class RewardSystem : MonoBehaviour
     // Main evaluation method
     public RewardResult Evaluate(float actualTime, int correctComponents)
     {
+        totalOrdersCompleted++;
         // Set total components based on the current order
         TotalComponents = OrderManager.Instance.currentOrder.Count;
 
@@ -25,6 +28,7 @@ public class RewardSystem : MonoBehaviour
         float accuracyScore = CalculateAccuracyScore(correctComponents);
 
         float finalScore = (timeScore + accuracyScore) / 2f;
+        totalDailyScore += finalScore;
         int stars = CalculateStars(finalScore);
 
         Debug.Log($"Evaluation: Time={actualTime:F2}s, Correct={correctComponents}/{TotalComponents}, TimeScore={timeScore:F2}, AccuracyScore={accuracyScore:F2}, FinalScore={finalScore:F2}, Stars={stars}, maxTime: {maxAllowedTime}");

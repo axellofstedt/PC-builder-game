@@ -5,11 +5,16 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject mainMenuButtons;
 
-    public void StartGame()
-    {
+    public void NewGame()
+    { 
         SceneManager.LoadScene("MainScene"); // din spelscen
     }
-
+    public void LoadGame()
+    {
+        SaveManager.Instance.loadBool = true;
+        SceneManager.LoadScene("MainScene"); // din spelscen
+        // SaveManager.Instance.LoadGame() ska kallas på i ett empty gameobject i MainScene, så att den laddar spelet när scenen startar
+    }
     public void QuitGame()
     {
         Debug.Log("Quit!");
