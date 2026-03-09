@@ -2510,7 +2510,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -3406,7 +3406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5915097398255754644, guid: 5685726d0902e75489774946fd247b8b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -669.36
+      value: -1726.624
       objectReference: {fileID: 0}
     - target: {fileID: 5915097398255754644, guid: 5685726d0902e75489774946fd247b8b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3442,7 +3442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5915097398255754644, guid: 5685726d0902e75489774946fd247b8b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0020751953
+      value: 2.448
       objectReference: {fileID: 0}
     - target: {fileID: 5915097398255754644, guid: 5685726d0902e75489774946fd247b8b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
