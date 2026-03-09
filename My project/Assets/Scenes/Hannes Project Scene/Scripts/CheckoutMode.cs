@@ -108,6 +108,7 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         BeginnerModeManager.instance?.ResetBeginnerMode();
         ReturnAllBuildPartsToShelves();
         SelectionManager.Instance.workbenchZone.ResetSlots();
+        SelectionManager.Instance.ResetRamSlots();
         // Destroy PC
         Destroy(CheckoutPC);
 
