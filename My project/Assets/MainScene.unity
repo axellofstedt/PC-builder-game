@@ -22807,6 +22807,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1653574417 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7370164558066570232, guid: 9d645f1f55544d545bff0948b8f88c37, type: 3}
+  m_PrefabInstance: {fileID: 2082066810}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1686744629 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4676600256793971244, guid: 11de30ac6216639429d6fc870c13ba83, type: 3}
@@ -23413,6 +23418,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Sensitivity
       objectReference: {fileID: 0}
+    - target: {fileID: 4018377874014136698, guid: 69e453f3c49dfd74b994a0f875491ee0, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1653574417}
     - target: {fileID: 4018377874014136698, guid: 69e453f3c49dfd74b994a0f875491ee0, type: 3}
       propertyPath: reticle
       value: 
@@ -27630,6 +27639,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 7370164558066570232, guid: 9d645f1f55544d545bff0948b8f88c37, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7610652947056659599, guid: 9d645f1f55544d545bff0948b8f88c37, type: 3}
       propertyPath: m_text
       value: 
@@ -27659,7 +27672,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7370164558066570226, guid: 9d645f1f55544d545bff0948b8f88c37, type: 3}
   m_PrefabInstance: {fileID: 2082066810}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1653574417}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d90ba6530d9bfda47abb4610956b2f44, type: 3}

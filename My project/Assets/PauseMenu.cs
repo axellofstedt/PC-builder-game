@@ -9,7 +9,13 @@ public class PauseMenu : MonoBehaviour
     public GameObject reticle;
     public GameObject menuButtons;
     public GameObject TutorialCanvas;
-
+    [SerializeField] private GameObject player;
+    public SkinnedMeshRenderer playerMesh;
+    void Start()
+    {
+        playerMesh = player.GetComponentInChildren<SkinnedMeshRenderer>();
+        Resume(); // Ensure the game starts in an unpaused state
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && ModeManager.Instance.currentMode == GameMode.Player)
@@ -52,7 +58,10 @@ public class PauseMenu : MonoBehaviour
         Resume(); // Ensure the game is resumed before loading the main menu
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        playerMesh.enabled = false;
+        TutorialCanvas.SetActive(false);
         SceneManager.LoadScene("MainMenuScene");
+
     }
     
 
