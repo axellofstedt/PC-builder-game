@@ -58,7 +58,6 @@ public class DayNightManager : MonoBehaviour
     {
         returnPCLämnad = true;
         bool rewardPanelActive = rewardPanel != null && rewardPanel.activeInHierarchy;
-
     }
 
     private IEnumerator EndDaySequence()
@@ -67,7 +66,7 @@ public class DayNightManager : MonoBehaviour
         yield return StartCoroutine(Fade(0f, 1f));
 
         // Visa dagtext
-        dayText.text = "Day " + currentDay;
+        dayText.text = "End of day: " + currentDay;
         dayText.gameObject.SetActive(true);
 
         // Vänta 2 sekunder för att spelaren ska se texten
