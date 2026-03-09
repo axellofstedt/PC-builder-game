@@ -8,5 +8,6 @@ public class SaveData
 
     public float sfxVolume;
     public float musicVolume;
+    public float sensitivity;
     public float difficulty;
 }

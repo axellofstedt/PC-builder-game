@@ -30,11 +30,14 @@ public class SaveManager : MonoBehaviour
         //data.reputation = storeManager.reputation;
 
         // settings
-        data.sfxVolume = 0;
         AudioManager.Instance.mixer.GetFloat("SFXVolume", out data.sfxVolume);
-        data.musicVolume = 0;
         AudioManager.Instance.mixer.GetFloat("MusicVolume", out data.musicVolume);
+        float vol;
+        bool ok = AudioManager.Instance.mixer.GetFloat("MusicVolume", out vol);
+        Debug.Log($"Found: {ok}, Value: {vol}");
         data.difficulty = GameSettings.buildTime;
+        data.sensitivity = SensitivityChanger.Instance.GetSensitivity();
+
         data.averageScore = RewardSystem.Instance.averageScore;
         data.totalOrdersCompleted = RewardSystem.Instance.totalOrdersCompleted;
         data.tutorialCompleted = TutorialScript.Instance.tutorialCompleted;
@@ -57,10 +60,11 @@ public class SaveManager : MonoBehaviour
         RewardSystem.Instance.averageScore = (data.averageScore);
         RewardSystem.Instance.totalOrdersCompleted = (data.totalOrdersCompleted);
         TutorialScript.Instance.tutorialCompleted = data.tutorialCompleted;
+        SensitivityChanger.Instance.SetSensitivity(data.sensitivity);
 
         // settings
-        AudioManager.Instance.SetSFXVolume(data.sfxVolume);
-        AudioManager.Instance.SetMusicVolume(data.musicVolume);
+        AudioManager.Instance.mixer.SetFloat("SFXVolume", data.sfxVolume);
+        AudioManager.Instance.mixer.SetFloat("MusicVolume", data.musicVolume);
         GameSettings.buildTime = data.difficulty;
         loadBool = false;
         Debug.Log(data.averageScore + "THIS IS THE SCORE");

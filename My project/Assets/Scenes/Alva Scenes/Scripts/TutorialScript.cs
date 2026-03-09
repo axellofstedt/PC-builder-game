@@ -10,7 +10,7 @@ public class TutorialScript : MonoBehaviour
 
     private int currentObjective = 0;
 
-    public bool tutorialCompleted = false;
+    public bool tutorialCompleted;
 
     private bool w = false;
     private bool a = false;
