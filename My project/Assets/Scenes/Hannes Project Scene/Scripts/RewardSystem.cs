@@ -11,6 +11,8 @@ public class RewardSystem : MonoBehaviour
     int totalOrdersCompleted = 0; // Increment this every time an order is completed
     float totalDailyScore = 0f;//change every time score is calculated
     float averageScore = 0f;
+    public GameObject[] stars;
+
     private void Update()
     {
         maxAllowedTime = GameSettings.buildTime; // Update max allowed time based on the current difficulty setting
@@ -32,8 +34,31 @@ public class RewardSystem : MonoBehaviour
         int stars = CalculateStars(finalScore);
 
         Debug.Log($"Evaluation: Time={actualTime:F2}s, Correct={correctComponents}/{TotalComponents}, TimeScore={timeScore:F2}, AccuracyScore={accuracyScore:F2}, FinalScore={finalScore:F2}, Stars={stars}, maxTime: {maxAllowedTime}");
-
+        CalculateAvrgScore(stars);
+        Debug.Log(averageScore);
         return new RewardResult(TotalComponents, correctComponents, actualTime, timeScore, accuracyScore, finalScore, stars);
+    }
+
+    private void CalculateAvrgScore(int lastScoreStars)
+    {
+        averageScore = ((averageScore * (totalOrdersCompleted - 1)) + lastScoreStars) / totalOrdersCompleted;
+    }
+
+    public void DisplayStars()
+    {
+        Debug.Log("DisplayStars");
+        for (int i = 0; i < stars.Length; i++)
+        {
+            if (i < Mathf.FloorToInt(averageScore))
+            {
+                stars[i].SetActive(true);
+                Debug.Log("turend on star" + (i + 1));
+            }
+            else
+            {
+                stars[i].SetActive(false);
+            }
+        }
     }
 
     private float CalculateTimeScore(float actualTime)

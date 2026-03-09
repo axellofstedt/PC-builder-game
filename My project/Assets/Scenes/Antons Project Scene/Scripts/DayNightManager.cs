@@ -9,6 +9,7 @@ public class DayNightManager : MonoBehaviour
 
     [Header("UI Panels")]
     public GameObject rewardPanel;
+    public RewardSystem rs;
 
     [Header("Fade & Day Text")]
     public Image fadeImage;      // Svart overlay
@@ -49,6 +50,7 @@ public class DayNightManager : MonoBehaviour
         {
             dayEnding = true;
             StartCoroutine(EndDaySequence());
+            rs.DisplayStars();
         }
     }
     // Anropas när Return PC lämnas tillbaka
