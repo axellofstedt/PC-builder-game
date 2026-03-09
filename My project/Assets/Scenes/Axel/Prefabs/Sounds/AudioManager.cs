@@ -7,14 +7,14 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     [Header("Audio Sources")]
-    [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] public AudioSource musicSource;
+    [SerializeField] public AudioSource sfxSource;
     [Header("Audio Clips")]
     [SerializeField] public AudioClip musicClip;
     [SerializeField] public AudioClip pickupClip;
     [SerializeField] public AudioClip placeClip;
     [Header("Audio Mixer")]
-    [SerializeField] private AudioMixer mixer;
+    [SerializeField] public AudioMixer mixer;
 
     public float currentVolume = 1f;
 
