@@ -45,7 +45,7 @@ public class DayNightManager : MonoBehaviour
 
     public void StartNewDay()
     {
-        if (!dayEnding)
+        if (!dayEnding && timer >= dayDuration)
         {
             dayEnding = true;
             StartCoroutine(EndDaySequence());
@@ -82,6 +82,7 @@ public class DayNightManager : MonoBehaviour
         timer = 0f;
         dayEnding = false;
         returnPCLämnad = false; // reset
+        SaveManager.Instance.SaveGame(); // Spara spelet när dagen avslutas
     }
 
     private IEnumerator Fade(float startAlpha, float endAlpha)
@@ -99,5 +100,14 @@ public class DayNightManager : MonoBehaviour
 
         color.a = endAlpha;
         fadeImage.color = color;
+    }
+
+    public int getCurrentDay()
+    {
+        return currentDay;
+    }
+
+    public void SetCurrentDay(int day) {
+        currentDay = day;
     }
 }

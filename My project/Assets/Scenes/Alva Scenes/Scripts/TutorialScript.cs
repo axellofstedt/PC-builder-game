@@ -16,13 +16,14 @@ public class TutorialScript : MonoBehaviour
 
     void Start()
     {
-        ShowObjective();
+        if(DayNightManager.Instance.getCurrentDay() == 1) { ShowObjective();}
+            
     }
 
     void Update()
     {
-        CheckObjectives();
-        
+        if (DayNightManager.Instance.getCurrentDay() == 1) { CheckObjectives(); }
+
     }
 
     void ShowObjective()

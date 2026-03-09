@@ -9,8 +9,8 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     [Header("Audio Sources")]
-    [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] public AudioSource musicSource;
+    [SerializeField] public AudioSource sfxSource;
 
     [Header("Audio Clips")]
     [SerializeField] public AudioClip musicClip;
@@ -21,7 +21,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public List<AudioClip> partyPhilSFX;
 
     [Header("Audio Mixer")]
-    [SerializeField] private AudioMixer mixer;
+    [SerializeField] public AudioMixer mixer;
 
     public float currentVolume = 1f;
 
@@ -62,7 +62,7 @@ public class AudioManager : MonoBehaviour
         localSource.PlayOneShot(clip);
     }
 
-    // volume: 0–1
+    // volume: 0ï¿½1
     public void SetMusicVolume(float volume)
     {
         Debug.Log($"SetMusicVolume called on: {gameObject.name}");
