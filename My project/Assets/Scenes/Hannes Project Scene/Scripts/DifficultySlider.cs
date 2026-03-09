@@ -10,7 +10,7 @@ public class DifficultySlider : MonoBehaviour
 
     private void Start()
     {
-        GameSettings.buildTime = maxTime; // Set default build time to maxTime
+        slider.value = Mathf.InverseLerp(maxTime, minTime, GameSettings.buildTime);
     }
 
     public void OnSliderChanged()
