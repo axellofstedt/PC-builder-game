@@ -68,9 +68,9 @@ public class AudioManager : MonoBehaviour
     // volume: 0�1
     public void SetMusicVolume(float volume)
     {
-        Debug.Log($"SetMusicVolume called on: {gameObject.name}");
-        musicVolume = volume;
-        mixer.SetFloat("MusicVolume", ToDecibels(volume));  
+        float db = ToDecibels(volume);
+        Debug.Log($"SFX volume slider: {volume} -> {db} dB");
+        mixer.SetFloat("MusicVolume", db);  
     //mixer.SetFloat("MusicVolume", ToDecibels(volume));
     //musicSource.volume = volume;
     //currentVolume = volume;

@@ -19,6 +19,7 @@ public class TutorialScript : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        tutorialCompleted = false;
     }
     void Start()
     {
@@ -26,7 +27,12 @@ public class TutorialScript : MonoBehaviour
             objectiveText.gameObject.SetActive(false); 
             tutorialCompleted = true;
         }
-            
+        else
+        {
+            objectiveText.gameObject.SetActive(true);
+            ShowObjective();
+        }
+
     }
 
     void Update()

@@ -21,7 +21,7 @@ public class DayNightManager : MonoBehaviour
 
     private float timer = 0f;
     private int currentDay = 1;
-    private bool returnPCLämnad = false;
+    private bool returnPC = false;
     private bool dayEnding = false;
 
     private void Awake()
@@ -56,7 +56,7 @@ public class DayNightManager : MonoBehaviour
     // Anropas när Return PC lämnas tillbaka
     public void OnReturnPCClicked()
     {
-        returnPCLämnad = true;
+        returnPC = true;
         bool rewardPanelActive = rewardPanel != null && rewardPanel.activeInHierarchy;
     }
 
@@ -82,7 +82,7 @@ public class DayNightManager : MonoBehaviour
         currentDay++;
         timer = 0f;
         dayEnding = false;
-        returnPCLämnad = false; // reset
+        returnPC = false; // reset
         SaveManager.Instance.SaveGame(); // Spara spelet när dagen avslutas
     }
 
