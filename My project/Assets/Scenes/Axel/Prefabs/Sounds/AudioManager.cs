@@ -23,8 +23,9 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Mixer")]
     [SerializeField] public AudioMixer mixer;
 
-    public float currentVolume = 1f;
-
+    //public float currentVolume = 1f;
+    public float musicVolume = 1f;
+    public float sfxVolume = 1f;
     void Awake()
     {
         if (Instance == null)
@@ -59,6 +60,8 @@ public class AudioManager : MonoBehaviour
         
         localSource.spatialBlend = 1f;
         //localSource.outputAudioMixerGroup = sfxGroup;
+        localSource.outputAudioMixerGroup =
+      mixer.FindMatchingGroups("SFX")[0];
         localSource.PlayOneShot(clip);
     }
 
@@ -66,14 +69,19 @@ public class AudioManager : MonoBehaviour
     public void SetMusicVolume(float volume)
     {
         Debug.Log($"SetMusicVolume called on: {gameObject.name}");
-        //mixer.SetFloat("MusicVolume", ToDecibels(volume));
-        musicSource.volume = volume;
-        currentVolume = volume;
+        musicVolume = volume;
+        mixer.SetFloat("MusicVolume", ToDecibels(volume));  
+    //mixer.SetFloat("MusicVolume", ToDecibels(volume));
+    //musicSource.volume = volume;
+    //currentVolume = volume;
     }
 
     public void SetSFXVolume(float volume)
     {
-        mixer.SetFloat("SFXVolume", ToDecibels(volume));
+        float db = ToDecibels(volume);
+        Debug.Log($"SFX volume slider: {volume} -> {db} dB");
+        mixer.SetFloat("SFXVolume", db);
+        //mixer.SetFloat("SFXVolume", ToDecibels(volume));
     }
 
     private float ToDecibels(float volume)

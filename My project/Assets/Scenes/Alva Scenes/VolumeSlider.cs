@@ -16,7 +16,13 @@ public class VolumeSlider : MonoBehaviour
 
     void Start()
     {
-        if (AudioManager.Instance != null) slider.value = AudioManager.Instance.currentVolume;
+        //if (AudioManager.Instance != null) slider.value = AudioManager.Instance.currentVolume;
+        if (AudioManager.Instance == null) return;
+
+        if (volumeType == VolumeType.Music)
+            slider.value = AudioManager.Instance.musicVolume;
+        else
+            slider.value = AudioManager.Instance.sfxVolume;
     }
 
     public void OnValueChanged(float value)
