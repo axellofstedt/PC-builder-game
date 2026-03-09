@@ -11,8 +11,9 @@ public class MainMenu : MonoBehaviour
     }
     public void LoadGame()
     {
-        SaveManager.Instance.LoadGame(); // ladda sparfil
+        SaveManager.Instance.loadBool = true;
         SceneManager.LoadScene("MainScene"); // din spelscen
+        // SaveManager.Instance.LoadGame() ska kallas på i ett empty gameobject i MainScene, så att den laddar spelet när scenen startar
     }
     public void QuitGame()
     {

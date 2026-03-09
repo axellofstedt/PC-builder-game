@@ -6,6 +6,7 @@ public class SaveManager : MonoBehaviour
     public static SaveManager Instance;
 
     string path;
+    public bool loadBool = false;
     void Awake()
     {
         path = Application.persistentDataPath + "/save.json";
@@ -41,6 +42,7 @@ public class SaveManager : MonoBehaviour
 
     public void LoadGame()
     {
+        Debug.Log("Loading game from");
         if (!File.Exists(path))
             return;
 
@@ -55,6 +57,7 @@ public class SaveManager : MonoBehaviour
         AudioManager.Instance.SetSFXVolume(data.sfxVolume);
         AudioManager.Instance.SetMusicVolume(data.musicVolume);
         GameSettings.buildTime = data.difficulty;
+        loadBool = false;
     }
 }
 
