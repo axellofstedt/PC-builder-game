@@ -125,7 +125,7 @@ public class TutorialScript : MonoBehaviour
 
         bool Objective2()
         {
-            Debug.Log(placementZone.NumberOfFreeSlots());
+            // Debug.Log(placementZone.NumberOfFreeSlots());
             if (placementZone.NumberOfFreeSlots() == 0)
             { 
                 return true; 

@@ -10,6 +10,8 @@ public class SelectionManager : MonoBehaviour
 
     [Header("Workbench")]
     [SerializeField] public PlacementZone workbenchZone;
+    public PlacementZone shelfZone1;
+    public PlacementZone shelfZone2;
     public WorkbenchMode workbenchMode;
     // [SerializeField] private PlayerSoundEffects playerSoundEffects;
 
@@ -259,7 +261,7 @@ public class SelectionManager : MonoBehaviour
 
     public void ReturnPartToShelf(Selectable part)
     {
-        // Reset from wokbench slot occupied
+        // Reset from workbench slot occupied
         workbenchZone.FreeSlot(part.currentSnapPoint);
 
         // if chassi close door and remove from current build list
@@ -267,6 +269,11 @@ public class SelectionManager : MonoBehaviour
         {
             chassiDoor?.closeDoor();
             currentChassi = null;
+        }
+        else if (part.PartType == PartType.Motherboard)
+        {
+            motherboardDoor?.closeDoor();
+
         }
 
         // Flytta tillbaka till startpositionen
@@ -281,5 +288,11 @@ public class SelectionManager : MonoBehaviour
         part.UnlockInteraction();
         part.GetComponent<PCPartHover>().hoverable = true;
         part.RemoveHighlight();
+    }
+
+    public void ResetRamSlots()
+    {
+        shelfZone1.ResetRamSlots();
+        shelfZone2.ResetRamSlots();
     }
 }

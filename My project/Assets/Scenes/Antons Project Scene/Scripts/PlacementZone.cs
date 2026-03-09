@@ -14,6 +14,9 @@ public class PlacementZone : MonoBehaviour
     [Header("Workbench settings")]
     public List<ZoneSlot> slots;
 
+    [Header("Shelf settings")]
+    public List<RamSlot> ramSlots;
+
     public Transform GetSlotForPart(PartType partType)
     {
         if (slots == null)
@@ -62,7 +65,6 @@ public class PlacementZone : MonoBehaviour
             if(slot.occupied == true)
             {
                 counter--;
-                Debug.Log(counter);
             }
         }
         return counter;
@@ -72,6 +74,12 @@ public class PlacementZone : MonoBehaviour
     {
         for (int i = 0; i < slots.Count; i++)
             slots[i].occupied = false;
+    }
+
+    public void ResetRamSlots()
+    {
+        for (int i = 0; i < ramSlots.Count; i++)
+            ramSlots[i].occupied = false;
     }
 }
 
