@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using static Unity.VisualScripting.Member;
@@ -9,11 +11,15 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
+
     [Header("Audio Clips")]
     [SerializeField] public AudioClip musicClip;
     [SerializeField] public AudioClip pickupClip;
     [SerializeField] public AudioClip placeClip;
     [SerializeField] public AudioClip starPling;
+
+    [SerializeField] public List<AudioClip> partyPhilSFX;
+
     [Header("Audio Mixer")]
     [SerializeField] private AudioMixer mixer;
 
