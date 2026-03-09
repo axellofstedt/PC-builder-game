@@ -5,11 +5,15 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject mainMenuButtons;
 
-    public void StartGame()
-    {
+    public void NewGame()
+    { 
         SceneManager.LoadScene("MainScene"); // din spelscen
     }
-
+    public void LoadGame()
+    {
+        SaveManager.Instance.LoadGame(); // ladda sparfil
+        SceneManager.LoadScene("MainScene"); // din spelscen
+    }
     public void QuitGame()
     {
         Debug.Log("Quit!");
