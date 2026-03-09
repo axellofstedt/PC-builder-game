@@ -19059,7 +19059,7 @@ PrefabInstance:
       objectReference: {fileID: 425768934}
     - target: {fileID: 1945249099442582115, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
       propertyPath: dayDuration
-      value: 5
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1945249099442582115, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
       propertyPath: rewardPanel
