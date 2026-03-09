@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Load : MonoBehaviour
 {
-    void Awake()
+    void Start()
     {
         if (SaveManager.Instance.loadBool == true)
         {

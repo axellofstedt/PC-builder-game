@@ -3,11 +3,11 @@ using UnityEngine.Rendering;
 
 public class RewardSystem : MonoBehaviour
 {
+    public static RewardSystem Instance;
     [Header("Time settings")]
     private float maxAllowedTime = GameSettings.buildTime; // This will be set dynamically based on the difficulty slider
 
     [Header("Order settings")]
-    public static RewardSystem Instance;
     public int TotalComponents { get; set; } = 9;
     public int totalOrdersCompleted = 0; // Increment this every time an order is completed
     float totalDailyScore = 0f;//change every time score is calculated

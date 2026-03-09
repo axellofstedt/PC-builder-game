@@ -31,13 +31,13 @@ public class SaveManager : MonoBehaviour
 
         // settings
         data.sfxVolume = 0;
-        AudioManager.Instance.mixer.GetFloat("SFXvolume", out data.sfxVolume);
+        AudioManager.Instance.mixer.GetFloat("SFXVolume", out data.sfxVolume);
         data.musicVolume = 0;
-        data.musicVolume = AudioManager.Instance.musicSource.volume;
+        AudioManager.Instance.mixer.GetFloat("MusicVolume", out data.musicVolume);
         data.difficulty = GameSettings.buildTime;
         data.averageScore = RewardSystem.Instance.averageScore;
         data.totalOrdersCompleted = RewardSystem.Instance.totalOrdersCompleted;
-
+        data.tutorialCompleted = TutorialScript.Instance.tutorialCompleted;
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(path, json);
@@ -56,12 +56,15 @@ public class SaveManager : MonoBehaviour
         DayNightManager.Instance.SetCurrentDay(data.dayNumber);
         RewardSystem.Instance.averageScore = (data.averageScore);
         RewardSystem.Instance.totalOrdersCompleted = (data.totalOrdersCompleted);
+        TutorialScript.Instance.tutorialCompleted = data.tutorialCompleted;
 
         // settings
         AudioManager.Instance.SetSFXVolume(data.sfxVolume);
         AudioManager.Instance.SetMusicVolume(data.musicVolume);
         GameSettings.buildTime = data.difficulty;
         loadBool = false;
+        Debug.Log(data.averageScore + "THIS IS THE SCORE");
+        RewardSystem.Instance.DisplayStars();
     }
 }
 

@@ -3,20 +3,29 @@ using TMPro;
 
 public class TutorialScript : MonoBehaviour
 {
+    public static TutorialScript Instance;
     public TextMeshProUGUI objectiveText;
     public CheckoutMode checkoutMode;
     public PlacementZone placementZone;
 
     private int currentObjective = 0;
 
+    public bool tutorialCompleted = false;
+
     private bool w = false;
     private bool a = false;
     private bool s = false;
     private bool d = false;
-
+    void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
-        if(DayNightManager.Instance.getCurrentDay() == 1) { ShowObjective();}
+        if(tutorialCompleted==true || DayNightManager.Instance.getCurrentDay() != 1) { 
+            objectiveText.gameObject.SetActive(false); 
+            tutorialCompleted = true;
+        }
             
     }
 

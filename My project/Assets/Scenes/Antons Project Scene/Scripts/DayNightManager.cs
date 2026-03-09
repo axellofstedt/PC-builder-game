@@ -16,7 +16,7 @@ public class DayNightManager : MonoBehaviour
     public TMP_Text dayText;     // “Dag X”-text
 
     [Header("Daginställningar")]
-    public float dayDuration = 300f; // 5 minuter per dag
+    public float dayDuration = 1f; // 5 minuter per dag
     public float fadeDuration = 1f;
 
     private float timer = 0f;
