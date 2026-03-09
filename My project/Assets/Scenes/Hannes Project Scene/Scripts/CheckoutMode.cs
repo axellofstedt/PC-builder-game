@@ -76,8 +76,20 @@ public class CheckoutMode : MonoBehaviour, IInteractable
         // Skip if pc is ready
         if (CheckoutPC != null) checkoutUI.PCReady();
         hasTakenOrder = true;
+
+        // Party Phil Mumbling
+        StartCoroutine(PlayMumbles());
     }
-    
+
+    IEnumerator PlayMumbles()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.partyPhilSFX[Random.Range(0, AudioManager.Instance.partyPhilSFX.Count-1)]);
+            yield return new WaitForSeconds(0.5f); // tid mellan ljuden
+        }
+    }
+
     public void CompleteOrder()
     {
         Debug.Log("Give order pressed");

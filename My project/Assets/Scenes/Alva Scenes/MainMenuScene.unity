@@ -2420,6 +2420,38 @@ MonoBehaviour:
   musicClip: {fileID: 8300000, guid: 5b1ed8fbe89154eaf96723b6e5f0aad3, type: 3}
   pickupClip: {fileID: 8300000, guid: ebb03b2b009894845b81a64051a5c698, type: 3}
   placeClip: {fileID: 8300000, guid: b6c37a87a1e05c0418ce0605b46401d8, type: 3}
+  starPling: {fileID: 8300000, guid: aee37eb400feee44983b1d9e1b638eb7, type: 3}
+  partyPhilSFX:
+  - {fileID: 8300000, guid: 1974bb4fee1edfb4791e11178f9570b9, type: 3}
+  - {fileID: 8300000, guid: f94f193f246bd804aa28b290612b8604, type: 3}
+  - {fileID: 8300000, guid: 3e0994786ee89e1429cfad901814c941, type: 3}
+  - {fileID: 8300000, guid: 8da44667596445f4fad179cd9f3c4b88, type: 3}
+  - {fileID: 8300000, guid: f940b084d8d2e7447b9c1dfba379704f, type: 3}
+  - {fileID: 8300000, guid: b46f7d926dfe3c44cb3fa5fc00982dab, type: 3}
+  - {fileID: 8300000, guid: 1ea462e4154c27d4184a3d89d82db9c5, type: 3}
+  - {fileID: 8300000, guid: 4ad53ad7d06e9564a98bab5829e30f50, type: 3}
+  - {fileID: 8300000, guid: 6da5d1d068fb80c4f809a9f2eb0991ed, type: 3}
+  - {fileID: 8300000, guid: 819f05fa2182acf41a2708cb34d42df4, type: 3}
+  - {fileID: 8300000, guid: 155742e28e1774d4d8714ce91f316b67, type: 3}
+  - {fileID: 8300000, guid: fc1b6ea68e7a0c34aab9894cbec368cf, type: 3}
+  - {fileID: 8300000, guid: db25801cfc4aa94478188a44bd04757e, type: 3}
+  - {fileID: 8300000, guid: 861c1a19be898a24d8363ed532e21f86, type: 3}
+  - {fileID: 8300000, guid: 1113d5d42fc0be741a39aa9905833eee, type: 3}
+  - {fileID: 8300000, guid: 12857533f3d699240b27467a1fb3708a, type: 3}
+  - {fileID: 8300000, guid: d9d2e19158a19ca44966d952575b0988, type: 3}
+  - {fileID: 8300000, guid: 553429d16145fb4449726e5aaffc657c, type: 3}
+  - {fileID: 8300000, guid: eec383670d1ebf84ba2a4c89d7cdc228, type: 3}
+  - {fileID: 8300000, guid: d71de3a5394171e48a7bcd763921ae3b, type: 3}
+  - {fileID: 8300000, guid: 9b0dc897cbd203049aba7e28035973a8, type: 3}
+  - {fileID: 8300000, guid: 8f31c5e4627f9e64f924f27e1c4e3343, type: 3}
+  - {fileID: 8300000, guid: 6d9996de33bb03f4db6e994d8accf68d, type: 3}
+  - {fileID: 8300000, guid: a7edd5950e3983f4bb708d6dd9f62a2e, type: 3}
+  - {fileID: 8300000, guid: c196766992c352b43b6b50183da9da13, type: 3}
+  - {fileID: 8300000, guid: e39e96bb54b2a73479b303ccc5b77fff, type: 3}
+  - {fileID: 8300000, guid: 213cbed933f46fe46b7fef7a271f0f42, type: 3}
+  - {fileID: 8300000, guid: d2a42c49805d4fe4f881506cb1afe661, type: 3}
+  - {fileID: 8300000, guid: 4a87b8ecaa4c16c47bbd7a99383be05e, type: 3}
+  - {fileID: 8300000, guid: b34b4a424a5dffd46aac136fd819fb9e, type: 3}
   mixer: {fileID: 24100000, guid: 07d1e3173c5d0b64d8f86bb4a23a8b2b, type: 2}
   currentVolume: 1
 --- !u!1 &1423322227

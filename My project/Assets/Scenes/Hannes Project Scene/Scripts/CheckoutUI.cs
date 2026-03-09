@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class CheckoutUI : MonoBehaviour
@@ -107,7 +108,10 @@ public class CheckoutUI : MonoBehaviour
             yield return new WaitForSeconds(0.8f);
 
             if (i < starCount)
+            {
                 starImages[i].sprite = filledStar;
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.starPling);
+            }
             else
                 starImages[i].sprite = emptyStar;
         }
