@@ -8013,7 +8013,7 @@ PrefabInstance:
       objectReference: {fileID: 588144972}
     - target: {fileID: 4858268316634334489, guid: b29a908203f044a4d92ee48ba726af2c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4908016215970730901, guid: b29a908203f044a4d92ee48ba726af2c, type: 3}
       propertyPath: m_Mesh
