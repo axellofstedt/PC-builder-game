@@ -19471,7 +19471,7 @@ PrefabInstance:
       objectReference: {fileID: 425768934}
     - target: {fileID: 1945249099442582115, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
       propertyPath: dayDuration
-      value: 180
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1945249099442582115, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
       propertyPath: rewardPanel
@@ -19501,6 +19501,10 @@ PrefabInstance:
       propertyPath: orderImageScript
       value: 
       objectReference: {fileID: 1902625492}
+    - target: {fileID: 6461913303633024991, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
+      propertyPath: checkoutUI
+      value: 
+      objectReference: {fileID: 1688607538}
     - target: {fileID: 6461913303633024991, guid: 67630153208dc9f4eb054df7c211d674, type: 3}
       propertyPath: checkoutMode
       value: 

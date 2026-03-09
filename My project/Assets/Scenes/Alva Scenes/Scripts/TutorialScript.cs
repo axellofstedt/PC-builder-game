@@ -7,6 +7,7 @@ public class TutorialScript : MonoBehaviour
     public TextMeshProUGUI objectiveText;
     public CheckoutMode checkoutMode;
     public PlacementZone placementZone;
+    public CheckoutUI checkoutUI;
 
     private int currentObjective = 0;
 
@@ -52,9 +53,9 @@ public class TutorialScript : MonoBehaviour
         else if (currentObjective == 2)
             objectiveText.text = "Go to the storage room and collect the order!";
         else if (currentObjective == 3)
-            objectiveText.text = "Assemble the PC at the building table. If you have a wrong part, DO NOT PRESS DONE!";
+            objectiveText.text = "Assemble the PC at the building table. Do not press done yet :)";
         else if (currentObjective == 4)
-            objectiveText.text = "Click done and go back to the counte. Return the PC!";
+            objectiveText.text = "Click done and go back to the counter. Return the PC!";
 
         else
             objectiveText.text = "";
@@ -160,7 +161,7 @@ public class TutorialScript : MonoBehaviour
 
         bool Objective4()
         {
-            if (SelectionManager.Instance.GetNumberPlaced() == 9)
+            if (checkoutUI.firstOrderComplete == true)
             {
                 return true;
             }

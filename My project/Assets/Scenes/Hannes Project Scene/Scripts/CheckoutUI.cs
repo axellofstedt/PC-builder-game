@@ -12,6 +12,7 @@ public class CheckoutUI : MonoBehaviour
     public Button closeOrderButton;
     public Button giveOrderButton;
     public Button exitModeButton;
+    public bool firstOrderComplete = false;
 
     [Header("Order Image")]
     public Image orderImage;
@@ -68,6 +69,10 @@ public class CheckoutUI : MonoBehaviour
         closeOrderButton.gameObject.SetActive(false);
         giveOrderButton.gameObject.SetActive(false);
         orderImage.gameObject.SetActive(false);
+        if(firstOrderComplete != true)
+        {
+            firstOrderComplete = true;
+        }
         ActivateOrderOnPlayerScreenButton.gameObject.SetActive(false);
         DeactivateOrderOnPlayerScreenButton.gameObject.SetActive(false);
 
