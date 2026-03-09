@@ -107,7 +107,10 @@ public class CheckoutUI : MonoBehaviour
             yield return new WaitForSeconds(0.8f);
 
             if (i < starCount)
+            {
                 starImages[i].sprite = filledStar;
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.starPling);
+            }
             else
                 starImages[i].sprite = emptyStar;
         }

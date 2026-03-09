@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioClip musicClip;
     [SerializeField] public AudioClip pickupClip;
     [SerializeField] public AudioClip placeClip;
+    [SerializeField] public AudioClip starPling;
     [Header("Audio Mixer")]
     [SerializeField] private AudioMixer mixer;
 
